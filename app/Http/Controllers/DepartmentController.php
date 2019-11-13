@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Department;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate();
+        $departments = Department::paginate();
 
-        return view('products.index',compact('products'));
+        return view('departments.index',compact('departments'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        return view('departments.create');
     }
 
     /**
@@ -37,62 +37,62 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::create($request->all());
+        $department = Department::create($request->all());
 
         return redirect()
-        ->route('products.edit',$product->id)
-        ->with('info','Producto guardado con exito');
+        ->route('departments.edit',$department->id)
+        ->with('info','Departamento guardado con exito');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  Department $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Department $department)
     {
-        return view('products.show',compact('product'));
+        return view('departments.show',compact('department'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  Department $department
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Department $department)
     {
-        return view('products.edit',compact('product'));
+        return view('departments.edit',compact('department'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  Department $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Department $department)
     {
-        $product->update($request->all());
+        $department->update($request->all());
 
         return redirect()
-        ->route('products.edit',$product->id)
-        ->with('info','Producto actualizado con exito');
+        ->route('departments.edit',$department->id)
+        ->with('info','Departamento actualizado con exito');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  Department $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Department $department)
     {
-        $product->delete();
+        $department->delete();
 
         return back()
-        ->with('info','Producto Eliminado con exito');
+        ->with('info','Departamento Eliminado con exito');
     }
 }

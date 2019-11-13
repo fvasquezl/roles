@@ -13,12 +13,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $user = factory(User::class)->create([
+            'name'=> 'Faustino Vasquez Limon',
+            'email' => 'fvasquez@local.com',
+        ]);
+
+        $user->assignRoles('Admin');
+        
         factory(User::class,20)->create();
         
-        Role::create([
-            'name'      => 'Admin',
-            'slug'      => 'admin',
-            'special'   => 'all-access'
-        ]);
     }
 }

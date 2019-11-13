@@ -90,5 +90,33 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
 
+        //Departments Permissions
+        Permission::create([
+            'name' => 'Navegar departamentos',
+            'slug' => 'departments.index',
+            'description' => 'Listar y navegar todos los departamentos del sistema',
+        ]);
+        Permission::create([
+            'name' => 'Ver detalle de producto',
+            'slug' => 'departments.show',
+            'description' => 'Ver en detalle cada producto del sistema',
+        ]);
+        Permission::create([
+            'name' => 'Creacion de departamentos',
+            'slug' => 'departments.create',
+            'description' => 'Crear un producto dentro del sistema',
+        ]);
+        Permission::create([
+            'name' => 'Edicion de departamentos',
+            'slug' => 'departments.edit',
+            'description' => 'Editar cualquier dato de los departamentos del sistema',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar producto',
+            'slug' => 'departments.delete',
+            'description' => 'Eliminar departamentos del sistema',
+        ]);
+
+
     }
 }

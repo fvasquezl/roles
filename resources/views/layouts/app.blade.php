@@ -43,6 +43,11 @@
                                 <a class="nav-link" href="{{ route('users.index') }}">Usuarios</a>
                             </li>
                         @endcan
+                        @can('departments.index')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('departments.index') }}">Departmentos</a>
+                            </li>
+                        @endcan
                         @can('roles.index')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>

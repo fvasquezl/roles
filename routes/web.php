@@ -89,4 +89,27 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('users/{user}/edit','UserController@edit')
     ->name('users.edit')->middleware('can:users.edit');
 
+
+    //departments
+    Route::post('departments/store','DepartmentController@store')
+    ->name('departments.store')->middleware('can:departments.create');
+
+    Route::get('departments','DepartmentController@index')
+    ->name('departments.index')->middleware('can:departments.index');
+
+    Route::get('departments/create','DepartmentController@create')
+    ->name('departments.create')->middleware('can:departments.create');
+
+    Route::put('departments/{department}','DepartmentController@update')
+    ->name('departments.update')->middleware('can:departments.edit');
+
+    Route::get('departments/{department}','DepartmentController@show')
+    ->name('departments.show')->middleware('can:departments.show');
+
+    Route::delete('departments/{department}','DepartmentController@destroy')
+    ->name('departments.destroy')->middleware('can:departments.destroy');
+    
+    Route::get('departments/{department}/edit','DepartmentController@edit')
+    ->name('departments.edit')->middleware('can:departments.edit');
+
 });
