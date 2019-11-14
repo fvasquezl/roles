@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use Illuminate\Http\Request;
+use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\Product\UpdateRequest;
 
 class ProductController extends Controller
 {
@@ -16,7 +17,7 @@ class ProductController extends Controller
     {
         $products = Product::paginate();
 
-        return view('products.index',compact('products'));
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -32,16 +33,16 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Product\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $product = Product::create($request->all());
 
         return redirect()
-        ->route('products.edit',$product->id)
-        ->with('info','Producto guardado con exito');
+            ->route('products.edit', $product->id)
+            ->with('info', 'Producto guardado con exito');
     }
 
     /**
@@ -52,7 +53,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show',compact('product'));
+        return view('products.show', compact('product'));
     }
 
     /**
@@ -63,23 +64,23 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.edit',compact('product'));
+        return view('products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Product\UpdateRequest  $request
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateRequest $request, Product $product)
     {
         $product->update($request->all());
 
         return redirect()
-        ->route('products.edit',$product->id)
-        ->with('info','Producto actualizado con exito');
+            ->route('products.edit', $product->id)
+            ->with('info', 'Producto actualizado con exito');
     }
 
     /**
@@ -93,6 +94,6 @@ class ProductController extends Controller
         $product->delete();
 
         return back()
-        ->with('info','Producto Eliminado con exito');
+            ->with('info', 'Producto Eliminado con exito');
     }
 }

@@ -92,14 +92,7 @@
         </nav>
 
         <main class="py-4">
-            @if (session('info'))
-                <div class="col-md-5 mx-auto">
-                    <div class="alert alert-success">
-                        {{ session('info') }}
-                    </div>
-                </div>
-            @endif
-           
+        
             @yield('content')
         </main>
     </div>

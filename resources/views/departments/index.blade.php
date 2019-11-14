@@ -4,12 +4,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('partials.show_messages')
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h4>Departamentos</h4>
                     @can('departments.create')
                     <a href="{{ route('departments.create') }}" class="btn btn-primary">
-                        Crear
+                        <i class="fas fa-sitemap"></i> Crear Departmento
                     </a>
                     @endcan
                 </div>
@@ -44,8 +45,10 @@
                                 </td>
                                 <td width="10px">
                                     @can('departments.destroy')
-                                    {!! Form::open(['route'=>['departments.destroy',$department->id],'method'=>'DELETE']) !!}
-                                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                                    {!!
+                                    Form::open(['route'=>['departments.destroy',$department->id],'method'=>'DELETE'])
+                                    !!}
+                                    <button class="btn btn-sm btn-danger">Eliminar</button>
                                     {!! Form::close() !!}
                                     @endcan
                                 </td>

@@ -4,12 +4,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('partials.show_messages')
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h4>Usuarios</h4>
                     @can('users.create')
                     <a href="{{ route('users.create') }}" class="btn btn-primary">
-                        Crear
+                        <i class="fas fa-user-plus"></i> Crear Usuario
                     </a>
                     @endcan
                 </div>
@@ -20,7 +21,8 @@
                             <tr>
                                 <th width="10px">ID</th>
                                 <th>Nombre</th>
-                                <th colspan="3">&nbsp;</th>
+                                <th>Email</th>
+                                <th colspan="3">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,6 +30,7 @@
                             <tr>
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
                                 <td width="10px">
                                     @can('users.show')
                                     <a href="{{ route('users.show',$user->id) }}"
@@ -43,7 +46,7 @@
                                 <td width="10px">
                                     @can('users.destroy')
                                     {!! Form::open(['route'=>['users.destroy',$user->id],'method'=>'DELETE']) !!}
-                                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                                    <button class="btn btn-sm btn-danger">Eliminar</button>
                                     {!! Form::close() !!}
                                     @endcan
                                 </td>

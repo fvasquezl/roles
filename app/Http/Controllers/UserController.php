@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
+use App\Department;
 use Caffeinated\Shinobi\Models\Role;
+use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\UpdateRequest;
 
 class UserController extends Controller
 {
@@ -17,7 +19,7 @@ class UserController extends Controller
     {
         $users = User::paginate();
 
-        return view('users.index',compact('users'));
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -27,22 +29,24 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles = Role::get();
+        $departments = Department::get();
+        return view('users.create', compact('roles', 'departments'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\User\StoreReques  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $user = User::create($request->all());
-
+        $user = $request->createUser(new User);
+        
         return redirect()
-        ->route('users.edit',$user->id)
-        ->with('info','Usuario guardado con exito');
+            ->route('users.edit', $user->id)
+            ->with('info', 'Usuario guardado con exito');
     }
 
     /**
@@ -53,7 +57,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show',compact('user'));
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -65,26 +69,24 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::get();
-        return view('users.edit',compact('user','roles'));
+        $departments = Department::get();
+        return view('users.edit', compact('user', 'roles', 'departments'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\User\UpdateRequest  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
-        //Update User
-        $user->update($request->all());
-        //Update Roles
-        $user->roles()->sync($request->get('roles'));
+        $request->updateUser($user);
 
         return redirect()
-        ->route('users.edit',$user->id)
-        ->with('info','Usuario actualizado con exito');
+            ->route('users.edit', $user->id)
+            ->with('info', 'Usuario actualizado con exito');
     }
 
     /**
@@ -98,6 +100,6 @@ class UserController extends Controller
         $user->delete();
 
         return back()
-        ->with('info','Usuario Eliminado con exito');
+            ->with('info', 'Usuario Eliminado con exito');
     }
 }

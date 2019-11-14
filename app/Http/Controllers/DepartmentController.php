@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Department;
+use App\Http\Requests\Product\StoreRequest;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -32,12 +33,12 @@ class DepartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Department\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $department = Department::create($request->all());
+        $department = Department::create($request->all() );
 
         return redirect()
         ->route('departments.edit',$department->id)

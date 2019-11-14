@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('partials.show_messages')
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h4>Productos</h4>
@@ -43,7 +44,7 @@
                                 <td width="10px">
                                     @can('products.destroy')
                                     {!! Form::open(['route'=>['products.destroy',$product->id],'method'=>'DELETE']) !!}
-                                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                                    <button class="btn btn-sm btn-danger">Eliminar</button>
                                     {!! Form::close() !!}
                                     @endcan
                                 </td>

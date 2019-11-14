@@ -4,12 +4,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('partials.show_messages')
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h4>Roles</h4>
                     @can('roles.create')
                     <a href="{{ route('roles.create') }}" class="btn btn-primary">
-                        Crear
+                        <i class="fas fa-address-card"></i> Crear Rol
                     </a>
                     @endcan
                 </div>
@@ -43,7 +44,7 @@
                                 <td width="10px">
                                     @can('roles.destroy')
                                     {!! Form::open(['route'=>['roles.destroy',$role->id],'method'=>'DELETE']) !!}
-                                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                                    <button class="btn btn-sm btn-danger">Eliminar</button>
                                     {!! Form::close() !!}
                                     @endcan
                                 </td>

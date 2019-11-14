@@ -7,5 +7,5 @@
     {{ form::text('description',null,['class'=>'form-control']) }}
 </div>
 <div class="form-group">
-    {{ form::submit('Guardar',['class'=>'btn btn-sm btn-primary']) }}
+    {{ form::submit('Guardar',['class'=>'btn btn-primary']) }}
 </div>
