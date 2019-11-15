@@ -53,7 +53,8 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        return view('departments.show',compact('department'));
+        $users = $department->users()->get();
+        return view('departments.show',compact('department','users'));
     }
 
     /**
