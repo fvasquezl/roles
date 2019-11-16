@@ -45,26 +45,26 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     //products
-    Route::post('products/store','ProductController@store')
-    ->name('products.store')->middleware('can:products.create');
+    Route::post('posts/store','PostController@store')
+    ->name('posts.store')->middleware('can:posts.create');
 
-    Route::get('products','ProductController@index')
-    ->name('products.index')->middleware('can:products.index');
+    Route::get('posts','PostController@index')
+    ->name('posts.index')->middleware('can:posts.index');
 
-    Route::get('products/create','ProductController@create')
-    ->name('products.create')->middleware('can:products.create');
+    Route::get('posts/create','PostController@create')
+    ->name('posts.create')->middleware('can:posts.create');
 
-    Route::put('products/{product}','ProductController@update')
-    ->name('products.update')->middleware('can:products.edit');
+    Route::put('posts/{product}','PostController@update')
+    ->name('posts.update')->middleware('can:posts.edit');
 
-    Route::get('products/{product}','ProductController@show')
-    ->name('products.show')->middleware('can:products.show');
+    Route::get('posts/{product}','PostController@show')
+    ->name('posts.show')->middleware('can:posts.show');
 
-    Route::delete('products/{product}','ProductController@destroy')
-    ->name('products.destroy')->middleware('can:products.destroy');
+    Route::delete('posts/{product}','PostController@destroy')
+    ->name('posts.destroy')->middleware('can:posts.destroy');
     
-    Route::get('products/{product}/edit','ProductController@edit')
-    ->name('products.edit')->middleware('can:products.edit');
+    Route::get('posts/{product}/edit','PostController@edit')
+    ->name('posts.edit')->middleware('can:posts.edit');
 
 
     //users

@@ -2,7 +2,6 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
-use Caffeinated\Shinobi\Models\Role;
 
 class UsersTableSeeder extends Seeder
 {
@@ -20,7 +19,29 @@ class UsersTableSeeder extends Seeder
 
         $user->assignRoles('Admin');
         
-        factory(User::class,20)->create();
+        $user = factory(User::class)->create([
+            'name'=> 'Faustino Vasquez Limon',
+            'email' => 'fvasquez01@local.com',
+        ]);
+        $user->departments()->attach(2);
+        $user->assignRoles('gerente.sistemas');
+
+        $user = factory(User::class)->create([
+            'name'=> 'Faustino Vasquez Limon',
+            'email' => 'fvasquez02@local.com',
+        ]);
+        $user->departments()->attach(2);
+        $user->assignRoles('programador.web');
+
+        $user = factory(User::class)->create([
+            'name'=> 'Faustino Vasquez Limon',
+            'email' => 'fvasquez03@local.com',
+        ]);
+        $user->departments()->attach(2);
+        $user->assignRoles('programador.web');
+
+
+        factory(User::class,5)->create();
         
     }
 }

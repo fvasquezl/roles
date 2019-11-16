@@ -8,11 +8,10 @@
             @include('partials.show_messages')
 
             <div class="card">
-                <div class="card-header">Producto</div>
-
+                <div class="card-header">Publicacion</div>
                 <div class="card-body">
-                    {!! Form::model($product,['route'=>['products.update',$product->id],'method'=>'PUT']) !!}
-                    @include('products.partials.form')
+                    {!! Form::open(['route'=>'posts.store']) !!}
+                    @include('posts.partials.form')
                     {!! Form::close() !!}
                 </div>
             </div>

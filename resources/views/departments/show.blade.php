@@ -8,12 +8,13 @@
                 <div class="card-header">Departamento</div>
 
                 <div class="card-body">
-                   <p><strong>Siglas: </strong>{{ $department->name }}</p>
-                   <p><strong>Nombre: </strong>{{ $department->display_name }}</p>
-                   <p><strong>Descripcion: </strong>{{ $department->description }}</p>
+                    <p><strong>Siglas: </strong>{{ $department->name }}</p>
+                    <p><strong>Nombre: </strong>{{ $department->display_name }}</p>
+                    <p><strong>Descripcion: </strong>{{ $department->description }}</p>
                     <hr>
                     <h3>Integrantes</h3>
-                    <table>
+                    <p>{{ $department->present()->usersByDepartment()}}</p>
+                    {{-- <table>
                         <tr>
                         <th>Usuario</th>
                         <th>Rol</th>
@@ -21,12 +22,12 @@
                         @foreach ($users as $user)
                             <tr>
                             <td>{{$user->name}}</td>
-                                Crear un presenter para estos datos
-                            <td>{{$user->roles()->role}}</td>
 
-                            </tr>
-                        @endforeach
-                    </table>
+                    <td>{{$user->roles()->role}}</td>
+
+                    </tr>
+                    @endforeach
+                    </table> --}}
                 </div>
             </div>
         </div>

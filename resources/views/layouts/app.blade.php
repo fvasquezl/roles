@@ -33,9 +33,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @can('products.index')
+                        @can('posts.index')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('products.index') }}">Productos</a>
+                                <a class="nav-link" href="{{ route('posts.index') }}">Publicaciones</a>
                             </li>
                         @endcan
                         @can('users.index')
