@@ -15,12 +15,15 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('description');
+            $table->string('title');
+            $table->mediumText('excerpt');
+            $table->timestamp('published_at')->nullable();
+           // $table->unsignedBigInteger('category_id');
             $table->timestamps();
         });
     }
 
+    /**
     /**
      * Reverse the migrations.
      *

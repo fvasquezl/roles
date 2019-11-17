@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -54,16 +54,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('posts/create','PostController@create')
     ->name('posts.create')->middleware('can:posts.create');
 
-    Route::put('posts/{product}','PostController@update')
+    Route::put('posts/{post}','PostController@update')
     ->name('posts.update')->middleware('can:posts.edit');
 
-    Route::get('posts/{product}','PostController@show')
+    Route::get('posts/{post}','PostController@show')
     ->name('posts.show')->middleware('can:posts.show');
 
-    Route::delete('posts/{product}','PostController@destroy')
+    Route::delete('posts/{post}','PostController@destroy')
     ->name('posts.destroy')->middleware('can:posts.destroy');
     
-    Route::get('posts/{product}/edit','PostController@edit')
+    Route::get('posts/{post}/edit','PostController@edit')
     ->name('posts.edit')->middleware('can:posts.edit');
 
 
