@@ -6,10 +6,10 @@
         <div class="col-md-8">
             @include('partials.show_messages')
             <div class="card">
-                <div class="card-header">Departamento</div>
+                <div class="card-header">Category</div>
                 <div class="card-body">
-                    {!! Form::model($department,['route'=>['departments.update',$department->id],'method'=>'PUT']) !!}
-                    @include('departments.partials.form')
+                    {!! Form::model($category,['route'=>['categories.update',$category->id],'method'=>'PUT']) !!}
+                    @include('categories.partials.form')
                     {!! Form::close() !!}
                 </div>
             </div>

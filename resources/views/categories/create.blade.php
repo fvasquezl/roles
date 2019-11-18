@@ -4,12 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @include('partials.show_messages')
             <div class="card">
-                <div class="card-header">Departamento</div>
+                <div class="card-header">Categoria</div>
+
                 <div class="card-body">
-                    {!! Form::model($department,['route'=>['departments.update',$department->id],'method'=>'PUT']) !!}
-                    @include('departments.partials.form')
+                    {!! Form::open(['route'=>'categories.store']) !!}
+                    @include('categories.partials.form')
                     {!! Form::close() !!}
                 </div>
             </div>

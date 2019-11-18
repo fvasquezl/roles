@@ -5,67 +5,54 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             @include('partials.show_messages')
-            {{--<div class="card">--}}
-                {{--<div class="card-header d-flex justify-content-between">--}}
-                    {{--<h4>Publicaciones</h4>--}}
-                    @can('posts.create')
-                    <a href="{{ route('posts.create') }}" class="btn btn-primary">
-                        Crear Publicacion
-                    </a>
-                    @endcan
-                {{--</div>--}}
 
-                {{--<div class="card-body">--}}
-                    {{--<table class="table table-striped table-hover">--}}
-                        {{--<thead>--}}
-                            {{--<tr>--}}
-                                {{--<th width="10px">ID</th>--}}
-                                {{--<th>Nombre</th>--}}
-                                {{--<th colspan="3">&nbsp;</th>--}}
-                            {{--</tr>--}}
-                        {{--</thead>--}}
-                        {{--<tbody>--}}
-                            @foreach ($posts as $post)
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                @can('posts.show')
-                                    <a href="{{ route('posts.show',$post->id) }}">{{$post->title}}</a>
-                                    @else
-                                    {{$post->title}}
-                                @endcan
-                            </h5>
+            <div class="text-right mb-3">
+                @can('posts.create')
+                <a href="{{ route('posts.create') }}" class="btn btn-primary">
+                    <i class="far fa-edit"></i> Crear Publicacion
+                </a>
+                @endcan
+            </div>
 
-                                {{ $post->id }}
-                                {{ $post->excerpt }}
-                                {{--<td width="10px">--}}
-                                    @can('posts.show')
-                                    <a href="{{ route('posts.show',$post->id) }}"
-                                        class="btn btn-sm btn-outline-secondary">Ver</a>
-                                    @endcan
-                                {{--</td>--}}
-                                {{--<td width="10px">--}}
-                                    {{--@can('posts.edit')--}}
-                                    {{--<a href="{{ route('posts.edit',$post->id) }}"--}}
-                                        {{--class="btn btn-sm btn-outline-secondary">Editar</a>--}}
-                                    {{--@endcan--}}
-                                {{--</td>--}}
-                                {{--<td width="10px">--}}
-                                    {{--@can('posts.destroy')--}}
-                                    {{--{!! Form::open(['route'=>['posts.destroy',$post->id],'method'=>'DELETE']) !!}--}}
-                                    {{--<button class="btn btn-sm btn-danger">Eliminar</button>--}}
-                                    {{--{!! Form::close() !!}--}}
-                                    {{--@endcan--}}
-                                {{--</td>--}}
+            @foreach ($posts as $post)
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+
+                    <div class="card-title d-flex justify-content-between">
+                        @can('posts.show')
+                        {{ $post->present()->postTitle() }}
+                        @endcan
+                    </div>
+
+                    <p class="card-text">{{ $post->excerpt }}</p>
+
+                    <div class="d-flex justify-content-between">
+                        <small class='text-muted'>{{ $post->present()->dateForHumans()}}</small>
+
+                        <div class="btn-group">
+                            @can('posts.show')
+                            <a href="{{ route('posts.show',$post->id) }}"
+                                class="btn btn-sm btn-outline-secondary">Ver</a>
+                            @endcan
+
+                            @can('posts.edit')
+                            <a href="{{ route('posts.edit',$post->id) }}"
+                                class="btn btn-sm btn-outline-secondary">Editar</a>
+                            @endcan
+
+                            @can('posts.destroy')
+                            {!! Form::open(['route'=>['posts.destroy',$post->id],'method'=>'DELETE']) !!}
+                            <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            {!! Form::close() !!}
+                            @endcan
                         </div>
                     </div>
-                            @endforeach
-                        {{--</tbody>--}}
-                    {{--</table>--}}
-                    {{ $posts->render() }}
-                {{--</div>--}}
+                </div>
             </div>
+            @endforeach
+            {{ $posts->render() }}
         </div>
     </div>
+</div>
 </div>
 @endsection

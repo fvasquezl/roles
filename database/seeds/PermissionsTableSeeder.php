@@ -117,6 +117,33 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Eliminar departamentos del sistema',
         ]);
 
+         //Categories Permissions
+        Permission::create([
+            'name' => 'Navegar categorias',
+            'slug' => 'categories.index',
+            'description' => 'Listar y navegar todos las categorias del sistema',
+        ]);
+        Permission::create([
+            'name' => 'Ver detalle de categorias',
+            'slug' => 'categories.show',
+            'description' => 'Ver en detalle cada categoria del sistema',
+        ]);
+        Permission::create([
+            'name' => 'Creacion de categorias',
+            'slug' => 'categories.create',
+            'description' => 'Crear una categoria dentro del sistema',
+        ]);
+        Permission::create([
+            'name' => 'Edicion de categorias',
+            'slug' => 'categories.edit',
+            'description' => 'Editar cualquier dato de las categorias del sistema',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar categoria',
+            'slug' => 'categories.delete',
+            'description' => 'Eliminar categorias del sistema',
+        ]);
+
 
     }
 }

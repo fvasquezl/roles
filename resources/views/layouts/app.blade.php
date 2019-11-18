@@ -53,6 +53,11 @@
                                 <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
                             </li>
                         @endcan
+                        @can('categories.index')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('categories.index') }}">Categorias</a>
+                        </li>
+                    @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->
