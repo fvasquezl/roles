@@ -9,7 +9,7 @@
             <div class="text-right mb-3">
                 @can('posts.create')
                 <a href="{{ route('posts.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus-square"></i> Crear Publicacion
+                    <i class="fas fa-plus-square"></i> Crear Publicación
                 </a>
                 @endcan
             </div>

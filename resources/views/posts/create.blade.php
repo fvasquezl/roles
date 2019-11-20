@@ -8,7 +8,7 @@
             @include('partials.show_messages')
 
             <div class="card">
-                <div class="card-header">Publicacion</div>
+                <div class="card-header">Crear una publicación</div>
                 <div class="card-body">
                     {!! Form::open(['route'=>'posts.store']) !!}
                     @include('posts.partials.form')
