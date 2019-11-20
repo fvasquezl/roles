@@ -8,16 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title','excerpt','published_at'];
+    protected $fillable = ['title', 'excerpt', 'published_at'];
 
     protected $dates = ['published_at'];
 
-  
     public function categories()
     {
         return $this->belongsToMany(Category::class);
-    }  
-   
+    }
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class);
+    }
 
     public function present()
     {
