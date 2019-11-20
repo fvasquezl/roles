@@ -18,11 +18,11 @@
             <div class="card mb-4 shadow-sm">
                 <div class="card-body">
 
-                    <div class="card-title d-flex justify-content-between">
+                    {{-- <div class="card-title"> --}}
                         @can('posts.show')
                         {{ $post->present()->postTitle() }}
                         @endcan
-                    </div>
+                    {{-- </div> --}}
 
                     <p class="card-text">{{ $post->excerpt }}</p>
 

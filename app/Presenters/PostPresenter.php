@@ -9,10 +9,9 @@ class PostPresenter extends Presenter
     public function postTitle()
     {
         return new HtmlString("
-            <h5 class='my-0 font-weight-normal'>
-            <i class='fas fa-envelope-open-text'>
-            </i> <a href='" . route('users.show', $this->model->id) . "'>{$this->model->id}. {$this->model->title}</a>
-            </h5>
+            <h5 class='card-title mb-1'>
+            <a href='" . route('posts.show', $this->model->id) . "'>{$this->model->id}. {$this->model->title}</a>
+            </h5><h6 class='subtitle mb-3 text-muted'>by: {$this->model->user->name}</h6>
         ");
     }
 
