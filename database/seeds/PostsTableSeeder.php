@@ -20,9 +20,9 @@ class PostsTableSeeder extends Seeder
        // $post->iframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/-WjeUtNp2Tc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
        // $post->body = '<p>Body de mi primer Document</p>';
         $post->user_id = 1;
+        $post->category_id = 1;
         $post->published_at =Carbon::now()->subDays(4);
         $post->save();
-        $post->categories()->sync([1,2]);
         $post->documents()->sync([1,2]);
 
         $post = new Post;
@@ -31,9 +31,9 @@ class PostsTableSeeder extends Seeder
        // $post->iframe ='<iframe width="560" height="315" src="https://www.youtube.com/embed/AYb0ztNNcx8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
        // $post->body  = '<p>Body de mi segundo Documento</p>';
         $post->user_id = 1;
+        $post->category_id = 2;
         $post->published_at = Carbon::now()->subDays(3);
         $post->save();
-        $post->categories()->sync([2,3]);
         $post->documents()->sync([3,4]);
 
         $post = new Post;
@@ -41,9 +41,9 @@ class PostsTableSeeder extends Seeder
         $post->excerpt = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque quibusdam ut voluptas fuga incidunt sapiente nostrum atque, libero, ipsum dolorem sint sed reiciendis optio, minima molestias id dolor nulla minus.';
       //  $post->body = '<p>Body de mi Tercer Documento</p>';
         $post->user_id = 1;
+        $post->category_id = 3;
         $post->published_at =Carbon::now()->subDays(2);
         $post->save();
-        $post->categories()->sync([1,2,3]);
         $post->documents()->sync([5,6]);
         
         $post = new Post;
@@ -52,9 +52,9 @@ class PostsTableSeeder extends Seeder
       //  $post->iframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/a6jRKEioRkk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
        // $post->body = '<p>Body de mi Cuarto Documento</p>';
         $post->user_id = 1;
+        $post->category_id = 4;
         $post->published_at = Carbon::now()->subDays(1);
         $post->save();
-        $post->categories()->sync([5,3]);
         $post->documents()->sync([7]);
         
         $post = new Post;
@@ -63,9 +63,9 @@ class PostsTableSeeder extends Seeder
       //  $post->iframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/TE4uQZ04uxw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
        // $post->body = '<p>Body de mi Cuarto Documento</p>';
         $post->user_id = 1;
+        $post->category_id = 5;
         $post->published_at = Carbon::now()->subDays(1);
         $post->save();
-        $post->categories()->sync([1,3,5]);
         $post->documents()->sync([8]);
 
         $post = new Post;
@@ -74,9 +74,9 @@ class PostsTableSeeder extends Seeder
        // $post->iframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/V7OP5E5XI3M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
        // $post->body = '<p>Body de mi Cuarto Documento</p>';
         $post->user_id = 1;
+        $post->category_id = 6;
         $post->published_at = Carbon::now()->subDays(1);
         $post->save();
-        $post->categories()->sync([2,4,5]); 
         $post->documents()->sync([9,10]);
     }
 }

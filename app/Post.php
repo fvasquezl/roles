@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'excerpt', 'published_at'];
+    protected $guarded = [];
 
     protected $dates = ['published_at'];
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
     public function documents()
     {
@@ -26,11 +26,11 @@ class Post extends Model
         return new PostPresenter($this);
     }
 
-    public function setTitleAttribute($title)
-    {
-        $this->attributes['title'] = $title;
-        $this->attributes['slug'] = Str::slug($title);
-    }
+    // public function setTitleAttribute($title)
+    // {
+    //     $this->attributes['title'] = $title;
+    //     $this->attributes['slug'] = Str::slug($title);
+    // }
 
     public function user()
     {

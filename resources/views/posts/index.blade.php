@@ -1,23 +1,38 @@
 @extends('layouts.master')
 
+@section('content-header')
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h1>Listado de Publicaciones</h1>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('posts.index') }}">Posts</a></li>
+                <li class="breadcrumb-item active">Index</li>
+            </ol>
+        </div>
+    </div>
+</div><!-- /.container-fluid -->
+@stop
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             @include('partials.show_messages')
 
-            <div class="text-right mb-3">
-                @can('posts.create')
-                <a href="{{ route('posts.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus-square"></i> Crear Publicación
-                </a>
-                @endcan
-            </div>
-
             @foreach ($posts as $post)
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header d-flex justify-content-between">
-                    {{ $post->present()->postTitle() }}
+            <div class="card mb-4 shadow-sm card-outline card-primary">
+                <div class="card-header ">
+                    <h3 class="card-title mt-1">
+                        <i class='fas fa-external-link-alt'></i>{{ $post->present()->postTitle() }}
+                    </h3>
+                    <div class="card-tools">
+                        <small class='text-muted'><i class='fas fa-user-edit'></i>
+                            {{ $post->present()->owner() }}</small>
+                    </div>
                 </div>
 
                 <div class="card-body">
@@ -26,9 +41,10 @@
 
 
                     <ul class="list-unstyled">
-                     @foreach ($post->documents as $document)
-                        <li><i class="far fa-file-pdf"></i> <a href="{{ $document->path }}">{{ $document->title }}</a></li>
-                    @endforeach
+                        @foreach ($post->documents as $document)
+                        <li><i class="far fa-file-pdf"></i> <a href="{{ $document->path }}">{{ $document->title }}</a>
+                        </li>
+                        @endforeach
                     </ul>
 
                     <small class='text-muted text-right'>{{ $post->present()->categories()}}</small>
@@ -36,13 +52,13 @@
                         <small class='text-muted'>{{ $post->present()->dateForHumans()}}</small>
                         <div class="btn-group">
                             @can('posts.show')
-                            <a href="{{ route('posts.show',$post->id) }}"
-                                class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></a>
+                            <a href="{{ route('posts.show',$post->id) }}" class="btn btn-sm btn-outline-secondary"><i
+                                    class="fas fa-eye"></i></a>
                             @endcan
 
                             @can('posts.edit')
-                            <a href="{{ route('posts.edit',$post->id) }}"
-                                class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></a>
+                            <a href="{{ route('posts.edit',$post->id) }}" class="btn btn-sm btn-outline-secondary"><i
+                                    class="fas fa-edit"></i></a>
                             @endcan
 
                             @can('posts.destroy')
@@ -60,4 +76,4 @@
     </div>
 </div>
 </div>
-@endsection
+@stop

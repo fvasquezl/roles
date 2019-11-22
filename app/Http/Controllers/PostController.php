@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Post;
@@ -28,7 +29,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+
+        return view('posts.create',compact('categories'));
     }
 
     /**
@@ -39,8 +42,8 @@ class PostController extends Controller
      */
     public function store(PostStoreRequest $request)
     {
-
-        $post = Post::create($request->all());
+    
+        $post = $request->createPost(new Post);
 
         return redirect()
             ->route('posts.edit', $post->id)

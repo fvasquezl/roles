@@ -11,10 +11,23 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+       
+          @can('posts.create')
+          <li class="nav-item">
+            <a href="{{ route('posts.create') }}" class = "{{(request()->is('posts/create') ? 'nav-link active' :  'nav-link')}}">
+                <i class="fas fa-plus-square"></i>
+              <p>
+                CREAR PUBLICACION
+              </p>
+            </a>
+          </li>
+          @endcan
+       
         <li class="nav-header">MENU</li>
+        
         @can('posts.index')
         <li class="nav-item">
-          <a href="{{ route('posts.index') }}" class="nav-link">
+          <a href="{{ route('posts.index') }}" class = "{{(request()->is('posts') ? 'nav-link active' :  'nav-link')}}">
             <i class="fas fa-pencil-alt"></i>
             <p>
               Publicaciones
@@ -25,7 +38,7 @@
 
         @can('categories.index')
         <li class="nav-item">
-          <a href="{{ route('categories.index') }}" class="nav-link">
+          <a href="{{ route('categories.index') }}" class = "{{(request()->is('categories') ? 'nav-link active' :  'nav-link')}}">
             <i class="fas fa-clipboard-check"></i>
             <p>
               Categorias
@@ -36,7 +49,7 @@
         <li class="nav-header">PERMISOS</li>
         @can('users.index')
         <li class="nav-item">
-          <a href="{{ route('users.index') }}" class="nav-link">
+          <a href="{{ route('users.index') }}" class = "{{(request()->is('permissions') ? 'nav-link active' :  'nav-link')}}">
             <i class="fas fa-users-cog"></i>
             <p>
               Usuarios
@@ -46,7 +59,7 @@
         @endcan
         @can('departments.index')
         <li class="nav-item">
-          <a href="{{ route('departments.index') }}" class="nav-link">
+          <a href="{{ route('departments.index') }}" class = "{{(request()->is('departments') ? 'nav-link active' :  'nav-link')}}">
             <i class="fas fa-id-card-alt"></i>
             <p>
               Departamentos
@@ -56,7 +69,7 @@
         @endcan
         @can('roles.index')
         <li class="nav-item">
-          <a href="{{ route('roles.index') }}" class="nav-link">
+          <a href="{{ route('roles.index') }}" class = "{{(request()->is('roles') ? 'nav-link active' :  'nav-link')}}">
             <i class="fas fa-user-secret"></i>
             <p>
               Roles

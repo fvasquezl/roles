@@ -8,9 +8,8 @@ class PostPresenter extends Presenter
 
     public function postTitle()
     {
-        return new HtmlString(" <a href='" . route('posts.show', $this->model->id) . "'>
-        <i class='fas fa-external-link-alt'></i> {$this->model->id}. {$this->model->title}</a>
-            <small class='text-muted'><i class='fas fa-user-edit'></i> {$this->model->user->name}</small>
+        return new HtmlString(" <a class='text-decoration-none text-muted' href='" . route('posts.show', $this->model->id) . "'>
+         {$this->model->id}. {$this->model->title}</a>
         ");
     }
 
@@ -22,6 +21,11 @@ class PostPresenter extends Presenter
     public function categories()
     {
         return new HtmlString("{$this->model->categories->pluck('name')->implode(', ')}");
+    }
+
+    public function owner()
+    {
+        return new HtmlString("{$this->model->user->name}");
     }
 
    
