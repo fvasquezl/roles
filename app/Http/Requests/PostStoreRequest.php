@@ -35,13 +35,15 @@ class PostStoreRequest extends FormRequest
     public function createPost($post)
     {
         $post->title = $this->title;
-        $post->slug = $this->id . Str::slug($this->title);
         $post->excerpt = $this->excerpt;
         $post->published_at = Carbon::createFromFormat('d/m/Y',$this->published_at);
         $post->user_id = auth()->id();
         $post->category_id = $this->category;
         $post->save();
         
+        $post->slug = $post->id .'-'. Str::slug($post->title);
+        $post->save();
+
         return $post;
     }
 }
