@@ -29,6 +29,8 @@ class PostStoreRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'excerpt' => ['required', 'string'],
             'published_at' => ['required'],
+            'category' => ['required'],
+            'tags' => ['required'],
         ];
     }
 
@@ -40,9 +42,8 @@ class PostStoreRequest extends FormRequest
         $post->user_id = auth()->id();
         $post->category_id = $this->category;
         $post->save();
-        
         $post->generateSlug();
-    
+        $post->tags()->sync($this->tags);
         return $post;
     }
 
