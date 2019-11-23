@@ -41,9 +41,10 @@ class PostStoreRequest extends FormRequest
         $post->category_id = $this->category;
         $post->save();
         
-        $post->slug = $post->id .'-'. Str::slug($post->title);
-        $post->save();
-
+        $post->generateSlug();
+    
         return $post;
     }
+
+
 }

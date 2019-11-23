@@ -12,7 +12,7 @@ class Post extends Model
 
     protected $dates = ['published_at'];
 
-    public function categories()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
@@ -26,15 +26,26 @@ class Post extends Model
         return new PostPresenter($this);
     }
 
-    // public function setTitleAttribute($title)
-    // {
-    //     $this->attributes['title'] = $title;
-    //     $this->attributes['slug'] = Str::slug($title);
-    // }
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = $title;
+        $this->attributes['slug'] = $this->generateSlug();
+    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+
+    public function generateSlug()
+    {
+        $slug = Str::slug($this->title);
+        if ($this::whereSlug($slug)->exists()) {
+            $slug = "{$this->id}-{$slug}";
+        }
+        $this->slug = $slug;
+        $this->save();
     }
 
 }

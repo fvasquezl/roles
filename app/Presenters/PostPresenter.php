@@ -18,10 +18,16 @@ class PostPresenter extends Presenter
         return new HtmlString("{$this->model->published_at->diffForHumans()}");
     }   
 
-    public function categories()
+    // public function categories()
+    // {
+    //     return new HtmlString("{$this->model->categories->pluck('name')->implode(', ')}");
+    // }
+
+    public function category()
     {
-        return new HtmlString("{$this->model->categories->pluck('name')->implode(', ')}");
+        return new HtmlString("{$this->model->category->name}");
     }
+
 
     public function owner()
     {

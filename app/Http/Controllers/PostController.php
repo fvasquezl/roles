@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -17,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('categories','documents')->paginate(5);
+        $posts = Post::with('category','documents')->paginate(5);
 
         return view('posts.index', compact('posts'));
     }
@@ -30,8 +31,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags= Tag::all();
 
-        return view('posts.create',compact('categories'));
+        return view('posts.create',compact('categories','tags'));
     }
 
     /**

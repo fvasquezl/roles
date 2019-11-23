@@ -47,7 +47,7 @@
                         @endforeach
                     </ul>
 
-                    <small class='text-muted text-right'>{{ $post->present()->categories()}}</small>
+                    <small class='text-muted text-right'>{{ $post->present()->category()}}</small>
                     <div class="d-flex justify-content-between">
                         <small class='text-muted'>{{ $post->present()->dateForHumans()}}</small>
                         <div class="btn-group">
