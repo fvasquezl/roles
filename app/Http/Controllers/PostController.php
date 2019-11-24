@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Http\Requests\PostStoreRequest;
-use App\Http\Requests\PostUpdateRequest;
+
+use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\UpdateRequest;
 use App\Post;
 use App\Tag;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -30,25 +30,22 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        $tags= Tag::all();
-
-        return view('posts.create',compact('categories','tags'));
+        return view('posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param PostStoreRequest $request
+     * @param StoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostStoreRequest $request)
+    public function store(StoreRequest $request)
     {
-    
+
         $post = $request->createPost(new Post);
 
         return redirect()
-            ->route('posts.edit', $post->id)
+            ->route('posts.edit', $post)
             ->with('info', 'Publicacion guardada con exito');
     }
 
@@ -71,22 +68,24 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+        $tags= Tag::all();
+        return view('posts.edit', compact('post','categories','tags'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param PostUpdateRequest $request
+     * @param UpdateRequest $request
      * @param Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(PostUpdateRequest $request, Post $post)
+    public function update(UpdateRequest $request, Post $post)
     {
-        $post->update($request->all());
+        $request->updatePost($post);
 
         return redirect()
-            ->route('posts.edit', $post->id)
+            ->route('posts.edit', $post)
             ->with('info', 'Publicacion actualizada con exito');
     }
 

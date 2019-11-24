@@ -3,6 +3,7 @@
 use App\Post;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class PostsTableSeeder extends Seeder
 {
@@ -15,7 +16,8 @@ class PostsTableSeeder extends Seeder
     {
         
         $post = new Post;
-        $post->title = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. rovident consectetur adipisicing elit. Odit expedita';
+        $post->title = $title ='Lorem, ipsum dolor sit amet consectetur adipisicing elit. rovident consectetur adipisicing elit. Odit expedita';
+        $post->slug = Str::slug($title);
         $post->excerpt = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident perspiciatis, aut itaque eveniet harum ducimus iure magnam voluptates iste cum quisquam. Sed voluptates quaerat, ea provident aut unde odio dolore!';
        // $post->iframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/-WjeUtNp2Tc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
        // $post->body = '<p>Body de mi primer Document</p>';
@@ -23,10 +25,13 @@ class PostsTableSeeder extends Seeder
         $post->category_id = 1;
         $post->published_at =Carbon::now()->subDays(4);
         $post->save();
+
+        $post->tags()->sync([1,2]);
         $post->documents()->sync([1,2]);
 
         $post = new Post;
-        $post->title = 'Lorem, ipsum dolor sit amet consectetur adipisicing lit. Provident';
+        $post->title = $title = 'Lorem, ipsum dolor sit amet consectetur adipisicing lit. Provident';
+        $post->slug = Str::slug($title);
         $post->excerpt = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit expedita at fugiat incidunt dicta labore doloremque, adipisci autem rerum. Eveniet ducimus quisquam molestias sunt corrupti. Molestias tenetur molestiae nemo tempora?';
        // $post->iframe ='<iframe width="560" height="315" src="https://www.youtube.com/embed/AYb0ztNNcx8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
        // $post->body  = '<p>Body de mi segundo Documento</p>';
@@ -34,49 +39,9 @@ class PostsTableSeeder extends Seeder
         $post->category_id = 2;
         $post->published_at = Carbon::now()->subDays(3);
         $post->save();
+
+        $post->tags()->sync([3,4]);
         $post->documents()->sync([3,4]);
 
-        $post = new Post;
-        $post->title = 'Lorem, ipsum dolor sit amet consectetur adiisicing elit. Provident';
-        $post->excerpt = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque quibusdam ut voluptas fuga incidunt sapiente nostrum atque, libero, ipsum dolorem sint sed reiciendis optio, minima molestias id dolor nulla minus.';
-      //  $post->body = '<p>Body de mi Tercer Documento</p>';
-        $post->user_id = 1;
-        $post->category_id = 3;
-        $post->published_at =Carbon::now()->subDays(2);
-        $post->save();
-        $post->documents()->sync([5,6]);
-        
-        $post = new Post;
-        $post->title = 'Lorem, ipsum dolor sit amet consctetur adipisicing elit. Provident';
-        $post->excerpt = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, molestiae. Officia quisquam unde magnam error, iusto tempora aperiam soluta expedita sapiente veritatis quod distinctio optio accusantium non, voluptates alias magni.';
-      //  $post->iframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/a6jRKEioRkk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-       // $post->body = '<p>Body de mi Cuarto Documento</p>';
-        $post->user_id = 1;
-        $post->category_id = 4;
-        $post->published_at = Carbon::now()->subDays(1);
-        $post->save();
-        $post->documents()->sync([7]);
-        
-        $post = new Post;
-        $post->title = 'Lorem, ipsum dolor sit aet consectetur adipisicing elit. Provident';
-        $post->excerpt = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum reprehenderit nisi distinctio consequuntur fuga tempore ratione error itaque, in perspiciatis velit nulla eveniet quod nam amet, necessitatibus adipisci voluptates voluptatem.';
-      //  $post->iframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/TE4uQZ04uxw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-       // $post->body = '<p>Body de mi Cuarto Documento</p>';
-        $post->user_id = 1;
-        $post->category_id = 5;
-        $post->published_at = Carbon::now()->subDays(1);
-        $post->save();
-        $post->documents()->sync([8]);
-
-        $post = new Post;
-        $post->title = 'Lorem, ipsum door sit amet consectetur adipisicing elit. Provident';
-        $post->excerpt = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quisquam laboriosam error quasi consequatur est labore illum, et asperiores dicta tempora a molestiae consectetur aliquam nulla. Delectus, dolore? Laborum, impedit.';
-       // $post->iframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/V7OP5E5XI3M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-       // $post->body = '<p>Body de mi Cuarto Documento</p>';
-        $post->user_id = 1;
-        $post->category_id = 6;
-        $post->published_at = Carbon::now()->subDays(1);
-        $post->save();
-        $post->documents()->sync([9,10]);
     }
 }

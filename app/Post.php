@@ -16,6 +16,12 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function documents()
     {
         return $this->belongsToMany(Document::class);
@@ -26,11 +32,11 @@ class Post extends Model
         return new PostPresenter($this);
     }
 
-    public function setTitleAttribute($title)
-    {
-        $this->attributes['title'] = $title;
-        $this->attributes['slug'] = $this->generateSlug();
-    }
+//    public function setTitleAttribute($title)
+//    {
+//        $this->attributes['title'] = $title;
+//        $this->attributes['slug'] = $this->generateSlug();
+//    }
 
     public function user()
     {

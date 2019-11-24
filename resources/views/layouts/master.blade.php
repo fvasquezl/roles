@@ -50,6 +50,7 @@
     <!-- ./wrapper -->
     <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
+    @include('posts.create')
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Listado de Publicaciones</h1>
+            <h1>Publicaciones</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -23,57 +23,65 @@
         <div class="col-md-12">
             @include('partials.show_messages')
 
-            @foreach ($posts as $post)
             <div class="card mb-4 shadow-sm card-outline card-primary">
                 <div class="card-header ">
                     <h3 class="card-title mt-1">
-                        <i class='fas fa-external-link-alt'></i>{{ $post->present()->postTitle() }}
+                        Listado de publicaciones
                     </h3>
                     <div class="card-tools">
-                        <small class='text-muted'><i class='fas fa-user-edit'></i>
-                            {{ $post->present()->owner() }}</small>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            <i class="fa fa-plus"></i>
+                            Crear Publicacion
+                        </button>
                     </div>
                 </div>
 
                 <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Titulo</th>
+                            <th>Extracto</th>
+                            <th>Fecha Publicacion</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($posts as $post)
+                            <tr>
+                                <td>{{$post->id}}</td>
+                                <td>{{$post->title}}</td>
+                                <td>{{$post->excerpt}}</td>
+                                <td>{{$post->published_at}}</td>
+                                <td>
+                                    @can('posts.show')
+                                        <a href="{{ route('posts.show',$post->id) }}"
+                                           class="btn btn-sm btn-default"><i class="fas fa-eye"></i></a>
+                                    @endcan
 
-                    <p class="card-text">{{ $post->excerpt }}</p>
+                                    @can('posts.edit')
+                                        <a href="{{ route('posts.edit',$post->id) }}"
+                                           class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+                                    @endcan
 
-
-                    <ul class="list-unstyled">
-                        @foreach ($post->documents as $document)
-                        <li><i class="far fa-file-pdf"></i> <a href="{{ $document->path }}">{{ $document->title }}</a>
-                        </li>
-                        @endforeach
-                    </ul>
-
-                    <small class='text-muted text-right'>{{ $post->present()->category()}}</small>
-                    <div class="d-flex justify-content-between">
-                        <small class='text-muted'>{{ $post->present()->dateForHumans()}}</small>
-                        <div class="btn-group">
-                            @can('posts.show')
-                            <a href="{{ route('posts.show',$post->id) }}" class="btn btn-sm btn-outline-secondary"><i
-                                    class="fas fa-eye"></i></a>
-                            @endcan
-
-                            @can('posts.edit')
-                            <a href="{{ route('posts.edit',$post->id) }}" class="btn btn-sm btn-outline-secondary"><i
-                                    class="fas fa-edit"></i></a>
-                            @endcan
-
-                            @can('posts.destroy')
-                            {!! Form::open(['route'=>['posts.destroy',$post->id],'method'=>'DELETE']) !!}
-                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                            {!! Form::close() !!}
-                            @endcan
-                        </div>
-                    </div>
+                                    @can('posts.destroy')
+                                        {!! Form::open(['route'=>['posts.destroy',$post->id],'method'=>'DELETE']) !!}
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                        {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                            </tr>
+                            @endforeach
+                        <tr></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            @endforeach
-            {{ $posts->render() }}
         </div>
     </div>
 </div>
-</div>
 @stop
+@push('scripts')
+
+@endpush

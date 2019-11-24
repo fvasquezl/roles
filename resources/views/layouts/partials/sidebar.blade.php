@@ -14,7 +14,8 @@
        
           @can('posts.create')
           <li class="nav-item">
-            <a href="{{ route('posts.create') }}" class = "{{(request()->is('posts/create') ? 'nav-link active' :  'nav-link')}}">
+            <a href="#" data-toggle="modal" data-target="#myModal"
+               class = "{{(request()->is('posts/create') ? 'nav-link active' :  'nav-link')}}">
                 <i class="fas fa-plus-square"></i>
               <p>
                 CREAR PUBLICACION
