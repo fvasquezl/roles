@@ -50,7 +50,7 @@
     <!-- ./wrapper -->
     <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
-    @include('posts.create')
+    @include('admin.posts.create')
 </body>
 
 </html>

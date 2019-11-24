@@ -8,8 +8,8 @@
                 <div class="card-header">Role</div>
 
                 <div class="card-body">
-                    {!! Form::open(['route'=>'roles.store']) !!}
-                    @include('roles.partials.form')
+                    {!! Form::open(['route'=>'admin.roles.store']) !!}
+                    @include('admin.roles.partials.form')
                     {!! Form::close() !!}
                 </div>
             </div>

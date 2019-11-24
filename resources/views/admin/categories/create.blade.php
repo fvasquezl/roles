@@ -8,8 +8,8 @@
                 <div class="card-header">Categoria</div>
 
                 <div class="card-body">
-                    {!! Form::open(['route'=>'categories.store']) !!}
-                    @include('categories.partials.form')
+                    {!! Form::open(['route'=>'admin.categories.store']) !!}
+                    @include('admin.categories.partials.form')
                     {!! Form::close() !!}
                 </div>
             </div>

@@ -8,7 +8,7 @@ class PostPresenter extends Presenter
 
     public function postTitle()
     {
-        return new HtmlString(" <a class='text-decoration-none text-muted' href='" . route('posts.show', $this->model->id) . "'>
+        return new HtmlString(" <a class='text-decoration-none text-muted' href='" . route('admin.posts.show', $this->model->id) . "'>
          {$this->model->id}. {$this->model->title}</a>
         ");
     }

@@ -8,8 +8,8 @@
             <div class="card">
                 <div class="card-header">Departamento</div>
                 <div class="card-body">
-                    {!! Form::model($department,['route'=>['departments.update',$department->id],'method'=>'PUT']) !!}
-                    @include('departments.partials.form')
+                    {!! Form::model($department,['route'=>['admin.departments.update',$department->id],'method'=>'PUT']) !!}
+                    @include('admin.departments.partials.form')
                     {!! Form::close() !!}
                 </div>
             </div>

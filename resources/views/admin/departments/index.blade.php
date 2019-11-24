@@ -7,10 +7,10 @@
             @include('partials.show_messages')
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h4>Usuarios</h4>
-                    @can('users.create')
-                    <a href="{{ route('users.create') }}" class="btn btn-primary">
-                        <i class="fas fa-user-plus"></i> Crear Usuario
+                    <h4>Departamentos</h4>
+                    @can('admin.departments.create')
+                    <a href="{{ route('admin.departments.create') }}" class="btn btn-primary">
+                        <i class="fas fa-sitemap"></i> Crear Departmento
                     </a>
                     @endcan
                 </div>
@@ -21,31 +21,33 @@
                             <tr>
                                 <th width="10px">ID</th>
                                 <th>Nombre</th>
-                                <th>Email</th>
-                                <th colspan="3">Acciones</th>
+                                <th>Display Name</th>
+                                <th colspan="3">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($departments as $department)
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $department->id }}</td>
+                                <td>{{ $department->name }}</td>
+                                <td>{{ $department->display_name }}</td>
                                 <td width="10px">
-                                    @can('users.show')
-                                    <a href="{{ route('users.show',$user->id) }}"
+                                    @can('admin.departments.show')
+                                    <a href="{{ route('admin.departments.show',$department->id) }}"
                                         class="btn btn-sm btn-outline-secondary">Ver</a>
                                     @endcan
                                 </td>
                                 <td width="10px">
-                                    @can('users.edit')
-                                    <a href="{{ route('users.edit',$user->id) }}"
+                                    @can('admin.departments.edit')
+                                    <a href="{{ route('admin.departments.edit',$department->id) }}"
                                         class="btn btn-sm btn-outline-secondary">Editar</a>
                                     @endcan
                                 </td>
                                 <td width="10px">
-                                    @can('users.destroy')
-                                    {!! Form::open(['route'=>['users.destroy',$user->id],'method'=>'DELETE']) !!}
+                                    @can('admin.departments.destroy')
+                                    {!!
+                                    Form::open(['route'=>['admin.departments.destroy',$department->id],'method'=>'DELETE'])
+                                    !!}
                                     <button class="btn btn-sm btn-danger">Eliminar</button>
                                     {!! Form::close() !!}
                                     @endcan
@@ -54,7 +56,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $users->render() }}
+                    {{ $departments->render() }}
                 </div>
             </div>
         </div>

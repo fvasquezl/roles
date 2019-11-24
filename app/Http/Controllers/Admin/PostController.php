@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Category;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Post;
@@ -20,7 +21,7 @@ class PostController extends Controller
     {
         $posts = Post::with('category','documents')->paginate(5);
 
-        return view('posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -30,7 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('admin.posts.create');
     }
 
     /**
@@ -45,7 +46,7 @@ class PostController extends Controller
         $post = $request->createPost(new Post);
 
         return redirect()
-            ->route('posts.edit', $post)
+            ->route('admin.posts.edit', $post)
             ->with('info', 'Publicacion guardada con exito');
     }
 
@@ -57,7 +58,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -70,7 +71,7 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $tags= Tag::all();
-        return view('posts.edit', compact('post','categories','tags'));
+        return view('admin.posts.edit', compact('post','categories','tags'));
     }
 
     /**
@@ -85,7 +86,7 @@ class PostController extends Controller
         $request->updatePost($post);
 
         return redirect()
-            ->route('posts.edit', $post)
+            ->route('admin.posts.edit', $post)
             ->with('info', 'Publicacion actualizada con exito');
     }
 

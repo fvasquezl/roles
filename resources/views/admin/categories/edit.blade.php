@@ -8,8 +8,8 @@
             <div class="card">
                 <div class="card-header">Category</div>
                 <div class="card-body">
-                    {!! Form::model($category,['route'=>['categories.update',$category->id],'method'=>'PUT']) !!}
-                    @include('categories.partials.form')
+                    {!! Form::model($category,['route'=>['admin.categories.update',$category->id],'method'=>'PUT']) !!}
+                    @include('admin.categories.partials.form')
                     {!! Form::close() !!}
                 </div>
             </div>

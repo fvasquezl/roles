@@ -33,29 +33,29 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @can('posts.index')
+                        @can('admin.posts.index')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('posts.index') }}">Publicaciones</a>
+                                <a class="nav-link" href="{{ route('admin.posts.index') }}">Publicaciones</a>
                             </li>
                         @endcan
-                        @can('users.index')
+                        @can('admin.users.index')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('users.index') }}">Usuarios</a>
+                                <a class="nav-link" href="{{ route('admin.users.index') }}">Usuarios</a>
                             </li>
                         @endcan
-                        @can('departments.index')
+                        @can('admin.departments.index')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('departments.index') }}">Departmentos</a>
+                                <a class="nav-link" href="{{ route('admin.departments.index') }}">Departmentos</a>
                             </li>
                         @endcan
-                        @can('roles.index')
+                        @can('admin.roles.index')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
+                                <a class="nav-link" href="{{ route('admin.roles.index') }}">Roles</a>
                             </li>
                         @endcan
-                        @can('categories.index')
+                        @can('admin.categories.index')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('categories.index') }}">Categorias</a>
+                            <a class="nav-link" href="{{ route('admin.categories.index') }}">Categorias</a>
                         </li>
                     @endcan
                     </ul>
@@ -97,7 +97,6 @@
         </nav>
 
         <main class="py-4">
-        
             @yield('content')
         </main>
     </div>

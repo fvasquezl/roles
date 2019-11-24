@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Department;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreRequest;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class DepartmentController extends Controller
     {
         $departments = Department::paginate();
 
-        return view('departments.index',compact('departments'));
+        return view('admin.departments.index',compact('departments'));
     }
 
     /**
@@ -27,13 +28,13 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('departments.create');
+        return view('admin.departments.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Department\StoreRequest  $request
+     * @param StoreRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRequest $request)
@@ -41,7 +42,7 @@ class DepartmentController extends Controller
         $department = Department::create($request->all() );
 
         return redirect()
-        ->route('departments.edit',$department->id)
+        ->route('admin.departments.edit',$department->id)
         ->with('info','Departamento guardado con exito');
     }
 
@@ -53,7 +54,7 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        return view('departments.show',compact('department'));
+        return view('admin.departments.show',compact('department'));
     }
 
     /**
@@ -64,7 +65,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        return view('departments.edit',compact('department'));
+        return view('admin.departments.edit',compact('department'));
     }
 
     /**
@@ -79,7 +80,7 @@ class DepartmentController extends Controller
         $department->update($request->all());
 
         return redirect()
-        ->route('departments.edit',$department->id)
+        ->route('admin.departments.edit',$department->id)
         ->with('info','Departamento actualizado con exito');
     }
 
@@ -88,6 +89,7 @@ class DepartmentController extends Controller
      *
      * @param  Department $department
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Department $department)
     {

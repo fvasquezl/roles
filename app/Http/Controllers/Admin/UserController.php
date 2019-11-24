@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\User;
 use App\Department;
 use Caffeinated\Shinobi\Models\Role;
@@ -19,7 +20,7 @@ class UserController extends Controller
     {
         $users = User::paginate();
 
-        return view('users.index', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -31,13 +32,13 @@ class UserController extends Controller
     {
         $roles = Role::get();
         $departments = Department::get();
-        return view('users.create', compact('roles', 'departments'));
+        return view('admin.users.create', compact('roles', 'departments'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\User\StoreReques  $request
+     * @param StoreRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRequest $request)
@@ -45,7 +46,7 @@ class UserController extends Controller
         $user = $request->createUser(new User);
         
         return redirect()
-            ->route('users.edit', $user->id)
+            ->route('admin.users.edit', $user->id)
             ->with('info', 'Usuario guardado con exito');
     }
 
@@ -57,7 +58,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -70,7 +71,7 @@ class UserController extends Controller
     {
         $roles = Role::get();
         $departments = Department::get();
-        return view('users.edit', compact('user', 'roles', 'departments'));
+        return view('admin.users.edit', compact('user', 'roles', 'departments'));
     }
 
     /**
@@ -85,15 +86,16 @@ class UserController extends Controller
         $request->updateUser($user);
 
         return redirect()
-            ->route('users.edit', $user->id)
+            ->route('admin.users.edit', $user->id)
             ->with('info', 'Usuario actualizado con exito');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(User $user)
     {

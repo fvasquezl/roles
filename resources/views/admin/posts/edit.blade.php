@@ -12,7 +12,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('posts.index') }}">Posts</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.posts.index') }}">Posts</a></li>
                     <li class="breadcrumb-item active">Edit</li>
                 </ol>
             </div>
@@ -21,7 +21,7 @@
 @stop
 @section('content')
     @include('partials.show_messages')
-<form method="POST" action="{{ route('posts.update', $post) }}">
+<form method="POST" action="{{ route('admin.posts.update', $post) }}">
     @csrf
     {{method_field('PUT')}}
     <div class="row">

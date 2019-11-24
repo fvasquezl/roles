@@ -24,18 +24,18 @@
                         <div class="d-flex justify-content-between">
                             <small class='text-muted'>{{ $post->present()->dateForHumans()}}</small>
                             <div class="btn-group">
-                                @can('posts.show')
-                                <a href="{{ route('posts.show',$post->id) }}"
+                                @can('admin.posts.show')
+                                <a href="{{ route('admin.posts.show',$post->id) }}"
                                     class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></a>
                                 @endcan
     
-                                @can('posts.edit')
-                                <a href="{{ route('posts.edit',$post->id) }}"
+                                @can('admin.posts.edit')
+                                <a href="{{ route('admin.posts.edit',$post->id) }}"
                                     class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></a>
                                 @endcan
     
-                                @can('posts.destroy')
-                                {!! Form::open(['route'=>['posts.destroy',$post->id],'method'=>'DELETE']) !!}
+                                @can('admin.posts.destroy')
+                                {!! Form::open(['route'=>['admin.posts.destroy',$post->id],'method'=>'DELETE']) !!}
                                 <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
                                 {!! Form::close() !!}
                                 @endcan

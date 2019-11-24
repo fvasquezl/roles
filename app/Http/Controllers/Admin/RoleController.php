@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 
+use App\Http\Controllers\Controller;
 use Caffeinated\Shinobi\Models\Permission;
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::paginate();
-        return view('roles.index', compact('roles'));
+        return view('admin.roles.index', compact('roles'));
     }
 
     /**
@@ -28,7 +29,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::get();
-        return view('roles.create',compact('permissions'));
+        return view('admin.roles.create',compact('permissions'));
     }
 
     /**
@@ -45,38 +46,38 @@ class RoleController extends Controller
         $role->permissions()->sync($request->get('permissions'));
 
         return redirect()
-            ->route('roles.edit', $role->id)
+            ->route('admin.roles.edit', $role->id)
             ->with('info', 'Rol guardado con exito');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Role  $role
+     * @param Role $role
      * @return \Illuminate\Http\Response
      */
     public function show(Role $role)
     {
-        return view('roles.show', compact('role'));
+        return view('admin.roles.show', compact('role'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Role  $role
+     * @param Role $role
      * @return \Illuminate\Http\Response
      */
     public function edit(Role $role)
     {
         $permissions = Permission::get();
-        return view('roles.edit', compact('role', 'permissions'));
+        return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Role  $role
+     * @param  \Illuminate\Http\Request $request
+     * @param Role $role
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Role $role)
@@ -87,15 +88,15 @@ class RoleController extends Controller
         $role->permissions()->sync($request->get('permissions'));
 
         return redirect()
-            ->route('roles.edit', $role->id)
+            ->route('admin.roles.edit', $role->id)
             ->with('info', 'Rol actualizado con exito');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Role  $role
+     * Remove the specified resource from storage
+     * @param Role $role
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Role $role)
     {
