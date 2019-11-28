@@ -17,10 +17,15 @@
 </div><!-- /.container-fluid -->
 @stop
 
+@push('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+@endpush
+
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 my-3">
             @include('partials.show_messages')
 
             <div class="card mb-4 shadow-sm card-outline card-primary">
@@ -37,43 +42,45 @@
                 </div>
 
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-bordered table-hover" id="postsTable">
                         <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Titulo</th>
-                            <th>Extracto</th>
-                            <th>Fecha Publicacion</th>
-                            <th>Actions</th>
-                        </tr>
+                            <tr>
+                                <th>Id</th>
+                                <th>Titulo</th>
+                                <th>Extracto</th>
+                                <th>Fecha Publicacion</th>
+                                <th>Actions</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach($posts as $post)
+                            @foreach($posts as $post)
                             <tr>
                                 <td>{{$post->id}}</td>
-                                <td>{{$post->title}}</td>
-                                <td>{{$post->excerpt}}</td>
+                                <td>{{ Str::limit($post->title, 50) }}</td>
+                                <td>{{ Str::limit($post->excerpt,50)}}</td>
                                 <td>{{$post->published_at}}</td>
                                 <td>
                                     @can('admin.posts.show')
-                                        <a href="{{ route('admin.posts.show',$post->id) }}"
-                                           class="btn btn-sm btn-default"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('admin.posts.show',$post->id) }}" class="btn btn-sm btn-default">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                     @endcan
 
                                     @can('admin.posts.edit')
-                                        <a href="{{ route('admin.posts.edit',$post->id) }}"
-                                           class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('admin.posts.edit',$post->id) }}" class="btn btn-sm btn-info">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                     @endcan
 
                                     @can('admin.posts.destroy')
-                                        {!! Form::open(['route'=>['admin.posts.destroy',$post->id],'method'=>'DELETE']) !!}
+                                    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" style="display:inline">
+                                        @csrf @method('DELETE')
                                         <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                        {!! Form::close() !!}
+                                    </form>
                                     @endcan
                                 </td>
                             </tr>
                             @endforeach
-                        <tr></tr>
                         </tbody>
                     </table>
                 </div>
@@ -82,6 +89,13 @@
     </div>
 </div>
 @stop
-@push('scripts')
 
+@push('scripts')
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#postsTable').DataTable();
+    });
+</script>
 @endpush

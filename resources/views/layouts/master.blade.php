@@ -9,8 +9,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    
     <!-- Styles -->
+    @stack('styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
@@ -49,7 +50,9 @@
     </div>
     <!-- ./wrapper -->
     <script src="{{ asset('js/app.js') }}"></script>
+
     @stack('scripts')
+
     @include('admin.posts.create')
 </body>
 

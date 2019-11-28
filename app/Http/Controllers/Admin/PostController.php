@@ -19,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category','documents')->paginate(5);
+        $posts = Post::with('category','documents')->get();
 
         return view('admin.posts.index', compact('posts'));
     }
