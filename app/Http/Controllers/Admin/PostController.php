@@ -21,7 +21,7 @@ class PostController extends Controller
     {
         $posts = Post::with('category','documents')->get();
 
-        return view('admin.posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts')); 
     }
 
     /**

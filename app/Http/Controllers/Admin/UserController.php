@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\User;
 use App\Department;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Caffeinated\Shinobi\Models\Role;
-use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
 
 class UserController extends Controller
@@ -30,23 +30,21 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::get();
-        $departments = Department::get();
-        return view('admin.users.create', compact('roles', 'departments'));
+        return view('admin.users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(Request $request)
     {
-        $user = $request->createUser(new User);
-        
+        $user = User::create($request->all());
+
         return redirect()
-            ->route('admin.users.edit', $user->id)
+            ->route('admin.users.edit', $user)
             ->with('info', 'Usuario guardado con exito');
     }
 

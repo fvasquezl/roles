@@ -4,11 +4,13 @@
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Publicaciones</h1>
+            <h1>Publicaciones
+                <small class="text-muted text-md">Administracion</small>
+            </h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="/">Admin</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.posts.index') }}">Posts</a></li>
                 <li class="breadcrumb-item active">Index</li>
             </ol>
@@ -73,7 +75,8 @@
                                     @endcan
 
                                     @can('admin.posts.destroy')
-                                    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" style="display:inline">
+                                    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST"
+                                        style="display:inline">
                                         @csrf @method('DELETE')
                                         <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
                                     </form>

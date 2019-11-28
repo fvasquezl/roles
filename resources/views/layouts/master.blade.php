@@ -54,6 +54,8 @@
     @stack('scripts')
 
     @include('admin.posts.create')
+    
+    @stack('modals')
 </body>
 
 </html>

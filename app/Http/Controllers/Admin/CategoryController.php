@@ -42,7 +42,7 @@ class CategoryController extends Controller
         $category = Category::create($request->all());
 
         return redirect()
-            ->route('admin.categories.edit', $category->id)
+            ->route('admin.categories.index')
             ->with('info', 'Categoria guardada con exito');
     }
 
