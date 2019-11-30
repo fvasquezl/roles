@@ -3,7 +3,7 @@
     {{ form::text('name',null,['class'=>'form-control']) }}
 </div>
 <div class="form-group">
-    {{ form::label('display_name','Nombre del producto') }}
+    {{ form::label('display_name','Nombre del departamento') }}
     {{ form::text('display_name',null,['class'=>'form-control']) }}
 </div>
 <div class="form-group">

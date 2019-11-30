@@ -2,14 +2,14 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Presenters\UserPresenter;
+use Caffeinated\Shinobi\Concerns\HasRolesAndPermissions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Caffeinated\Shinobi\Concerns\HasRolesAndPermissions;
 
 class User extends Authenticatable
 {
-    use Notifiable,HasRolesAndPermissions;
+    use Notifiable, HasRolesAndPermissions;
 
     /**
      * The attributes that are mass assignable.
@@ -45,6 +45,11 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(Post::class );
+        return $this->hasMany(Post::class);
+    }
+
+    public function present()
+    {
+        return new UserPresenter($this);
     }
 }

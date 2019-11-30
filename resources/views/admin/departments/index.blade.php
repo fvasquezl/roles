@@ -1,28 +1,55 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+@section('content-header')
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h1>Departamentos
+                <small class="text-muted text-md">Administracion</small>
+            </h1>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/">Admin</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.departments.index') }}">Departamentos</a></li>
+                <li class="breadcrumb-item active">Index</li>
+            </ol>
+        </div>
+    </div>
+</div><!-- /.container-fluid -->
+@stop
+
+@push('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+@endpush
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            @include('partials.show_messages')
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <h4>Departamentos</h4>
-                    @can('admin.departments.create')
-                    <a href="{{ route('admin.departments.create') }}" class="btn btn-primary">
-                        <i class="fas fa-sitemap"></i> Crear Departmento
-                    </a>
-                    @endcan
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 my-3">
+            <div class="card mb-4 shadow-sm card-outline card-primary">
+                <div class="card-header ">
+                    <h3 class="card-title mt-1">
+                        Listado de departamentos
+                    </h3>
+                    <div class="card-tools">
+                        @can('admin.departments.create')
+                        <a href="{{ route('admin.departments.create') }}" class="btn btn-primary">
+                            <i class="fas fa-sitemap"></i> Crear Departmento
+                        </a>
+                        @endcan
+                    </div>
                 </div>
 
                 <div class="card-body">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="departmentsTable">
                         <thead>
                             <tr>
-                                <th width="10px">ID</th>
+                                <th>ID</th>
+                                <th>Siglas</th>
                                 <th>Nombre</th>
-                                <th>Display Name</th>
-                                <th colspan="3">&nbsp;</th>
+                                <th>Fecha de creacion</th>
+                                <th>&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,35 +58,47 @@
                                 <td>{{ $department->id }}</td>
                                 <td>{{ $department->name }}</td>
                                 <td>{{ $department->display_name }}</td>
-                                <td width="10px">
+                                <td>{{ $department->created_at }}</td>
+                                <td>
                                     @can('admin.departments.show')
-                                    <a href="{{ route('admin.departments.show',$department->id) }}"
-                                        class="btn btn-sm btn-outline-secondary">Ver</a>
+                                    <a href="{{ route('admin.departments.show',$department) }}"
+                                        class="btn btn-sm btn-default">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                     @endcan
-                                </td>
-                                <td width="10px">
+
                                     @can('admin.departments.edit')
-                                    <a href="{{ route('admin.departments.edit',$department->id) }}"
-                                        class="btn btn-sm btn-outline-secondary">Editar</a>
+                                    <a href="{{ route('admin.departments.edit',$department) }}"
+                                        class="btn btn-sm btn-info">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                     @endcan
-                                </td>
-                                <td width="10px">
+
                                     @can('admin.departments.destroy')
-                                    {!!
-                                    Form::open(['route'=>['admin.departments.destroy',$department->id],'method'=>'DELETE'])
-                                    !!}
-                                    <button class="btn btn-sm btn-danger">Eliminar</button>
-                                    {!! Form::close() !!}
+                                    <form action="{{ route('admin.departments.destroy', $department) }}" method="POST"
+                                        style="display:inline">
+                                        @csrf @method('DELETE')
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
                                     @endcan
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $departments->render() }}
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#departmentsTable').DataTable();
+    });
+</script>
+@endpush
