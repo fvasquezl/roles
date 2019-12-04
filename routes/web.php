@@ -20,6 +20,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+
+Route::middleware('auth')->group(function () {
+
+   Route::get('/posts/{post}', 'PostsController@show')->name('posts.show'); 
+
+});
+
+
 Route::prefix('/admin')
     ->namespace('Admin')
     ->middleware('auth')
@@ -151,6 +160,10 @@ Route::prefix('/admin')
         Route::get('categories/{category}/edit', 'CategoryController@edit')
             ->name('categories.edit')->middleware('can:admin.categories.edit');
 
+        //DOCUMENTS
+        Route::post('posts/{post}/documents','DocumentsController@store')->name('posts.documents.store');
+
+
     });
 
-//Route::group(['middleware' => ['auth']], function () {});
+

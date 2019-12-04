@@ -1,9 +1,10 @@
 <?php
 namespace App\Presenters;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\HtmlString;
 
-class PostPresenter extends Presenter 
+class PostPresenter extends Presenter
 {
 
     public function postTitle()
@@ -13,31 +14,33 @@ class PostPresenter extends Presenter
         ");
     }
 
-    public function dateForHumans()
+    public function publishedAt()
     {
-        return new HtmlString("{$this->model->published_at->diffForHumans()}");
-    }   
+        return new HtmlString("{$this->model->published_at->format('M d')}");
+    }
 
-    // public function categories()
-    // {
-    //     return new HtmlString("{$this->model->categories->pluck('name')->implode(', ')}");
-    // }
+    public function tags()
+    {
+        $categories = $this->model->tags
+                        ->pluck('name')
+                        ->map(function ($value) {
+                            return "<a href='#'> #$value</a>"; 
+                        })->implode(', ');
+
+        return new HtmlString("{$categories}");
+    }
 
     public function category()
     {
         return new HtmlString("{$this->model->category->name}");
     }
 
-
     public function owner()
     {
         return new HtmlString("{$this->model->user->name}");
     }
 
-   
-
-    // 
-
+    //
 
     // public function notes()
     // {

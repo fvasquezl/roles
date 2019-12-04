@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Post;
 use App\Document;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
-class DocumentController extends Controller
+class DocumentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,9 +36,19 @@ class DocumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Post $post)
     {
-        //
+        $this->validate(request(),[
+            'document' => 'required|mimes:pdf'
+        ]);
+    
+        $document = request()->file('document')->store('public');
+        
+        Document::create([
+            'title' => request()->file('document')->getClientOriginalName(),
+            'url'=>Storage::url($document),
+            'post_id' => $post->id
+        ]);
     }
 
     /**

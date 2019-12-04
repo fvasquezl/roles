@@ -27,7 +27,7 @@ class PostsTableSeeder extends Seeder
         $post->save();
 
         $post->tags()->sync([1,2]);
-        $post->documents()->sync([1,2]);
+       // $post->documents()->sync([1,2]);
 
         $post = new Post;
         $post->title = $title = 'Lorem, ipsum dolor sit amet consectetur adipisicing lit. Provident';
@@ -41,7 +41,7 @@ class PostsTableSeeder extends Seeder
         $post->save();
 
         $post->tags()->sync([3,4]);
-        $post->documents()->sync([3,4]);
+      //  $post->documents()->sync([3,4]);
 
     }
 }

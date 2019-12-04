@@ -8,7 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('meta-title',config('app.name').'| Serena')</title>
+    <meta name="description" content="@yield('meta-description','Este Blog es de Serena')">
+
     
     <!-- Styles -->
     @stack('styles')
@@ -34,9 +36,12 @@
                 @yield('content-header')
             </section>
 
+           
+            
             <!-- Main content -->
             <section class="content">
-
+                @include('partials.show_messages')
+                
                 @yield('content')
 
             </section>

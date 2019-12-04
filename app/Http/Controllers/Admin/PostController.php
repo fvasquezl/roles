@@ -46,8 +46,7 @@ class PostController extends Controller
         $post = $request->createPost(new Post);
 
         return redirect()
-            ->route('admin.posts.edit', $post)
-            ->with('info', 'Publicacion guardada con exito');
+            ->route('admin.posts.edit', $post);
     }
 
     /**

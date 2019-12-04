@@ -7,7 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('meta-title',config('app.name').'| Serena')</title>
+    <meta name="description" content="@yield('meta-description','Este Blog es de Serena')">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

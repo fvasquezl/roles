@@ -25,8 +25,6 @@
 
 
 @section('content')
-@include('partials.show_messages')
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 my-3">
@@ -53,7 +51,7 @@
                                 <th>Titulo</th>
                                 <th>Extracto</th>
                                 <th>Fecha Publicacion</th>
-                                <th>Actions</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,11 +62,12 @@
                                 <td>{{ Str::limit($post->excerpt,50)}}</td>
                                 <td>{{$post->published_at}}</td>
                                 <td>
-                                    @can('admin.posts.show')
-                                    <a href="{{ route('admin.posts.show',$post) }}" class="btn btn-sm btn-default">
+                                    {{-- @can('admin.posts.show') --}}
+                                    <a href="{{ route('posts.show',$post) }}" 
+                                        class="btn btn-sm btn-default" target="_blank">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    @endcan
+                                    {{-- @endcan --}}
 
                                     @can('admin.posts.edit')
                                     <a href="{{ route('admin.posts.edit',$post) }}" class="btn btn-sm btn-info">

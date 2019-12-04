@@ -7,7 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Document::class, function (Faker $faker) {   
     return [
-        'title' => $faker->sentence,
-        'path' => $faker->url
+        'url' => $faker->url
     ];
 });

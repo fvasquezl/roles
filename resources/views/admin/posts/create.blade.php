@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <input name="title"
                                    class="form-control @error('title') is-invalid @enderror"
-                                   placeholder="Inresa aqu&iacute; el t&iacute;tulo de la publicaci&oacute;n">
+                                   placeholder="Inresa aqu&iacute; el t&iacute;tulo de la publicaci&oacute;n" required>
                             @error('title')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
