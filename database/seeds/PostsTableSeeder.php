@@ -3,6 +3,7 @@
 use App\Post;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostsTableSeeder extends Seeder
@@ -14,7 +15,8 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+        Storage::disk('public')->deleteDirectory('posts');  
+
         $post = new Post;
         $post->title = $title ='Lorem, ipsum dolor sit amet consectetur adipisicing elit. rovident consectetur adipisicing elit. Odit expedita';
         //$post->slug = Str::slug($title);

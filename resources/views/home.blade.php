@@ -41,7 +41,7 @@
                         @foreach ($post->documents as $document)
                         <li>
                             <i class="fas fa-file-pdf fa-2x text-danger"></i>
-                            <a href="{{ $document->url }}" target="_blank">{{ $document->title }}</a>
+                            <a href="{{ url($document->url) }}" target="_blank">{{ $document->title }}</a>
                         </li>
                         @endforeach
                     </ul>
