@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Tag;
 use Illuminate\Http\Request;
 
-class TagController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,7 +46,10 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return view('home', [
+            'title' => "Publicaciones de la etiqueta {$tag->name}",
+            'posts' => $tag->posts()->paginate(10),
+        ]);
     }
 
     /**

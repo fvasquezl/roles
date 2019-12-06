@@ -9,10 +9,10 @@ class Category extends Model
 {
     protected $fillable = ['name'];
 
-    // public function getRouteKeyName()
-    // {
-    //     return 'slug';
-    // }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function posts()
     {

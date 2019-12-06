@@ -25,6 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
 
    Route::get('/posts/{post}', 'PostsController@show')->name('posts.show'); 
+   Route::get('/categories/{category}', 'CategoriesController@show')->name('categories.show'); 
+   Route::get('/tags/{tag}', 'TagsController@show')->name('tags.show'); 
 
 });
 
@@ -162,7 +164,7 @@ Route::prefix('/admin')
 
         //DOCUMENTS
         Route::post('posts/{post}/documents','DocumentsController@store')->name('posts.documents.store');
-
+        Route::delete('documents/{document}','DocumentsController@destroy')->name('documents.destroy');
 
     });
 

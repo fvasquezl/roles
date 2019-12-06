@@ -43,16 +43,12 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-
-    public function generateSlug()
+    public function setTitleAttribute($title)
     {
-        $slug = Str::slug($this->title);
-        if ($this::whereSlug($slug)->exists()) {
-            $slug = "{$this->id}-{$slug}";
-        }
-        $this->slug = $slug;
-        $this->save();
+        $this->attributes['title'] = $title;
+        $this->attributes['slug'] = Str::slug($title);
     }
+
 
     public function scopePublished($query)
     {

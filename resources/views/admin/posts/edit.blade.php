@@ -25,6 +25,37 @@
 @endpush
 
 @section('content')
+@if ($post->documents->count())
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre del Archivo</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach ($post->documents as $key=>$document)
+        <tr>
+            <td>{{ $key + 1}}</td>
+            <td><i class="fas fa-file-pdf fa-1x text-danger"></i> <a href="{{ $document->url }}"
+                    target="_blank">{{ $document->title }}</a></td>
+            <td class="text-right py-0 align-middle">
+                <form method="POST" action="{{ route('admin.documents.destroy',$document) }}">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+
+        @endforeach
+
+    </tbody>
+</table>
+@endif
+
 <form method="POST" action="{{ route('admin.posts.update', $post) }}">
     @csrf
     {{method_field('PUT')}}
@@ -119,8 +150,6 @@
 
                         </div>
                     </div>
-
-
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block">Guardar Publicacion</button>
                     </div>
@@ -129,6 +158,9 @@
         </div>
     </div>
 </form>
+
+
+
 @endsection
 
 @push('scripts')

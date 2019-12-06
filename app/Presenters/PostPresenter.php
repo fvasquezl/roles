@@ -24,7 +24,7 @@ class PostPresenter extends Presenter
         $categories = $this->model->tags
                         ->pluck('name')
                         ->map(function ($value) {
-                            return "<a href='#'> #$value</a>"; 
+                            return "<a href='".route('tags.show',$value)."'> #$value</a>"; 
                         })->implode(', ');
 
         return new HtmlString("{$categories}");

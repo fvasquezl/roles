@@ -93,6 +93,9 @@ class DocumentsController extends Controller
      */
     public function destroy(Document $document)
     {
-        //
+        $document->delete();
+        $documentPath = str_replace('storage','public', $document->url);
+        Storage::delete($documentPath);
+        return back()->with('info','Documento eliminado');
     }
 }

@@ -7,37 +7,44 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card mb-4 shadow-sm card-outline card-primary">
+            <div class="card shadow p-2  mb-4 card-outline card-primary">
                 <div class="card-header ">
                     <h5>
-                        <i class='fas fa-external-link-alt'></i>
+                        <i class="far fa-file-alt mr-1"></i>
                         {{ $post->title }}
                     </h5>
-                    <div>
-                        <small class="text-muted"> {{ $post->present()->owner() }} /
-                            {{ $post->present()->publishedAt() }}
-                        </small>
-                        <span class="float-right">
-                            <a href="#" class="btn btn-xs btn-success btn-flat">
+                    <div class="d-flex justify-content-between">
+                        <div class="text-muted mt-1"><i class="fas fa-user"></i> {{ $post->present()->owner() }} /
+                            <i class="fas fa-calendar-alt"></i> {{ $post->present()->publishedAt() }}
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-success btn-flat">
                                 {{ $post->present()->category() }}
                             </a>
-                        </span>
+                        </div>
                     </div>
-
                 </div>
 
                 <div class="card-body">
                     <p class="card-text">{!! $post->excerpt !!}</p>
-                    <p class="text-right">
-                        {{ $post->present()->tags() }}
+                    <p>
+                        <a href="{{ route('posts.show',$post) }}" class="text-uppercase text-info h4 font-weight-bold">
+                            Leer M&aacute;s</a>
                     </p>
-                    
-
-                    {{-- <p>
-                     <a href="#" class="text-right text-default">
-                            {{ $post->present()->category() }}
-                     </a>
-                    </p> --}}
+                    <hr>
+                    @if($post->documents->count())
+                    <ul class="list-unstyled">
+                        @foreach ($post->documents as $document)
+                        <li>
+                            <i class="fas fa-file-pdf fa-2x text-danger"></i>
+                            <a href="{{ $document->url }}" target="_blank">{{ $document->title }}</a>
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
+                    <p class="text-right card-text">
+                        <i class="fas fa-tags fa-sm"></i> {{ $post->present()->tags() }}
+                    </p>
                 </div>
             </div>
         </div>
