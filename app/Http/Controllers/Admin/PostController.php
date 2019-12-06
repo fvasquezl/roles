@@ -82,7 +82,8 @@ class PostController extends Controller
      */
     public function update(UpdateRequest $request, Post $post)
     {
-        $request->updatePost($post);
+        $post->update($request->all());
+        $post->syncTags($request->get('tags')); 
 
         return redirect()
             ->route('admin.posts.edit', $post)

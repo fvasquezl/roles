@@ -35,7 +35,6 @@ class StoreRequest extends FormRequest
         $post->title = $this->title;
         $post->user_id = auth()->id();
         $post->save();
-        $post->generateSlug();
         return $post;
     }
 

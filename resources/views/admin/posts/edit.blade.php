@@ -113,15 +113,15 @@
                     </div>
                     <div class="form-group">
                         <label>Categorias</label>
-                        <select name="category" class="form-control @error('category') is-invalid @enderror">
+                        <select name="category_id" class="select2 form-control @error('category_id') is-invalid @enderror">
                             <option value="">Selecciona una categoria</option>
                             @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
-                                {{ old('category',$post->category_id)===$category->id ? 'selected':''}}>
+                                {{ old('category_id',$post->category_id)===$category->id ? 'selected':''}}>
                                 {{ $category->name }}</option>
                             @endforeach
                         </select>
-                        @error('category')
+                        @error('category_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -178,7 +178,10 @@
             $('#editor').summernote({
                 height:'300px'
             });
-            $('.select2').select2();
+
+            $('.select2').select2({
+                tags:true
+            });
 
         });
 
