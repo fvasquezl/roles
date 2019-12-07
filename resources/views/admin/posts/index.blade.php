@@ -63,8 +63,8 @@
                                 <td>{{$post->published_at}}</td>
                                 <td>
                                     {{-- @can('admin.posts.show') --}}
-                                    <a href="{{ route('posts.show',$post) }}" 
-                                        class="btn btn-sm btn-default" target="_blank">
+                                    <a href="{{ route('posts.show',$post) }}" class="btn btn-sm btn-default"
+                                        target="_blank">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     {{-- @endcan --}}

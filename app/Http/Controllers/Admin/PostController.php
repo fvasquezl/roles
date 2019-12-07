@@ -101,6 +101,8 @@ class PostController extends Controller
     {
         $post->delete();
 
+        //$post->documents->each->delete();
+
         return back()
             ->with('info', 'Publicacion Eliminada con exito');
     }
