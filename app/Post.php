@@ -18,6 +18,38 @@ class Post extends Model
         return 'slug';
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($post) {
+            $post->documents->each->delete();
+        });
+
+    }
+
+    public static function create(array $attributes=[])
+    {
+        $post = static::query()->create($attributes);
+        $post->generateUrl();
+
+        return $post;
+    }
+
+    public function generateUrl()
+    {
+        $slug =  Str::slug($this->title);
+
+        if($this->whereSlug($slug)->exists())
+        {
+            $slug =  "{$slug}-{$this->id}";
+        }
+
+        $this->slug = $slug;
+
+        $this->save();
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -38,16 +70,26 @@ class Post extends Model
         return new PostPresenter($this);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function setTitleAttribute($title)
-    {
-        $this->attributes['title'] = $title;
-        $this->attributes['slug'] = Str::slug($title);
-    }
+    // public function setTitleAttribute($title)
+    // {
+    //     $this->attributes['title'] = $title;
+
+    //     $slug= Str::slug($title);
+
+    //     $duplicateSlugCount =Post::where('slug','LIKE',"{$slug}%")->count();
+
+    //     if($duplicateSlugCount)
+    //     {
+    //         $slug .= '-'. ++$duplicateSlugCount;
+    //     }
+
+    //     $this->attributes['slug'] = $slug;
+    // }
 
     public function scopePublished($query)
     {
@@ -70,10 +112,10 @@ class Post extends Model
         : Category::create(['name' => $category])->id;
     }
 
-    public function setUserIdAttribute()
-    {
-        $this->attributes['user_id'] = auth()->id();
-    }
+    // public function setUserIdAttribute()
+    // {
+    //     $this->attributes['user_id'] = auth()->id();
+    // }
 
     public function syncTags($tags)
     {

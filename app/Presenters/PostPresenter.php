@@ -16,15 +16,19 @@ class PostPresenter extends Presenter
 
     public function publishedAt()
     {
-        return new HtmlString("{$this->model->published_at->format('M d')}");
+        $date = $this->model->published_at
+                ? $this->model->published_at->format('M d Y')
+                :'';
+        return new HtmlString("{$date}");
     }
+
 
     public function tags()
     {
         $categories = $this->model->tags
                         ->pluck('name')
                         ->map(function ($value) {
-                            return "<a href='".route('tags.show',$value)."'> #$value</a>"; 
+                            return "<a href='".route('tags.show',$value)."'> #$value</a>";
                         })->implode(', ');
 
         return new HtmlString("{$categories}");

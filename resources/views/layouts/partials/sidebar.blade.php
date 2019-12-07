@@ -11,21 +11,32 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-       
+
           @can('posts.create')
           <li class="nav-item">
+
+            @if(request()->is('admin/posts/*'))
+                <a href="{{route('admin.posts.index','#create')}}"
+                class = "{{(request()->is('admin/posts/create') ? 'nav-link active' :  'nav-link')}}">
+                    <i class="fas fa-plus-square"></i>
+                <p>
+                    CREAR PUBLICACION
+                </p>
+                </a>
+            @else
             <a href="#" data-toggle="modal" data-target="#myModal"
-               class = "{{(request()->is('admin/posts/create') ? 'nav-link active' :  'nav-link')}}">
+            class = "{{(request()->is('admin/posts/create') ? 'nav-link active' :  'nav-link')}}">
                 <i class="fas fa-plus-square"></i>
-              <p>
+            <p>
                 CREAR PUBLICACION
-              </p>
+            </p>
             </a>
+            @endif
           </li>
           @endcan
-       
+
         <li class="nav-header">MENU</li>
-        
+
         @can('posts.index')
         <li class="nav-item">
           <a href="{{ route('admin.posts.index') }}" class = "{{(request()->is('admin/posts') ? 'nav-link active' :  'nav-link')}}">

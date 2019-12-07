@@ -8,13 +8,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('admin.posts.store') }}">
+                <form method="POST" action="{{ route('admin.posts.store','#create') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input name="title"
+                            <input name="title" id="post-title"
                                    class="form-control @error('title') is-invalid @enderror"
-                                   placeholder="Inresa aqu&iacute; el t&iacute;tulo de la publicaci&oacute;n" required>
+                                   value="{{old('title')}}"
+                                   placeholder="Inresa aqu&iacute; el t&iacute;tulo de la publicaci&oacute;n" autofocus required>
                             @error('title')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -34,19 +35,20 @@
     </div>
 
 
-{{--@push('scripts')--}}
+@push('scripts')
+<script>
+    if(window.location.hash === '#create')
+    {
+        $('#myModal').modal('show');
+    }
 
-{{--<script>--}}
-    {{--if (window.location.hash == '#create') {--}}
-        {{--$('#myModal').modal('show');--}}
-    {{--}--}}
-    {{--$('#myModal').on('hide.bs.modal', function () {--}}
-        {{--window.location.hash = '#';--}}
-    {{--});--}}
-    {{--$('#myModal').on('shown.bs.modal', function () {--}}
-        {{--$('#post-title').focus();--}}
-        {{--window.location.hash = '#create';--}}
-    {{--});--}}
-{{--</script>--}}
+    $('#myModal').on('hide.bs.modal',function(){
+        window.location.hash = '#'
+    });
 
-{{--@endpush--}}
+    $('#myModal').on('shown.bs.modal',function(){
+        $('#post-title').focus()
+        window.location.hash = '#create'
+    });
+</script>
+@endpushß

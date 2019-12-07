@@ -11,7 +11,7 @@
     <title>@yield('meta-title',config('app.name').'| Serena')</title>
     <meta name="description" content="@yield('meta-description','Este Blog es de Serena')">
 
-    
+
     <!-- Styles -->
     @stack('styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -36,12 +36,12 @@
                 @yield('content-header')
             </section>
 
-           
-            
+
+
             <!-- Main content -->
             <section class="content">
                 @include('partials.show_messages')
-                
+
                 @yield('content')
 
             </section>
@@ -56,11 +56,12 @@
     <!-- ./wrapper -->
     <script src="{{ asset('js/app.js') }}"></script>
 
+    @unless(request()->is('admin/posts/*'))
+        @include('admin.posts.create')
+    @endunless
     @stack('scripts')
-
-    @include('admin.posts.create')
-    
     @stack('modals')
+
 </body>
 
 </html>

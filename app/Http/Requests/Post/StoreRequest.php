@@ -26,17 +26,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255','min:3'],
         ];
     }
-
-    public function createPost($post)
-    {
-        $post->title = $this->title;
-        $post->user_id = auth()->id();
-        $post->save();
-        return $post;
-    }
-
 
 }

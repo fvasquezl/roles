@@ -9,6 +9,7 @@ use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Post;
 use App\Tag;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -21,7 +22,7 @@ class PostController extends Controller
     {
         $posts = Post::with('category','documents')->get();
 
-        return view('admin.posts.index', compact('posts')); 
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -43,7 +44,7 @@ class PostController extends Controller
     public function store(StoreRequest $request)
     {
 
-        $post = $request->createPost(new Post);
+        $post = Post::create($request->only('title'));
 
         return redirect()
             ->route('admin.posts.edit', $post);
@@ -83,7 +84,7 @@ class PostController extends Controller
     public function update(UpdateRequest $request, Post $post)
     {
         $post->update($request->all());
-        $post->syncTags($request->get('tags')); 
+        $post->syncTags($request->get('tags'));
 
         return redirect()
             ->route('admin.posts.edit', $post)
@@ -100,8 +101,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-
-        //$post->documents->each->delete();
 
         return back()
             ->with('info', 'Publicacion Eliminada con exito');

@@ -60,7 +60,7 @@
                                 <td>{{$post->id}}</td>
                                 <td>{{ Str::limit($post->title, 50) }}</td>
                                 <td>{{ Str::limit($post->excerpt,50)}}</td>
-                                <td>{{$post->published_at}}</td>
+                                <td>{{$post->present()->publishedAt()}}</td>
                                 <td>
                                     {{-- @can('admin.posts.show') --}}
                                     <a href="{{ route('posts.show',$post) }}" class="btn btn-sm btn-default"
@@ -76,10 +76,12 @@
                                     @endcan
 
                                     @can('admin.posts.destroy')
-                                    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST"
+                                    <form  method="POST" action="{{ route('admin.posts.destroy', $post) }}"
                                         style="display:inline">
                                         @csrf @method('DELETE')
-                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                        <button class="btn btn-sm btn-danger"
+                                        onclick="return confirm('¿Estas seguro de eliminar esta publicacion?')">
+                                        <i class="fas fa-trash-alt"></i></button>
                                     </form>
                                     @endcan
                                 </td>
