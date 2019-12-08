@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    protected $fillable = ['title','excerpt','published_at','category_id'];
+    protected $fillable = ['title','excerpt','published_at','category_id','user_id'];
 
     protected $dates = ['published_at'];
 
@@ -70,10 +70,10 @@ class Post extends Model
         return new PostPresenter($this);
     }
 
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     // public function setTitleAttribute($title)
     // {
@@ -124,6 +124,11 @@ class Post extends Model
         });
 
         return $this->tags()->sync($tagIds);
+    }
+
+    public function isPublished()
+    {
+        return ! is_null($this->published_at) && $this->published_at < today();
     }
 
 }

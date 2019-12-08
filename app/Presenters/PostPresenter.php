@@ -16,9 +16,7 @@ class PostPresenter extends Presenter
 
     public function publishedAt()
     {
-        $date = $this->model->published_at
-                ? $this->model->published_at->format('M d Y')
-                :'';
+        $date = optional($this->model->published_at)->format('M d Y');
         return new HtmlString("{$date}");
     }
 
