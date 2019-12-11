@@ -105,7 +105,8 @@
 
           <p>
             {{ Auth::user()->name }}
-            <small>Usuario desde {{ Auth::user()->created_at->format('M Y') }}</small>
+            <small>{{ Auth::user()->roles->first()->name }} <br>
+            Usuario desde {{ Auth::user()->created_at->format('M Y') }}</small>
           </p>
         </li>
         <!-- Menu Body -->

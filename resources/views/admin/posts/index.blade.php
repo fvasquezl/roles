@@ -69,13 +69,13 @@
                                     </a>
                                     {{-- @endcan --}}
 
-                                    @can('admin.posts.edit')
+                                    {{-- @can('admin.posts.edit') --}}
                                     <a href="{{ route('admin.posts.edit',$post) }}" class="btn btn-sm btn-info">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    @endcan
+                                    {{-- @endcan --}}
 
-                                    @can('admin.posts.destroy')
+                                    {{-- @can('admin.posts.destroy') --}}
                                     <form  method="POST" action="{{ route('admin.posts.destroy', $post) }}"
                                         style="display:inline">
                                         @csrf @method('DELETE')
@@ -83,7 +83,7 @@
                                         onclick="return confirm('¿Estas seguro de eliminar esta publicacion?')">
                                         <i class="fas fa-trash-alt"></i></button>
                                     </form>
-                                    @endcan
+                                    {{-- @endcan --}}
                                 </td>
                             </tr>
                             @endforeach

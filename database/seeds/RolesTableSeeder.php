@@ -1,7 +1,8 @@
 <?php
 
-use Caffeinated\Shinobi\Models\Role;
+
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class RolesTableSeeder extends Seeder
 {
@@ -14,21 +15,12 @@ class RolesTableSeeder extends Seeder
     {
         Role::create([
             'name'      => 'Admin',
-            'slug'      => 'admin',
-            'description'   => 'Usuario con todos los accesos',
-            'special'   => 'all-access'
         ]);
         Role::create([
             'name'      => 'Gerente de sistemas',
-            'slug'      => 'gerente.sistemas',
-            'description'   => 'Usuario con acceso a nivel gerencia',
-            'special'   => null
         ]);
         Role::create([
             'name'      => 'Programador Web',
-            'slug'      => 'programador.web',
-            'description'   => 'Usuario con acceso a nivel programador',
-            'special'   => null
         ]);
     }
 }

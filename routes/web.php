@@ -42,125 +42,125 @@ Route::prefix('/admin')
         //
 
         Route::post('posts/store', 'PostController@store')
-            ->name('posts.store')->middleware('can:admin.posts.create');
+            ->name('posts.store');
 
         Route::get('posts', 'PostController@index')
-            ->name('posts.index')->middleware('can:admin.posts.index');
+            ->name('posts.index');
 
         Route::get('posts/create', 'PostController@create')
-            ->name('posts.create')->middleware('can:admin.posts.create');
+            ->name('posts.create');
 
         Route::put('posts/{post}', 'PostController@update')
-            ->name('posts.update')->middleware('can:admin.posts.edit');
+            ->name('posts.update');
 
         Route::get('posts/{post}', 'PostController@show')
-            ->name('posts.show')->middleware('can:admin.posts.show');
+            ->name('posts.show');
 
         Route::delete('posts/{post}', 'PostController@destroy')
-            ->name('posts.destroy')->middleware('can:admin.posts.destroy');
+            ->name('posts.destroy');
 
         Route::get('posts/{post}/edit', 'PostController@edit')
-            ->name('posts.edit')->middleware('can:admin.posts.edit');
+            ->name('posts.edit');
 
         //
         // ROLES
         //
 
         Route::post('roles/store', 'RoleController@store')
-            ->name('roles.store')->middleware('can:admin.roles.create');
+            ->name('roles.store');
 
         Route::get('roles', 'RoleController@index')
-            ->name('roles.index')->middleware('can:admin.roles.index');
+            ->name('roles.index');
 
         Route::get('roles/create', 'RoleController@create')
-            ->name('roles.create')->middleware('can:admin.roles.create');
+            ->name('roles.create');
 
         Route::put('roles/{role}', 'RoleController@update')
-            ->name('roles.update')->middleware('can:admin.roles.edit');
+            ->name('roles.update');
 
         Route::get('roles/{role}', 'RoleController@show')
-            ->name('roles.show')->middleware('can:admin.roles.show');
+            ->name('roles.show');
 
         Route::delete('roles/{role}', 'RoleController@destroy')
-            ->name('roles.destroy')->middleware('can:admin.roles.destroy');
+            ->name('roles.destroy');
 
         Route::get('roles/{role}/edit', 'RoleController@edit')
-            ->name('roles.edit')->middleware('can:admin.roles.edit');
+            ->name('roles.edit');
 
         //
         // USERS
         //
 
         Route::post('users/store', 'UserController@store')
-            ->name('users.store')->middleware('can:admin.users.create');
+            ->name('users.store');
 
         Route::get('users', 'UserController@index')
-            ->name('users.index')->middleware('can:admin.users.index');
+            ->name('users.index');
 
         Route::get('users/create', 'UserController@create')
-            ->name('users.create')->middleware('can:admin.users.create');
+            ->name('users.create');
 
         Route::put('users/{user}', 'UserController@update')
-            ->name('users.update')->middleware('can:admin.users.edit');
+            ->name('users.update');
 
         Route::get('users/{user}', 'UserController@show')
-            ->name('users.show')->middleware('can:admin.users.show');
+            ->name('users.show');
 
         Route::delete('users/{user}', 'UserController@destroy')
-            ->name('users.destroy')->middleware('can:admin.users.destroy');
+            ->name('users.destroy');
 
         Route::get('users/{user}/edit', 'UserController@edit')
-            ->name('users.edit')->middleware('can:admin.users.edit');
+            ->name('users.edit');
 
         //
         // DEPARTMENTS
         //
 
         Route::post('departments/store', 'DepartmentController@store')
-            ->name('departments.store')->middleware('can:admin.departments.create');
+            ->name('departments.store');
 
         Route::get('departments', 'DepartmentController@index')
-            ->name('departments.index')->middleware('can:admin.departments.index');
+            ->name('departments.index');
 
         Route::get('departments/create', 'DepartmentController@create')
-            ->name('departments.create')->middleware('can:admin.departments.create');
+            ->name('departments.create');
 
         Route::put('departments/{department}', 'DepartmentController@update')
-            ->name('departments.update')->middleware('can:admin.departments.edit');
+            ->name('departments.update');
 
         Route::get('departments/{department}', 'DepartmentController@show')
-            ->name('departments.show')->middleware('can:admin.departments.show');
+            ->name('departments.show');
 
         Route::delete('departments/{department}', 'DepartmentController@destroy')
-            ->name('departments.destroy')->middleware('can:admin.departments.destroy');
+            ->name('departments.destroy');
 
         Route::get('departments/{department}/edit', 'DepartmentController@edit')
-            ->name('departments.edit')->middleware('can:admin.departments.edit');
+            ->name('departments.edit');
 
         //
         // CATEGORIES
         //
 
         Route::post('categories/store', 'CategoryController@store')
-            ->name('categories.store')->middleware('can:admin.categories.create');
+            ->name('categories.store');
 
         Route::get('categories', 'CategoryController@index')
-            ->name('categories.index')->middleware('can:admin.categories.index');
+            ->name('categories.index');
 
         Route::get('categories/create', 'CategoryController@create')
-            ->name('categories.create')->middleware('can:admin.categories.create');
+            ->name('categories.create');
 
         Route::put('categories/{category}', 'CategoryController@update')
-            ->name('categories.update')->middleware('can:admin.categories.edit');
+            ->name('categories.update');
 
         Route::get('categories/{category}', 'CategoryController@show')
-            ->name('categories.show')->middleware('can:admin.categories.show');
+            ->name('categories.show');
 
         Route::delete('categories/{category}', 'CategoryController@destroy')
-            ->name('categories.destroy')->middleware('can:admin.categories.destroy');
+            ->name('categories.destroy');
 
         Route::get('categories/{category}/edit', 'CategoryController@edit')
-            ->name('categories.edit')->middleware('can:admin.categories.edit');
+            ->name('categories.edit');
 
         //DOCUMENTS
         Route::post('posts/{post}/documents','DocumentsController@store')->name('posts.documents.store');

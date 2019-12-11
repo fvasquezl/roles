@@ -34,31 +34,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @can('admin.posts.index')
+                        
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.posts.index') }}">Publicaciones</a>
                             </li>
-                        @endcan
-                        @can('admin.users.index')
+                       
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.users.index') }}">Usuarios</a>
                             </li>
-                        @endcan
-                        @can('admin.departments.index')
+                       
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.departments.index') }}">Departmentos</a>
                             </li>
-                        @endcan
-                        @can('admin.roles.index')
+                        
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.roles.index') }}">Roles</a>
                             </li>
-                        @endcan
-                        @can('admin.categories.index')
+                       
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.categories.index') }}">Categorias</a>
                         </li>
-                    @endcan
+                    
                     </ul>
 
                     <!-- Right Side Of Navbar -->

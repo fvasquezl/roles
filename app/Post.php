@@ -30,6 +30,7 @@ class Post extends Model
 
     public static function create(array $attributes=[])
     {
+        $attributes['user_id'] = auth()->id();
         $post = static::query()->create($attributes);
         $post->generateUrl();
 
@@ -98,6 +99,14 @@ class Post extends Model
             ->latest('published_at');
     }
 
+    public function scopeAllowed($query)
+    {
+        if (auth()->user()->can('view',$this)) {
+            return $query;
+        }
+        return $query->where('user_id',auth()->id());
+    }
+
     public function setPublishedAtAttribute($published_at)
     {
         $this->attributes['published_at'] = $published_at
@@ -130,5 +139,6 @@ class Post extends Model
     {
         return ! is_null($this->published_at) && $this->published_at < today();
     }
+
 
 }

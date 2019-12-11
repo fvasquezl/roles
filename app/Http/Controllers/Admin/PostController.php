@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Post;
 use App\Tag;
-use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -20,7 +18,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category','documents')->get();
+
+        $posts = Post::allowed()->get();
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -43,11 +42,9 @@ class PostController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store',new Post);
 
-        $post = Post::create([
-            'title' => $request->get('title'),
-            'user_id' => auth()->id(),
-        ]);
+        $post = Post::create($request->all());
 
         return redirect()
             ->route('admin.posts.edit', $post);
@@ -63,18 +60,22 @@ class PostController extends Controller
     {
         return view('admin.posts.show', compact('post'));
     }
-
+    
     /**
-     * Show the form for editing the specified resource.
+     * Undocumented function
      *
      * @param Post $post
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function edit(Post $post)
     {
-        $categories = Category::all();
-        $tags= Tag::all();
-        return view('admin.posts.edit', compact('post','categories','tags'));
+        $this->authorize('view',$post);
+
+        return view('admin.posts.edit',[
+            'post' => $post,
+            'tags' => Tag::all(),
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -86,6 +87,8 @@ class PostController extends Controller
      */
     public function update(UpdateRequest $request, Post $post)
     {
+        $this->authorize('update', $post);
+
         $post->update($request->all());
         $post->syncTags($request->get('tags'));
 
@@ -103,10 +106,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
+
         $post->delete();
 
         return back()
             ->with('info', 'Publicacion Eliminada con exito');
     }
 }
-

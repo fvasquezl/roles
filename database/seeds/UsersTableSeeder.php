@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,36 +13,37 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $viewPostPermissions = Permission::create(['name' => 'View Posts']);
+
         $user = factory(User::class)->create([
-            'name'=> 'Faustino Vasquez Limon',
+            'name' => 'Faustino Vasquez Limon',
             'email' => 'fvasquez@local.com',
         ]);
 
-        $user->assignRoles('Admin');
-        
+        $user->assignRole('Admin');
+
         $user = factory(User::class)->create([
-            'name'=> 'Faustino Vasquez Limon',
+            'name' => 'Faustino Vasquez Limon',
             'email' => 'fvasquez01@local.com',
         ]);
         $user->departments()->attach(2);
-        $user->assignRoles('gerente.sistemas');
+        $user->assignRole('Gerente de sistemas');
 
         $user = factory(User::class)->create([
-            'name'=> 'Faustino Vasquez Limon',
+            'name' => 'Faustino Vasquez Limon',
             'email' => 'fvasquez02@local.com',
         ]);
         $user->departments()->attach(2);
-        $user->assignRoles('programador.web');
+        $user->assignRole('Programador Web');
 
         $user = factory(User::class)->create([
-            'name'=> 'Faustino Vasquez Limon',
+            'name' => 'Faustino Vasquez Limon',
             'email' => 'fvasquez03@local.com',
         ]);
         $user->departments()->attach(2);
-        $user->assignRoles('programador.web');
+        $user->assignRole('Programador Web');
 
+        factory(User::class, 5)->create();
 
-        factory(User::class,5)->create();
-        
     }
 }
