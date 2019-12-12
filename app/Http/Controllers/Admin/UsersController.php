@@ -6,10 +6,9 @@ use App\User;
 use App\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Caffeinated\Shinobi\Models\Role;
 use App\Http\Requests\User\UpdateRequest;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -67,7 +66,6 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::get();
         $departments = Department::get();
         return view('admin.users.edit', compact('user', 'roles', 'departments'));
     }

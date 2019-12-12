@@ -10,9 +10,9 @@ use Illuminate\Support\Str;
 class Post extends Model
 {
     protected $fillable = ['title','excerpt','published_at','category_id','user_id'];
-
+  
     protected $dates = ['published_at'];
-
+  
     public function getRouteKeyName()
     {
         return 'slug';

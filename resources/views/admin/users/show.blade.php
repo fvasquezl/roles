@@ -23,7 +23,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
@@ -34,70 +34,104 @@
 
                     <h3 class="profile-username text-center">{{ $user->name }}</h3>
 
-                    <p class="text-muted text-center">Software Engineer</p>
+                    <p class="text-muted text-center">{{ $user->roles->first()->name }}</p>
 
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
                             <i class="fas fa-envelope"></i> <b>Email</b> <a class="float-right">{{ $user->email }}</a>
                         </li>
                         <li class="list-group-item">
-                            <i class="fas fa-calendar-alt"></i> <b>Fecha de creacion</b> <a class="float-right">{{ $user->present()->userCreatedat() }}</a>
+                            <i class="fas fa-calendar-alt"></i> <b>Fecha de creacion</b> <a
+                                class="float-right">{{ $user->present()->userCreatedat() }}</a>
                         </li>
                         <li class="list-group-item">
-                            <i class="fas fa-clone"></i> <b>Publicaciones creadas</b> <a class="float-right">{{ $user->present()->userPostCount() }}</a>
+                            <i class="fas fa-clone"></i> <b>Publicaciones creadas</b> <a
+                                class="float-right">{{ $user->present()->userPostCount() }}</a>
                         </li>
                     </ul>
 
-                   
+                    
                 </div>
                 <!-- /.card-body -->
             </div>
         </div>
         <!-- /.card -->
-        <div class="col-md-6">
+        <div class="col-md-3">
             <!-- About Me Box -->
-            <div class="card card-primary">
+            <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Acerca de mi</h3>
+                    <h3 class="card-title">Publicaciones</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-                    <p class="text-muted">
-                        B.S. in Computer Science from the University of Tennessee at Knoxville
-                    </p>
-
+                    @forelse ($user->posts as $post)
+                    <a href="{{ route('posts.show',$post) }}" target="_blank">
+                        <strong>{{ $post->title }}</strong>
+                    </a>
+                    <br>
+                    <small class="text-muted">Publicado el {{ $post->present()->publishedAt() }}</small>
+                    <p class="text-muted">{{ $post->excerpt}}</p>
+                    @unless ($loop->last)
                     <hr>
-
-                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                    <p class="text-muted">Malibu, California</p>
-
-                    <hr>
-
-                    <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                    <p class="text-muted">
-                        <span class="tag tag-danger">UI Design</span>
-                        <span class="tag tag-success">Coding</span>
-                        <span class="tag tag-info">Javascript</span>
-                        <span class="tag tag-warning">PHP</span>
-                        <span class="tag tag-primary">Node.js</span>
-                    </p>
-
-                    <hr>
-
-                    <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum
-                        enim
-                        neque.</p>
+                    @endunless
+                    @empty
+                    <small class="text-muted">No tiene ninguna publicacion</small> 
+                    @endforelse
                 </div>
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
         </div>
+        <div class="col-md-3">
+            <!-- About Me Box -->
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Roles</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    @forelse ($user->roles as $role)
+                    <strong>{{ $role->name }}</strong>
+                    @if($role->permissions->count())
+                    <br>
+                    <small class="text-muted">
+                        Permisos: {{ $role->permissions->pluck('name')->implode(', ')}}
+                    </small>
+                    @endif
+                    @unless ($loop->last)
+                    <hr>
+                    @endunless
+                    @empty
+                            <small class="text-muted">No tiene ningun rol asociado</small> 
+                    @endforelse
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+
+        <div class="col-md-3">
+                <!-- About Me Box -->
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Permisos adicionales</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        @forelse ($user->permissions as $permission)
+                        <strong>{{ $permission->name }}</strong>
+                        @unless ($loop->last)
+                        <hr>
+                        @endunless
+                        @empty
+                            <small class="text-muted">No tiene permisos adicionales</small> 
+                        
+                        @endforelse
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
 
     </div>
 </div>

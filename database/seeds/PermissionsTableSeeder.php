@@ -18,10 +18,10 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'View Users',
         ]);
         Permission::create([
-            'name' => 'Show Users',
+            'name' => 'Create Users',
         ]);
         Permission::create([
-            'name' => 'Edit Users',
+            'name' => 'Update Users',
         ]);
         Permission::create([
             'name' => 'Delete Users',
@@ -32,69 +32,58 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'View Roles'
         ]);
         Permission::create([
-            'name' => 'Show Roles'
-        ]);
-        Permission::create([
             'name' => 'Create Roles'
         ]);
         Permission::create([
-            'name' => 'Edit Roles'
+            'name' => 'Update Roles'
         ]);
         Permission::create([
-            'name' => 'Delete Role'
+            'name' => 'Delete Roles'
         ]);
 
 
          //Productos Permissions
+    
         Permission::create([
-            'name' => 'Navegar products'
+            'name' => 'View Posts'
         ]);
         Permission::create([
-            'name' => 'Ver detalle de producto'
+            'name' => 'Create Posts'
         ]);
         Permission::create([
-            'name' => 'Creacion de productos'
+            'name' => 'Update Posts'
         ]);
         Permission::create([
-            'name' => 'Edicion de productos'
-        ]);
-        Permission::create([
-            'name' => 'Eliminar producto'
+            'name' => 'Delete Posts'
         ]);
 
 
         //Departments Permissions
         Permission::create([
-            'name' => 'Navegar departamentos'
+            'name' => 'View Departments'
         ]);
         Permission::create([
-            'name' => 'Ver detalle de producto'
+            'name' => 'Create Departments'
         ]);
         Permission::create([
-            'name' => 'Creacion de departamentos'
+            'name' => 'Update Departments'
         ]);
         Permission::create([
-            'name' => 'Edicion de departamentos'
-        ]);
-        Permission::create([
-            'name' => 'Eliminar producto'
+            'name' => 'Delete Departments'
         ]);
 
          //Categories Permissions
-        Permission::create([
-            'name' => 'Navegar categorias'
+         Permission::create([
+            'name' => 'View Categories'
         ]);
         Permission::create([
-            'name' => 'Ver detalle de categorias'
+            'name' => 'Create Categories'
         ]);
         Permission::create([
-            'name' => 'Creacion de categorias'
+            'name' => 'Update Categories'
         ]);
         Permission::create([
-            'name' => 'Edicion de categorias'
-        ]);
-        Permission::create([
-            'name' => 'Eliminar categoria'
+            'name' => 'Delete Categories'
         ]);
 
 

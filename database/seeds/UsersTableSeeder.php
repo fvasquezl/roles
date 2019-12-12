@@ -13,8 +13,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $viewPostPermissions = Permission::create(['name' => 'View Posts']);
-
+        
         $user = factory(User::class)->create([
             'name' => 'Faustino Vasquez Limon',
             'email' => 'fvasquez@local.com',

@@ -59,27 +59,19 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->created_at }}</td>
+                                <td>{{ $user->getRoleNames()->implode(', ') }}</td>
                                 <td>
-                                    @can('admin.users.show')
                                     <a href="{{ route('admin.users.show',$user)}}" class="btn btn-sm btn-default">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    @endcan
-
-                                    @can('admin.users.edit')
                                     <a href="{{ route('admin.users.edit',$user) }}" class="btn btn-sm btn-info">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    @endcan
-
-                                    @can('admin.users.destroy')
                                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
                                         style="display:inline">
                                         @csrf @method('DELETE')
                                         <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
                                     </form>
-                                    @endcan
                                 </td>
                             </tr>
                             @endforeach
@@ -105,5 +97,5 @@
 
 
 @push('modals')
-    @include('admin.users.create')
+@include('admin.users.create')
 @endpush

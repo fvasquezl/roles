@@ -37,30 +37,15 @@ Route::prefix('/admin')
     ->name('admin.')
     ->group(function(){
 
-        //
-        // POSTS
-        //
+        /**
+         * Posts
+         */
+        Route::resource('posts', 'PostController',['except'=>'show']);
+        /**
+         * Users
+         */
+        Route::resource('users', 'UsersController');
 
-        Route::post('posts/store', 'PostController@store')
-            ->name('posts.store');
-
-        Route::get('posts', 'PostController@index')
-            ->name('posts.index');
-
-        Route::get('posts/create', 'PostController@create')
-            ->name('posts.create');
-
-        Route::put('posts/{post}', 'PostController@update')
-            ->name('posts.update');
-
-        Route::get('posts/{post}', 'PostController@show')
-            ->name('posts.show');
-
-        Route::delete('posts/{post}', 'PostController@destroy')
-            ->name('posts.destroy');
-
-        Route::get('posts/{post}/edit', 'PostController@edit')
-            ->name('posts.edit');
 
         //
         // ROLES
@@ -91,26 +76,26 @@ Route::prefix('/admin')
         // USERS
         //
 
-        Route::post('users/store', 'UserController@store')
-            ->name('users.store');
+        // Route::post('users/store', 'UserController@store')
+        //     ->name('users.store');
 
-        Route::get('users', 'UserController@index')
-            ->name('users.index');
+        // Route::get('users', 'UserController@index')
+        //     ->name('users.index');
 
-        Route::get('users/create', 'UserController@create')
-            ->name('users.create');
+        // Route::get('users/create', 'UserController@create')
+        //     ->name('users.create');
 
-        Route::put('users/{user}', 'UserController@update')
-            ->name('users.update');
+        // Route::put('users/{user}', 'UserController@update')
+        //     ->name('users.update');
 
-        Route::get('users/{user}', 'UserController@show')
-            ->name('users.show');
+        // Route::get('users/{user}', 'UserController@show')
+        //     ->name('users.show');
 
-        Route::delete('users/{user}', 'UserController@destroy')
-            ->name('users.destroy');
+        // Route::delete('users/{user}', 'UserController@destroy')
+        //     ->name('users.destroy');
 
-        Route::get('users/{user}/edit', 'UserController@edit')
-            ->name('users.edit');
+        // Route::get('users/{user}/edit', 'UserController@edit')
+        //     ->name('users.edit');
 
         //
         // DEPARTMENTS
