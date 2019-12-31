@@ -22,29 +22,32 @@
 
 @section('content')
 @include('partials.show_messages')
-{!! Form::model($user,['route'=>['admin.users.update',$user->id],'method'=>'PUT']) !!}
+
 <div class="row">
     <div class="col-md-6">
-        <div class="card">
+        <div class="card card-outline card-primary">
+            <div class="card-header">
+                <h3>Datos Personales</h3>
+            </div>
             <div class="card-body">
-                <div class="form-group">
-                    {{ Form::label('name','Nombre', array('class' => 'font-weight-bolder')) }}
-                    {{ Form::text('name',null,['class'=>'form-control']) }}
-                </div>
-                <div class="form-group">
-                    {{ Form::label('name','Email', array('class' => 'font-weight-bolder')) }}
-                    {{ Form::email('email',null,['class'=>'form-control']) }}
-                </div>
-                <div class="form-group">
-                    {{ Form::label('name','Password', array('class' => 'font-weight-bolder')) }}
-                    {{ Form::password('password',['class'=>'form-control']) }}
-                </div>
-                <div class="form-group">
-                    {{ Form::label('name','Password', array('class' => 'font-weight-bolder')) }}
-                    {{ Form::password('password',['class'=>'form-control']) }}
-                </div>
-                <h3>Lista de Departamentos</h3>
-                <div class="form-group">
+                <form action="{{ route('admin.users.update',$user->id) }}">
+                    @csrf
+                    @method('PUT')
+             
+                    <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input name="name" value="{{ old('name',$user->name) }}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input name="email" value="{{ old('email',$user->email) }}" class="form-control">
+                    </div>
+                  
+                    <button class="btn btn-primary btn-block">Actualizar Usuario</button>
+            
+                </form>
+                {{-- <h3>Lista de Departamentos</h3> --}}
+                {{-- <div class="form-group">
                     <ul class="list-unstyled">
                         @foreach ($departments as $department)
                         <li>
@@ -56,11 +59,11 @@
                         </li>
                         @endforeach
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    {{-- <div class="col-md-6">
         <div class="card">
             <div class="card-body">
                 <h3>Lista de Roles</h3>
@@ -82,7 +85,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 {!! Form::close() !!}
 @endsection

@@ -66,8 +66,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $departments = Department::get();
-        return view('admin.users.edit', compact('user', 'roles', 'departments'));
+       // $departments = Department::get();
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -79,11 +79,10 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
+        return $request;
         $request->updateUser($user);
 
-        return redirect()
-            ->route('admin.users.edit', $user->id)
-            ->with('info', 'Usuario actualizado con exito');
+        return back()->with('info','Usuario actualizado con exito');
     }
 
     /**
