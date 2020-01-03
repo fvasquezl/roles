@@ -24,13 +24,22 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+
+        $rules =  [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user)],
-            'password' => ['sometimes'],
           //  'departments'=>['required'],
          //  'roles' =>['required']
         ];
+       
+
+        if($this->filled('password'))
+        {
+            $rules['password'] = ['confirmed','min:6'];
+        }
+
+        return $rules;
+
     }
 
     public function updateUser($user)
@@ -48,10 +57,10 @@ class UpdateRequest extends FormRequest
         $user->save();
         
         //Update Roles
-        $user->roles()->sync($this->roles);
+     //   $user->roles()->sync($this->roles);
         
         //Update Departments
-        $user->departments()->sync($this->departments);
+      //  $user->departments()->sync($this->departments);
 
     }
 }

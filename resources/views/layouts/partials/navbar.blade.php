@@ -105,7 +105,7 @@
 
           <p>
             {{ Auth::user()->name }}
-            <small>{{ Auth::user()->roles->first()->name }} <br>
+            <small>{{ Auth::user()->roles->count() ? Auth::user()->roles->first()->name : 'No role'}} <br>
             Usuario desde {{ Auth::user()->created_at->format('M Y') }}</small>
           </p>
         </li>

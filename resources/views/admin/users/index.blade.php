@@ -49,7 +49,8 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Email</th>
-                                <td>Fecha de Creacion</td>
+                                <th>Fecha de Creacion</th>
+                                <th>Roles</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -59,6 +60,7 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>{{ $user->created_at->toFormattedDateString() }}</td>
                                 <td>{{ $user->getRoleNames()->implode(', ') }}</td>
                                 <td>
                                     <a href="{{ route('admin.users.show',$user)}}" class="btn btn-sm btn-default">

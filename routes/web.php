@@ -46,6 +46,12 @@ Route::prefix('/admin')
          */
         Route::resource('users', 'UsersController');
 
+        /**
+         * UsersRoles routes
+         */
+
+         Route:: put('users/{user}/roles', 'UsersRolesController@update')->name('users.roles.update');
+         Route:: put('users/{user}/permissions', 'UsersPermissionsController@update')->name('users.permissions.update');
 
         //
         // ROLES

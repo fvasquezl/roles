@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\User;
-use App\Department;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdateRequest;
+use Spatie\Permission\Models\Permission;
 
 class UsersController extends Controller
 {
@@ -66,8 +67,10 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-       // $departments = Department::get();
-        return view('admin.users.edit', compact('user'));
+        // $departments = Department::get();
+        $roles = Role::pluck('name','id');
+        $permissions = Permission::pluck('name','id');
+        return view('admin.users.edit', compact('user','roles','permissions'));
     }
 
     /**
@@ -79,10 +82,9 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
-        return $request;
         $request->updateUser($user);
 
-        return back()->with('info','Usuario actualizado con exito');
+        return back()->with('info', 'Usuario actualizado con exito');
     }
 
     /**
