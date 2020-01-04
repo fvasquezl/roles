@@ -12,83 +12,105 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-         
-          <li class="nav-item">
-
-            @if(request()->is('admin/posts/*'))
-                <a href="{{route('admin.posts.index','#create')}}"
-                class = "{{(request()->is('admin/posts/create') ? 'nav-link active' :  'nav-link')}}">
-                    <i class="fas fa-plus-square"></i>
-                <p>
-                    CREAR PUBLICACION
-                </p>
-                </a>
-            @else
-            <a href="#" data-toggle="modal" data-target="#myModal"
-            class = "{{(request()->is('admin/posts/create') ? 'nav-link active' :  'nav-link')}}">
-                <i class="fas fa-plus-square"></i>
-            <p>
-                CREAR PUBLICACION
-            </p>
-            </a>
-            @endif
-          </li>
-          
-
         <li class="nav-header">MENU</li>
 
-       
-        <li class="nav-item">
-          <a href="{{ route('admin.posts.index') }}" class = "{{(request()->is('admin/posts') ? 'nav-link active' :  'nav-link')}}">
-            <i class="fas fa-pencil-alt"></i>
+        <li class="nav-item has-treeview {{(request()->is('admin/posts') ? 'menu-open' :  '')}}">
+          <a href="#"class="nav-link">
+            <i class="fas fa-thumbs-up nav-icon"></i>
             <p>
               Publicaciones
+              <i class="fas fa-angle-left right"></i>
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('admin.posts.index') }}" class="{{ setActiveRoute('admin.posts.index')}}">
+                <i class="fa fa-address-card nav-icon"></i>
+                <p>Todas las publicaciones</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              @if(request()->is('admin/posts/*'))
+              <a href="{{route('admin.posts.index','#create')}}"
+                class="nav-link">
+                <i class="fas fa-edit nav-icon"></i>
+                <p>
+                  Crear publicacion
+                </p>
+              </a>
+              @else
+              <a href="#" data-toggle="modal" data-target="#myModal"
+                class="nav-link">
+                <i class="fas fa-edit nav-icon"></i>
+                <p>
+                  Crear publicacion
+                </p>
+              </a>
+              @endif
+            </li>
+          </ul>
         </li>
-        
 
-       
+
+        <li class="nav-header">ACCIONES</li>
+
+        <li class="nav-item has-treeview {{(request()->is('admin/users') ? 'menu-open' :  '')}}">
+          <a href="#" class="nav-link">
+            <i class="fas fa-user-circle nav-icon"></i>
+           
+            <p>
+              Usuarios
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('admin.users.index') }}" class="{{ setActiveRoute('admin.users.index')}}">
+                <i class="fas fa-users nav-icon"></i>
+                
+                <p>Todos los usuarios</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#"
+                class="nav-link">
+                <i class="fas fa-user-plus nav-icon"></i>
+                <p>
+                  Crear usuario
+                </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+
+
         <li class="nav-item">
-          <a href="{{ route('admin.categories.index') }}" class = "{{(request()->is('admin/categories') ? 'nav-link active' :  'nav-link')}}">
-            <i class="fas fa-clipboard-check"></i>
+          <a href="{{ route('admin.categories.index') }}" class="{{ setActiveRoute('admin.categories.index')}}">
+            <i class="fas fa-clipboard-check nav-icon"></i>
             <p>
               Categorias
             </p>
           </a>
         </li>
-        
-        <li class="nav-header">PERMISOS</li>
-       
+
         <li class="nav-item">
-          <a href="{{ route('admin.users.index') }}" class = "{{(request()->is('admin/permissions') ? 'nav-link active' :  'nav-link')}}">
-            <i class="fas fa-users-cog"></i>
-            <p>
-              Usuarios
-            </p>
-          </a>
-        </li>
-        
-       
-        <li class="nav-item">
-          <a href="{{ route('admin.departments.index') }}" class = "{{(request()->is('admin/departments') ? 'nav-link active' :  'nav-link')}}">
-            <i class="fas fa-id-card-alt"></i>
+          <a href="{{ route('admin.departments.index') }}" class="{{ setActiveRoute('admin.departments.index')}}">
+            <i class="fas fa-id-card-alt nav-icon"></i>
             <p>
               Departamentos
             </p>
           </a>
         </li>
-        
-       
         <li class="nav-item">
-          <a href="{{ route('admin.roles.index') }}" class = "{{(request()->is('admin/roles') ? 'nav-link active' :  'nav-link')}}">
-            <i class="fas fa-user-secret"></i>
+          <a href="{{ route('admin.roles.index') }}" class="{{ setActiveRoute('admin.roles.index')}}">
+            <i class="fas fa-user-secret nav-icon"></i>
             <p>
               Roles
             </p>
           </a>
         </li>
-        
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
