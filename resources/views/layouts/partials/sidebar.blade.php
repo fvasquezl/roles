@@ -52,9 +52,9 @@
         </li>
 
 
-        <li class="nav-header">ACCIONES</li>
+        <li class="nav-header">USUARIOS</li>
 
-        <li class="nav-item has-treeview {{(request()->is('admin/users') ? 'menu-open' :  '')}}">
+        <li class="nav-item has-treeview {{(request()->is('admin/users*') ? 'menu-open' :  '')}}">
           <a href="#" class="nav-link">
             <i class="fas fa-user-circle nav-icon"></i>
            
@@ -72,8 +72,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#"
-                class="nav-link">
+              <a href="{{route('admin.users.create')}}"
+                class="{{ setActiveRoute('admin.users.create')}}">
                 <i class="fas fa-user-plus nav-icon"></i>
                 <p>
                   Crear usuario
@@ -84,6 +84,7 @@
         </li>
 
 
+        <li class="nav-header">ACCIONES</li>
 
         <li class="nav-item">
           <a href="{{ route('admin.categories.index') }}" class="{{ setActiveRoute('admin.categories.index')}}">

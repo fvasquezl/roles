@@ -34,12 +34,10 @@
                         Listado de publicaciones
                     </h3>
                     <div class="card-tools">
-                        @can('admin.posts.create')
                         <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                             <i class="fa fa-plus"></i>
                             Crear Publicacion
                         </button>
-                        @endcan
                     </div>
                 </div>
 

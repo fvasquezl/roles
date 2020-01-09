@@ -15,76 +15,77 @@ class PermissionsTableSeeder extends Seeder
     {
         //User Permissions
         Permission::create([
-            'name' => 'View Users',
+            'name' => 'View users',
         ]);
         Permission::create([
-            'name' => 'Create Users',
+            'name' => 'Create users',
         ]);
         Permission::create([
-            'name' => 'Update Users',
+            'name' => 'Update users',
         ]);
         Permission::create([
-            'name' => 'Delete Users',
+            'name' => 'Delete users',
         ]);
 
         //Roles Permissions
         Permission::create([
-            'name' => 'View Roles'
+            'name' => 'View roles'
         ]);
         Permission::create([
-            'name' => 'Create Roles'
+            'name' => 'Create roles'
         ]);
         Permission::create([
-            'name' => 'Update Roles'
+            'name' => 'Update roles'
         ]);
         Permission::create([
-            'name' => 'Delete Roles'
+            'name' => 'Delete roles'
         ]);
 
 
          //Productos Permissions
     
         Permission::create([
-            'name' => 'View Posts'
+            'name' => 'View posts'
         ]);
         Permission::create([
-            'name' => 'Create Posts'
+            'name' => 'Create posts'
         ]);
         Permission::create([
-            'name' => 'Update Posts'
+            'name' => 'Update posts'
         ]);
         Permission::create([
-            'name' => 'Delete Posts'
+            'name' => 'Delete posts'
         ]);
 
+          //Productos Permissions
 
-        //Departments Permissions
-        Permission::create([
-            'name' => 'View Departments'
-        ]);
-        Permission::create([
-            'name' => 'Create Departments'
-        ]);
-        Permission::create([
-            'name' => 'Update Departments'
-        ]);
-        Permission::create([
-            'name' => 'Delete Departments'
-        ]);
+        // //Departments Permissions
+        // Permission::create([
+        //     'name' => 'View departments'
+        // ]);
+        // Permission::create([
+        //     'name' => 'Create departments'
+        // ]);
+        // Permission::create([
+        //     'name' => 'Update departments'
+        // ]);
+        // Permission::create([
+        //     'name' => 'Delete departments'
+        // ]);
 
-         //Categories Permissions
-         Permission::create([
-            'name' => 'View Categories'
-        ]);
-        Permission::create([
-            'name' => 'Create Categories'
-        ]);
-        Permission::create([
-            'name' => 'Update Categories'
-        ]);
-        Permission::create([
-            'name' => 'Delete Categories'
-        ]);
+        //  //Categories Permissions
+        //  Permission::create([
+        //     'name' => 'View categories'
+        // ]);
+        // Permission::create([
+        //     'name' => 'Create categories'
+        // ]);
+        // Permission::create([
+        //     'name' => 'Update categories'
+        // ]);
+        // Permission::create([
+        //     'name' => 'Delete categories'
+        // ]);
 
 
     }

@@ -28,17 +28,16 @@
 <div class="container-fluid">
     <div class="row ">
         <div class="col-lg-12 my-3">
-            @include('partials.show_messages')
             <div class="card mb-4 shadow-sm card-outline card-success">
                 <div class="card-header">
                     <h3 class="card-title mt-1">
                         Listado de Usuarios
                     </h3>
                     <div class="card-tools">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#usersModal">
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
                             <i class="fa fa-plus"></i>
                             Crear Usuario
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -72,7 +71,9 @@
                                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
                                         style="display:inline">
                                         @csrf @method('DELETE')
-                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                        <button class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Estas seguro de querer eliminar este usuario')">
+                                            <i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -95,9 +96,4 @@
         $('#usersTable').DataTable();
     });
 </script>
-@endpush
-
-
-@push('modals')
-@include('admin.users.create')
 @endpush

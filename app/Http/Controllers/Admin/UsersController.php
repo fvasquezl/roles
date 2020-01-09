@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdateRequest;
+use App\Providers\Events\UserWasCreated;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -18,7 +20,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate();
+
+        $users = User::allowed()->paginate();
 
         return view('admin.users.index', compact('users'));
     }
@@ -30,7 +33,14 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $user = new User;
+        
+        $this->authorize('create', $user);
+
+        $roles = Role::with('permissions')->get();
+        $permissions = Permission::pluck('name', 'id');
+        return view('admin.users.create', compact('user', 'roles', 'permissions'));
+
     }
 
     /**
@@ -41,11 +51,31 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
+        $this->authorize('create', new User);
+
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        $data['password'] = Str::random(8);
+
+        $user = User::create($data);
+        
+        if ($request->filled('roles')) {
+            $user->assignRole($request->roles);
+        }
+
+        if ($request->filled('permissions')) {
+            $user->givePermissionTo($request->permissions);
+        }
+
+        UserWasCreated::dispatch($user,$data['password']);
 
         return redirect()
-            ->route('admin.users.edit', $user)
-            ->with('info', 'Usuario guardado con exito');
+            ->route('admin.users.index')
+            ->with('info', 'El Usuario ha sido creado con exito');
+
     }
 
     /**
@@ -56,6 +86,8 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view', $user);
+
         return view('admin.users.show', compact('user'));
     }
 
@@ -67,10 +99,12 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update',$user);
+
         // $departments = Department::get();
         $roles = Role::with('permissions')->get();
-        $permissions = Permission::pluck('name','id');
-        return view('admin.users.edit', compact('user','roles','permissions'));
+        $permissions = Permission::pluck('name', 'id');
+        return view('admin.users.edit', compact('user', 'roles', 'permissions'));
     }
 
     /**
@@ -82,9 +116,12 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
+        $this->authorize('update',$user);
+
         $request->updateUser($user);
 
-        return back()->with('info', 'Usuario actualizado con exito');
+        return redirect()->route('admin.users.edit',$user)
+        ->with('info', 'Usuario actualizado con exito');
     }
 
     /**
@@ -96,9 +133,11 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('delete',$user);
+
         $user->delete();
 
-        return back()
+        return redirect()->route('admin.users.index')
             ->with('info', 'Usuario Eliminado con exito');
     }
 }

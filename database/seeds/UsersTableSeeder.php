@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
         $user = factory(User::class)->create([
             'name' => 'Faustino Vasquez Limon',
             'email' => 'fvasquez@local.com',
+            'password' => 'password'
         ]);
 
         $user->assignRole('Admin');
@@ -24,6 +25,7 @@ class UsersTableSeeder extends Seeder
         $user = factory(User::class)->create([
             'name' => 'Faustino Vasquez Limon',
             'email' => 'fvasquez01@local.com',
+            'password' => 'password'
         ]);
         $user->departments()->attach(2);
         $user->assignRole('Gerente de sistemas');
@@ -31,6 +33,7 @@ class UsersTableSeeder extends Seeder
         $user = factory(User::class)->create([
             'name' => 'Faustino Vasquez Limon',
             'email' => 'fvasquez02@local.com',
+            'password' => 'password'
         ]);
         $user->departments()->attach(2);
         $user->assignRole('Programador Web');
@@ -38,6 +41,7 @@ class UsersTableSeeder extends Seeder
         $user = factory(User::class)->create([
             'name' => 'Faustino Vasquez Limon',
             'email' => 'fvasquez03@local.com',
+            'password' => 'password'
         ]);
         $user->departments()->attach(2);
         $user->assignRole('Programador Web');

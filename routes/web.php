@@ -14,98 +14,35 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
 Route::middleware('auth')->group(function () {
-
-   Route::get('/posts/{post}', 'PostsController@show')->name('posts.show'); 
-   Route::get('/categories/{category}', 'CategoriesController@show')->name('categories.show'); 
-   Route::get('/tags/{tag}', 'TagsController@show')->name('tags.show'); 
+    Route::get('/posts/{post}', 'PostsController@show')->name('posts.show');
+    Route::get('/categories/{category}', 'CategoriesController@show')->name('categories.show');
+    Route::get('/tags/{tag}', 'TagsController@show')->name('tags.show');
 
 });
-
 
 Route::prefix('/admin')
     ->namespace('Admin')
     ->middleware('auth')
     ->name('admin.')
-    ->group(function(){
+    ->group(function () {
 
-        /**
-         * Posts
-         */
-        Route::resource('posts', 'PostController',['except'=>'show']);
-        /**
-         * Users
-         */
+        Route::resource('posts', 'PostController', ['except' => 'show']);
         Route::resource('users', 'UsersController');
+        Route::resource('roles', 'RolesController',['except' => 'show']);
+       
+        Route::middleware('role:Admin')
+            ->put('users/{user}/roles', 'UsersRolesController@update')
+            ->name('users.roles.update');
 
-        /**
-         * UsersRoles routes
-         */
+        Route::middleware('role:Admin')
+            ->put('users/{user}/permissions', 'UsersPermissionsController@update')
+            ->name('users.permissions.update');
 
-         Route:: put('users/{user}/roles', 'UsersRolesController@update')->name('users.roles.update');
-         Route:: put('users/{user}/permissions', 'UsersPermissionsController@update')->name('users.permissions.update');
-
-        //
-        // ROLES
-        //
-
-        Route::post('roles/store', 'RoleController@store')
-            ->name('roles.store');
-
-        Route::get('roles', 'RoleController@index')
-            ->name('roles.index');
-
-        Route::get('roles/create', 'RoleController@create')
-            ->name('roles.create');
-
-        Route::put('roles/{role}', 'RoleController@update')
-            ->name('roles.update');
-
-        Route::get('roles/{role}', 'RoleController@show')
-            ->name('roles.show');
-
-        Route::delete('roles/{role}', 'RoleController@destroy')
-            ->name('roles.destroy');
-
-        Route::get('roles/{role}/edit', 'RoleController@edit')
-            ->name('roles.edit');
-
-        //
-        // USERS
-        //
-
-        // Route::post('users/store', 'UserController@store')
-        //     ->name('users.store');
-
-        // Route::get('users', 'UserController@index')
-        //     ->name('users.index');
-
-        // Route::get('users/create', 'UserController@create')
-        //     ->name('users.create');
-
-        // Route::put('users/{user}', 'UserController@update')
-        //     ->name('users.update');
-
-        // Route::get('users/{user}', 'UserController@show')
-        //     ->name('users.show');
-
-        // Route::delete('users/{user}', 'UserController@destroy')
-        //     ->name('users.destroy');
-
-        // Route::get('users/{user}/edit', 'UserController@edit')
-        //     ->name('users.edit');
-
-        //
-        // DEPARTMENTS
-        //
 
         Route::post('departments/store', 'DepartmentController@store')
             ->name('departments.store');
@@ -128,10 +65,6 @@ Route::prefix('/admin')
         Route::get('departments/{department}/edit', 'DepartmentController@edit')
             ->name('departments.edit');
 
-        //
-        // CATEGORIES
-        //
-
         Route::post('categories/store', 'CategoryController@store')
             ->name('categories.store');
 
@@ -153,10 +86,7 @@ Route::prefix('/admin')
         Route::get('categories/{category}/edit', 'CategoryController@edit')
             ->name('categories.edit');
 
-        //DOCUMENTS
-        Route::post('posts/{post}/documents','DocumentsController@store')->name('posts.documents.store');
-        Route::delete('documents/{document}','DocumentsController@destroy')->name('documents.destroy');
+        Route::post('posts/{post}/documents', 'DocumentsController@store')->name('posts.documents.store');
+        Route::delete('documents/{document}', 'DocumentsController@destroy')->name('documents.destroy');
 
     });
-
-

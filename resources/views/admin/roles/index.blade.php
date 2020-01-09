@@ -32,23 +32,23 @@
                     Listado de roles
                 </h3>
                 <div class="card-tools">
-                    @can('admin.roles.create')
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    <a href="{{ route('admin.roles.create') }}" class="btn btn-primary">
                         <i class="fa fa-plus"></i>
-                        Crear Rol
-                    </button>
-                    @endcan
+                        Crear Role
+                    </a>
                 </div>
+
             </div>
 
             <div class="card-body">
                 <table class="table table-striped table-hover" id="rolesTable">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Rol</th>
-                            <th>Descripcion</th>
-                            <th>Actiones</th>
+                            <th>id</th>
+                            <th>Identificador</th>
+                            <th>Nombre</th>
+                            <th>Permisos</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,27 +56,21 @@
                         <tr>
                             <td>{{ $role->id }}</td>
                             <td>{{ $role->name }}</td>
-                            <td>{{ $role->description }}</td>
+                            <td>{{ $role->display_name }}</td>
+                            <td>{{ $role->permissions->pluck('display_name')->implode(', ') }}</td>
                             <td>
-                                @can('admin.roles.show')
-                                <a href="{{ route('admin.roles.show',$role) }}" class="btn btn-sm btn-default">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                @endcan
-
-                                @can('admin.roles.edit')
                                 <a href="{{ route('admin.roles.edit',$role) }}" class="btn btn-sm btn-info">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                @endcan
-
-                                @can('admin.roles.destroy')
-                                <form action="{{ route('admin.roles.destroy', $role) }}" method="POST"
+                                @if($role->id !== 1)
+                                <form method="POST" action="{{ route('admin.roles.destroy', $role) }}"
                                     style="display:inline">
                                     @csrf @method('DELETE')
-                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                    <button class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Estas seguro de querer eliminar este rol')">
+                                        <i class="fas fa-trash-alt"></i></button>
                                 </form>
-                                @endcan
+                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -85,7 +79,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 @endsection
 

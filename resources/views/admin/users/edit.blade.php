@@ -91,25 +91,28 @@
                 <h3>Roles</h3>
             </div>
             <div class="card-body">
+                @role('Admin')
                 <form method="POST" action="{{ route('admin.users.roles.update',$user) }}">
                     @csrf
                     @method('PUT')
 
-                    <ul class="list-unstyled">
-                        @foreach ($roles as $role)
-                        <li>
-                            <label>
-                                <input name="roles[]" type="checkbox" value="{{ $role->id }}"
-                                    {{ $user->roles->contains($role->id)? 'checked':'' }}>
-                                {{ $role->name }} <br>
-                                <small class="text-muted">{{ $role->permissions->pluck('name')->implode(', ') }}</small>
-                            </label>
-                        </li>
-                        @endforeach
-                    </ul>
+                    @include('admin.roles.partials.checkboxes')
 
                     <button class="btn btn-primary btn-block">Actualizar roles</button>
                 </form>
+                @else
+                <ul class="list-group">
+                    @forelse ($user->roles as $role)
+                    <li class="list-group-item">
+                        {{ $role->name }}
+                    </li>
+                    @empty 
+                    <li class="list-group-item">
+                        No tiene roles
+                    </li>
+                    @endforelse
+                </ul>
+                @endrole
             </div>
         </div>
         <div class="card card-outline card-primary">
@@ -117,24 +120,28 @@
                 <h3>Permisos</h3>
             </div>
             <div class="card-body">
+                @role('Admin')
                 <form method="POST" action="{{ route('admin.users.permissions.update',$user) }}">
                     @csrf
                     @method('PUT')
 
-                    <ul class="list-unstyled">
-                        @foreach ($permissions as $id => $name)
-                        <li>
-                            <label>
-                                <input name="permissions[]" type="checkbox" value="{{ $id }}"
-                                    {{ $user->permissions->contains($id)? 'checked':'' }}>
-                                {{ $name }}
-                            </label>
-                        </li>
-                        @endforeach
-                    </ul>
+                    @include('admin.permissions.partials.checkboxes',['model'=> $user])
 
                     <button class="btn btn-primary btn-block">Actualizar permisos</button>
                 </form>
+                @else
+                <ul class="list-group">
+                    @forelse ($user->permissions as $permission)
+                    <li class="list-group-item">
+                        {{ $permission->name }}
+                    </li>
+                    @empty 
+                    <li class="list-group-item">
+                        No tiene permisos
+                    </li>
+                    @endforelse
+                </ul>
+                @endrole
             </div>
         </div>
     </div>

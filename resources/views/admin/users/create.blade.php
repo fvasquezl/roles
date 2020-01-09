@@ -1,79 +1,80 @@
-<div class="modal fade" id="usersModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Creacion de nuevo usuario del sistema</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+@extends('layouts.master')
+
+@section('content-header')
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h1>
+                Usuarios
+                <small class="text-muted text-md">Crear usuario</small>
+            </h1>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/">Admin</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Usuarios</a></li>
+                <li class="breadcrumb-item active">Create</li>
+            </ol>
+        </div>
+    </div>
+</div><!-- /.container-fluid -->
+@stop
+
+@push('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+@endpush
+
+@section('content')
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-outline card-primary">
+            <div class="card-header">
+                <h3>Registro de Usuarios</h3>
             </div>
-            <form method="POST" action="{{ route('admin.users.store') }}">
-                @csrf
-                <div class="modal-body">
+            <div class="card-body">
+                <form method="POST" action="{{ route('admin.users.store') }}">
+                    @csrf
+
                     <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input name="name" class="form-control @error('name') is-invalid @enderror"
-                            placeholder="Inresa aqu&iacute; el nombre del nuevo usuario">
+                        <label for="name">Nombre:</label>
+                        <input name="name" value="{{ old('name') }}"
+                            class="form-control  @error('name') is-invalid @enderror">
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                            placeholder="Inresa aqu&iacute; el email del nuevo usuario">
+                        <label for="email">Email:</label>
+                        <input name="email" value="{{ old('email') }}"
+                            class="form-control @error('email') is-invalid @enderror">
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                            placeholder="Inresa aqu&iacute; el password del nuevo usuario">
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Roles</label>
+                            @include('admin.roles.partials.checkboxes')
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Permisos</label>
+                            @include('admin.permissions.partials.checkboxes',['model'=> $user])
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="password-confirm">Confirmar Password</label>
-                        <input type="password" name="password_confirmation" class="form-control" placeholder="Confirma el password">
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button class="btn btn-primary">Crear Usuario</button>
-                </div>
-            </form>
-        </div>
-        <!-- /.modal-content -->
-    </div>~
-    <!-- /.modal-dialog -->
-</div>
 
+                    <span class="help-block">La contrasena sera generada y enviada al nuevo usuario via email</span>
 
-{{-- @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            @include('partials.show_messages')
-            <div class="card">
-                <div class="card-header">Usuario</div>
-
-                <div class="card-body">
-                    {!! Form::open(['route'=>'admin.users.store']) !!}
-                    @include('admin.users.partials.form')
-                    {!! Form::close() !!}
-                </div>
+                    <button class="btn btn-primary btn-block">Crear Usuario</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-@endsection --}}
+
+@endsection
