@@ -37,7 +37,7 @@
 
                     @include('admin.roles.partials.form')
 
-                    <button class="btn btn-primary btn-block">Crear Role</button>
+                    <button class="btn btn-primary btn-block">Actualizar Role</button>
                 </form>
             </div>
         </div>

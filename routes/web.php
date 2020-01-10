@@ -34,6 +34,7 @@ Route::prefix('/admin')
         Route::resource('posts', 'PostController', ['except' => 'show']);
         Route::resource('users', 'UsersController');
         Route::resource('roles', 'RolesController',['except' => 'show']);
+        Route::resource('permissions', 'PermissionsController',['only' => ['index','edit','update']]);
        
         Route::middleware('role:Admin')
             ->put('users/{user}/roles', 'UsersRolesController@update')

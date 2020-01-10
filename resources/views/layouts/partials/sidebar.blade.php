@@ -111,6 +111,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('admin.permissions.index') }}" class="{{ setActiveRoute('admin.permissions.index')}}">
+            <i class="fas fa-key nav-icon"></i>
+            <p>
+              Permissions
+            </p>
+          </a>
+        </li>
 
       </ul>
     </nav>

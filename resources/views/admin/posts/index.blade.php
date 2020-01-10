@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="card-body">
-                    <table class="table table-striped table-hover" id="postsTable">
+                    <table class="table table-striped table-hover table-bordered" id="postsTable">
                         <thead>
                             <tr>
                                 <th>Id</th>

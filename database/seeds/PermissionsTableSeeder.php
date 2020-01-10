@@ -16,62 +16,73 @@ class PermissionsTableSeeder extends Seeder
         //User Permissions
         Permission::create([
             'name' => 'View users',
+            'display_name'=> 'Ver usuarios'
         ]);
         Permission::create([
             'name' => 'Create users',
+            'display_name'=> 'Crear usuarios'
         ]);
         Permission::create([
-            'name' => 'Update users',
+            'name' => 'Update users', 
+            'display_name'=> 'Actualizar usuarios'
         ]);
         Permission::create([
             'name' => 'Delete users',
+            'display_name'=> 'Eliminar usuarios'
         ]);
 
         //Roles Permissions
         Permission::create([
-            'name' => 'View roles'
+            'name' => 'View roles',
+            'display_name'=> 'Ver roles'
         ]);
         Permission::create([
-            'name' => 'Create roles'
+            'name' => 'Create roles',
+            'display_name'=> 'Crear roles'
         ]);
         Permission::create([
-            'name' => 'Update roles'
+            'name' => 'Update roles',
+            'display_name'=> 'Actualizar roles'
         ]);
         Permission::create([
-            'name' => 'Delete roles'
+            'name' => 'Delete roles',
+            'display_name'=> 'Eliminar roles'
         ]);
 
 
          //Productos Permissions
     
         Permission::create([
-            'name' => 'View posts'
+            'name' => 'View posts',
+            'display_name'=> 'Ver publicaciones'
         ]);
         Permission::create([
-            'name' => 'Create posts'
+            'name' => 'Create posts',
+            'display_name'=> 'Crear publicaciones'
         ]);
         Permission::create([
-            'name' => 'Update posts'
+            'name' => 'Update posts',
+            'display_name'=> 'Actualizar publicaciones'
         ]);
         Permission::create([
-            'name' => 'Delete posts'
+            'name' => 'Delete posts',
+            'display_name'=> 'Eliminar publicaciones'
         ]);
+
+         //Permissions Permissions
+    
+        Permission::create([
+            'name' => 'View permissions',
+            'display_name'=> 'Ver Permisos'
+        ]);
+
+        Permission::create([
+            'name' => 'Update permissions',
+            'display_name'=> 'Actualizar Permisos'
+        ]);
+
 
           //Productos Permissions
-
-        // //Departments Permissions
-        // Permission::create([
-        //     'name' => 'View departments'
-        // ]);
-        // Permission::create([
-        //     'name' => 'Create departments'
-        // ]);
-        // Permission::create([
-        //     'name' => 'Update departments'
-        // ]);
-        // Permission::create([
-        //     'name' => 'Delete departments'
-        // ]);
 
         //  //Categories Permissions
         //  Permission::create([
