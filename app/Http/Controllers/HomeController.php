@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
        
         $posts = Post::published()->paginate(10);
-
+       
         return view('home',compact('posts'));
     }
 }

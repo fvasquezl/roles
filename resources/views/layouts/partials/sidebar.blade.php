@@ -13,9 +13,9 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-header">MENU</li>
-
+        
         <li class="nav-item has-treeview {{(request()->is('admin/posts') ? 'menu-open' :  '')}}">
-          <a href="#"class="nav-link">
+          <a href="#" class="nav-link">
             <i class="fas fa-thumbs-up nav-icon"></i>
             <p>
               Publicaciones
@@ -29,18 +29,18 @@
                 <p>Todas las publicaciones</p>
               </a>
             </li>
+
+            @can('create',new App\Post)
             <li class="nav-item">
               @if(request()->is('admin/posts/*'))
-              <a href="{{route('admin.posts.index','#create')}}"
-                class="nav-link">
+              <a href="{{route('admin.posts.index','#create')}}" class="nav-link">
                 <i class="fas fa-edit nav-icon"></i>
                 <p>
                   Crear publicacion
                 </p>
               </a>
               @else
-              <a href="#" data-toggle="modal" data-target="#myModal"
-                class="nav-link">
+              <a href="#" data-toggle="modal" data-target="#myModal" class="nav-link">
                 <i class="fas fa-edit nav-icon"></i>
                 <p>
                   Crear publicacion
@@ -48,16 +48,18 @@
               </a>
               @endif
             </li>
+            @endcan
           </ul>
         </li>
 
 
         <li class="nav-header">USUARIOS</li>
 
+        @can('view', new App\User)
         <li class="nav-item has-treeview {{(request()->is('admin/users*') ? 'menu-open' :  '')}}">
           <a href="#" class="nav-link">
             <i class="fas fa-user-circle nav-icon"></i>
-           
+
             <p>
               Usuarios
               <i class="fas fa-angle-left right"></i>
@@ -67,13 +69,12 @@
             <li class="nav-item">
               <a href="{{ route('admin.users.index') }}" class="{{ setActiveRoute('admin.users.index')}}">
                 <i class="fas fa-users nav-icon"></i>
-                
+
                 <p>Todos los usuarios</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{route('admin.users.create')}}"
-                class="{{ setActiveRoute('admin.users.create')}}">
+              <a href="{{route('admin.users.create')}}" class="{{ setActiveRoute('admin.users.create')}}">
                 <i class="fas fa-user-plus nav-icon"></i>
                 <p>
                   Crear usuario
@@ -82,7 +83,16 @@
             </li>
           </ul>
         </li>
-
+        @else
+        <li class="nav-item">
+          <a href="{{ route('admin.users.show', auth()->user()) }}" class="{{ setActiveRoute('admin.users.edit')}}">
+            <i class="fas fa-address-card nav-icon"></i>
+            <p>
+              Perfil
+            </p>
+          </a>
+        </li>
+        @endcan
 
         <li class="nav-header">ACCIONES</li>
 
@@ -103,6 +113,8 @@
             </p>
           </a>
         </li>
+
+        @can('view', new \Spatie\Permission\Models\Role)
         <li class="nav-item">
           <a href="{{ route('admin.roles.index') }}" class="{{ setActiveRoute('admin.roles.index')}}">
             <i class="fas fa-user-secret nav-icon"></i>
@@ -111,6 +123,9 @@
             </p>
           </a>
         </li>
+        @endcan
+
+        @can('view', new \Spatie\Permission\Models\Permission)
         <li class="nav-item">
           <a href="{{ route('admin.permissions.index') }}" class="{{ setActiveRoute('admin.permissions.index')}}">
             <i class="fas fa-key nav-icon"></i>
@@ -119,7 +134,7 @@
             </p>
           </a>
         </li>
-
+        @endcan
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

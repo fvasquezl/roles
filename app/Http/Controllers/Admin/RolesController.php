@@ -17,7 +17,7 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $this->authorize('create', new Role);
+        $this->authorize('view', new Role);
         
         $roles = Role::paginate();
         return view('admin.roles.index', compact('roles'));

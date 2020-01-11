@@ -33,11 +33,11 @@
                         Listado de departamentos
                     </h3>
                     <div class="card-tools">
-                        @can('admin.departments.create')
+                        {{-- @can('create',$departments->first()) --}}
                         <a href="{{ route('admin.departments.create') }}" class="btn btn-primary">
                             <i class="fas fa-sitemap"></i> Crear Departmento
                         </a>
-                        @endcan
+                        {{-- @endcan --}}
                     </div>
                 </div>
 
@@ -60,27 +60,27 @@
                                 <td>{{ $department->display_name }}</td>
                                 <td>{{ $department->created_at }}</td>
                                 <td>
-                                    @can('admin.departments.show')
+                                    {{-- @can('admin.departments.show') --}}
                                     <a href="{{ route('admin.departments.show',$department) }}"
                                         class="btn btn-sm btn-default">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    @endcan
+                                    {{-- @endcan
 
-                                    @can('admin.departments.edit')
+                                    @can('admin.departments.edit') --}}
                                     <a href="{{ route('admin.departments.edit',$department) }}"
                                         class="btn btn-sm btn-info">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    @endcan
+                                    {{-- @endcan
 
-                                    @can('admin.departments.destroy')
+                                    @can('admin.departments.destroy') --}}
                                     <form action="{{ route('admin.departments.destroy', $department) }}" method="POST"
                                         style="display:inline">
                                         @csrf @method('DELETE')
                                         <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
                                     </form>
-                                    @endcan
+                                    {{-- @endcan --}}
                                 </td>
                             </tr>
                             @endforeach

@@ -33,30 +33,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.posts.index') }}">Publicaciones</a>
-                            </li>
-                       
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.users.index') }}">Usuarios</a>
-                            </li>
-                       
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.departments.index') }}">Departmentos</a>
-                            </li>
-                        
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.roles.index') }}">Roles</a>
-                            </li>
-                       
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.categories.index') }}">Categorias</a>
-                        </li>
-                    
-                    </ul>
-
+                   
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -74,12 +51,14 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    
+                                    <a class="dropdown-item"  href="{{ route('admin.posts.index') }}"><i class="fas fa-cogs"></i>  Administracion</a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="fas fa-door-open"></i> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

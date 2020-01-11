@@ -1,15 +1,32 @@
+@csrf
 <div class="form-group">
-    {{ form::label('name','Siglas del departamento') }}
-    {{ form::text('name',null,['class'=>'form-control']) }}
+    <label for="name">Identificador:</label>
+    <input name='name' value="{{old('name',$department->name) }}"
+        class="form-control @error('name') is-invalid @enderror">
+    @error('name')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
 </div>
 <div class="form-group">
-    {{ form::label('display_name','Nombre del departamento') }}
-    {{ form::text('display_name',null,['class'=>'form-control']) }}
+    <label for="display_name">Nombre:</label>
+    <input name="display_name" value="{{ old('display_name', $department->display_name) }}"
+        class="form-control  @error('display_name') is-invalid @enderror">
+    @error('display_name')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
 </div>
 <div class="form-group">
-    {{ form::label('description','Descripcion del departamento') }}
-    {{ form::text('description',null,['class'=>'form-control']) }}
-</div>
-<div class="form-group">
-    {{ form::submit('Guardar',['class'=>'btn btn-primary']) }}
+    <label>Descripcion</label>
+    <textarea name="excerpt" class="form-control @error('description') is-invalid @enderror"
+        placeholder="Inresa aqu&iacute; la descripcion del departamento">{{ old('description',$department->description) }}
+        </textarea>
+    @error('description')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
 </div>

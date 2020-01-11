@@ -41,7 +41,7 @@
                             <i class="fas fa-envelope"></i> <b>Email</b> <a class="float-right">{{ $user->email }}</a>
                         </li>
                         <li class="list-group-item">
-                            <i class="fas fa-calendar-alt"></i> <b>Fecha de creacion</b> <a
+                            <i class="fas fa-calendar-alt"></i> <b>Usuario desde:</b> <a
                                 class="float-right">{{ $user->present()->userCreatedat() }}</a>
                         </li>
                         <li class="list-group-item">
@@ -50,7 +50,7 @@
                         </li>
                     </ul>
 
-
+                    <a href="{{ route('admin.users.edit',$user)}}" class="btn btn-primary btn-block"><b>Editar</b></a>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -75,7 +75,7 @@
                     <hr>
                     @endunless
                     @empty
-                    <small class="text-muted">No tiene ninguna publicacion</small> 
+                    <small class="text-muted">No tiene ninguna publicacion</small>
                     @endforelse
                 </div>
                 <!-- /.card-body -->
@@ -102,7 +102,7 @@
                     <hr>
                     @endunless
                     @empty
-                            <small class="text-muted">No tiene ningun rol asociado</small> 
+                    <small class="text-muted">No tiene ningun rol asociado</small>
                     @endforelse
                 </div>
                 <!-- /.card-body -->
@@ -111,27 +111,27 @@
         </div>
 
         <div class="col-md-3">
-                <!-- About Me Box -->
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <h3 class="card-title">Permisos adicionales</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        @forelse ($user->permissions as $permission)
-                        <strong>{{ $permission->name }}</strong>
-                        @unless ($loop->last)
-                        <hr>
-                        @endunless
-                        @empty
-                            <small class="text-muted">No tiene permisos adicionales</small> 
-                        
-                        @endforelse
-                    </div>
-                    <!-- /.card-body -->
+            <!-- About Me Box -->
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Permisos adicionales</h3>
                 </div>
-                <!-- /.card -->
+                <!-- /.card-header -->
+                <div class="card-body">
+                    @forelse ($user->permissions as $permission)
+                    <strong>{{ $permission->name }}</strong>
+                    @unless ($loop->last)
+                    <hr>
+                    @endunless
+                    @empty
+                    <small class="text-muted">No tiene permisos adicionales</small>
+
+                    @endforelse
+                </div>
+                <!-- /.card-body -->
             </div>
+            <!-- /.card -->
+        </div>
 
     </div>
 </div>

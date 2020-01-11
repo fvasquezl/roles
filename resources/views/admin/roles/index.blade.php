@@ -60,13 +60,13 @@
                             <td>{{ $role->display_name }}</td>
                             <td>{{ $role->permissions->pluck('display_name')->implode(', ') }}</td>
                             <td>
-                                @can('update.role')
+                                @can('update', $role)
                                 <a href="{{ route('admin.roles.edit',$role) }}" class="btn btn-sm btn-info">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 @endcan
 
-                                @can('delete.role')
+                                @can('delete', $role)
                                 @if($role->id !== 1)
                                 <form method="POST" action="{{ route('admin.roles.destroy', $role) }}"
                                     style="display:inline">

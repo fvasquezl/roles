@@ -17,21 +17,24 @@
         </div>
     </div>
 </div><!-- /.container-fluid -->
-@stop
+@stop 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Crear nuevo departamento</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-outline card-primary">
+            <div class="card-header">
+                <h3>Registro de departamentos</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ route('admin.departments.store') }}">
+                    
+                     @include('admin.departments.partials.form')
 
-                <div class="card-body">
-                    {!! Form::open(['route'=>'admin.departments.store']) !!}
-                    @include('admin.departments.partials.form')
-                    {!! Form::close() !!}
-                </div>
+                    <button class="btn btn-primary btn-block">Crear Departamento</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 @endsection

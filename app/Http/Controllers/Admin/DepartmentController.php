@@ -28,7 +28,10 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('admin.departments.create');
+        $department = new Department;
+        return view('admin.departments.create',[
+            'department'=> $department
+        ]);
     }
 
     /**

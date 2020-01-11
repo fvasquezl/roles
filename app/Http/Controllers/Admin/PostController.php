@@ -42,7 +42,7 @@ class PostController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store',new Post);
+        $this->authorize('create',new Post);
 
         $post = Post::create($request->all());
 
