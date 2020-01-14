@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Post;
 use App\User;
+use App\Department;
 use App\Policies\PostPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
+use App\Policies\DepartmentPolicy;
 use App\Policies\PermissionPolicy;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Gate;
@@ -25,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class => UserPolicy::class,
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
+        Department::class => DepartmentPolicy::class,
     ];
 
     /**

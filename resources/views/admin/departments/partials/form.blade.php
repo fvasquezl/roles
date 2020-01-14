@@ -21,7 +21,7 @@
 </div>
 <div class="form-group">
     <label>Descripcion</label>
-    <textarea name="excerpt" class="form-control @error('description') is-invalid @enderror"
+    <textarea name="description" class="form-control @error('description') is-invalid @enderror"
         placeholder="Inresa aqu&iacute; la descripcion del departamento">{{ old('description',$department->description) }}
         </textarea>
     @error('description')

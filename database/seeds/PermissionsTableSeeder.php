@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
-
 class PermissionsTableSeeder extends Seeder
 {
     /**
@@ -16,88 +15,87 @@ class PermissionsTableSeeder extends Seeder
         //User Permissions
         Permission::create([
             'name' => 'View users',
-            'display_name'=> 'Ver usuarios'
+            'display_name' => 'Ver usuarios',
         ]);
         Permission::create([
             'name' => 'Create users',
-            'display_name'=> 'Crear usuarios'
+            'display_name' => 'Crear usuarios',
         ]);
         Permission::create([
-            'name' => 'Update users', 
-            'display_name'=> 'Actualizar usuarios'
+            'name' => 'Update users',
+            'display_name' => 'Actualizar usuarios',
         ]);
         Permission::create([
             'name' => 'Delete users',
-            'display_name'=> 'Eliminar usuarios'
+            'display_name' => 'Eliminar usuarios',
         ]);
 
         //Roles Permissions
         Permission::create([
             'name' => 'View roles',
-            'display_name'=> 'Ver roles'
+            'display_name' => 'Ver roles',
         ]);
         Permission::create([
             'name' => 'Create roles',
-            'display_name'=> 'Crear roles'
+            'display_name' => 'Crear roles',
         ]);
         Permission::create([
             'name' => 'Update roles',
-            'display_name'=> 'Actualizar roles'
+            'display_name' => 'Actualizar roles',
         ]);
         Permission::create([
             'name' => 'Delete roles',
-            'display_name'=> 'Eliminar roles'
+            'display_name' => 'Eliminar roles',
         ]);
 
+        //Productos Permissions
 
-         //Productos Permissions
-    
         Permission::create([
             'name' => 'View posts',
-            'display_name'=> 'Ver publicaciones'
+            'display_name' => 'Ver publicaciones',
         ]);
         Permission::create([
             'name' => 'Create posts',
-            'display_name'=> 'Crear publicaciones'
+            'display_name' => 'Crear publicaciones',
         ]);
         Permission::create([
             'name' => 'Update posts',
-            'display_name'=> 'Actualizar publicaciones'
+            'display_name' => 'Actualizar publicaciones',
         ]);
         Permission::create([
             'name' => 'Delete posts',
-            'display_name'=> 'Eliminar publicaciones'
+            'display_name' => 'Eliminar publicaciones',
         ]);
 
-         //Permissions Permissions
-    
+        //Permissions Permissions
+
         Permission::create([
             'name' => 'View permissions',
-            'display_name'=> 'Ver Permisos'
+            'display_name' => 'Ver permisos',
         ]);
 
         Permission::create([
             'name' => 'Update permissions',
-            'display_name'=> 'Actualizar Permisos'
+            'display_name' => 'Actualizar permisos',
         ]);
 
-
-          //Productos Permissions
-
-        //  //Categories Permissions
-        //  Permission::create([
-        //     'name' => 'View categories'
-        // ]);
-        // Permission::create([
-        //     'name' => 'Create categories'
-        // ]);
-        // Permission::create([
-        //     'name' => 'Update categories'
-        // ]);
-        // Permission::create([
-        //     'name' => 'Delete categories'
-        // ]);
-
+        //Departments Permissions
+        Permission::create([
+            'name' => 'View departments',
+            'display_name' => 'Ver departamentos'
+        ]);
+        Permission::create([
+            'name' => 'Create departments',
+            'display_name' => 'Crear departamentos'
+        ]);
+        Permission::create([
+            'name' => 'Update departments',
+            'display_name' => 'Actualizar departamentos'
+        ]);
+        Permission::create([
+            'name' => 'Delete departments',
+            'display_name' => 'Eliminar departamentos'
+        ]);
 
     }
 }

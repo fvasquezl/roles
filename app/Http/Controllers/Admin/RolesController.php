@@ -113,7 +113,7 @@ class RolesController extends Controller
     {
         $this->authorize('delete',$role);
 
-        $role->delete();
+        $role->delete(); 
 
         return redirect()->route('admin.roles.index')
             ->with('info', 'Rol Eliminado con exito');

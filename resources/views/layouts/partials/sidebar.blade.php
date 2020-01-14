@@ -105,6 +105,7 @@
           </a>
         </li>
 
+       @can('view', new App\Department)
         <li class="nav-item">
           <a href="{{ route('admin.departments.index') }}" class="{{ setActiveRoute('admin.departments.index')}}">
             <i class="fas fa-id-card-alt nav-icon"></i>
@@ -113,7 +114,8 @@
             </p>
           </a>
         </li>
-
+        @endcan
+        
         @can('view', new \Spatie\Permission\Models\Role)
         <li class="nav-item">
           <a href="{{ route('admin.roles.index') }}" class="{{ setActiveRoute('admin.roles.index')}}">

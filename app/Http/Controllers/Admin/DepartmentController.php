@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Department;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\StoreRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Department\StoreRequest;
 
 class DepartmentController extends Controller
 {
@@ -16,6 +16,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', new Department);
+
         $departments = Department::paginate();
 
         return view('admin.departments.index',compact('departments'));
@@ -29,6 +31,9 @@ class DepartmentController extends Controller
     public function create()
     {
         $department = new Department;
+        
+        $this->authorize('create',$department);
+
         return view('admin.departments.create',[
             'department'=> $department
         ]);
@@ -42,11 +47,13 @@ class DepartmentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $department = Department::create($request->all() );
+        $this->authorize('create',new Department);
+
+        $department = Department::create($request->validated());
 
         return redirect()
-        ->route('admin.departments.edit',$department->id)
-        ->with('info','Departamento guardado con exito');
+            ->route('admin.departments.index')
+            ->with('info', 'El departamento fue creado correctamente');
     }
 
     /**
@@ -57,6 +64,7 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
+        $this->authorize('view',$department);
         return view('admin.departments.show',compact('department'));
     }
 
@@ -68,23 +76,27 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
+        $this->authorize('update',$department);
+
         return view('admin.departments.edit',compact('department'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\Department\StoreRequest $request
      * @param  Department $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(StoreRequest $request, Department $department)
     {
-        $department->update($request->all());
+        $this->authorize('update',$department);
+
+        $department->update($request->validated());
 
         return redirect()
-        ->route('admin.departments.edit',$department->id)
-        ->with('info','Departamento actualizado con exito');
+        ->route('admin.departments.edit', $department)
+        ->with('info', 'El departamento fue actualizado correctamente');
     }
 
     /**
@@ -96,9 +108,11 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
+        $this->authorize('delete',$department);
+
         $department->delete();
 
-        return back()
-        ->with('info','Departamento Eliminado con exito');
+        return redirect()->route('admin.departments.index')
+            ->with('info', 'Rol Eliminado con exito');
     }
 }
