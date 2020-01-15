@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Tag;
+use App\Post;
 use App\Category;
+use App\Department;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
-use App\Post;
-use App\Tag;
 
 class PostController extends Controller
 {
@@ -42,7 +43,7 @@ class PostController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('create',new Post);
+        $this->authorize('create', new Post);
 
         $post = Post::create($request->all());
 
@@ -60,7 +61,7 @@ class PostController extends Controller
     {
         return view('admin.posts.show', compact('post'));
     }
-    
+
     /**
      * Undocumented function
      *
@@ -69,12 +70,13 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $this->authorize('update',$post);
+        $this->authorize('update', $post);
 
-        return view('admin.posts.edit',[
+        return view('admin.posts.edit', [
             'post' => $post,
             'tags' => Tag::all(),
             'categories' => Category::all(),
+            'departments' => Department::all(),
         ]);
     }
 

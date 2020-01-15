@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\User\UpdateRequest;
-use App\Providers\Events\UserWasCreated;
 use App\User;
-use Illuminate\Http\Request;
+use App\Department;
 use Illuminate\Support\Str;
-use Spatie\Permission\Models\Permission;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Providers\Events\UserWasCreated;
+use Spatie\Permission\Models\Permission;
+use App\Http\Requests\User\UpdateRequest;
 
 class UsersController extends Controller
 {
@@ -37,9 +38,10 @@ class UsersController extends Controller
         
         $this->authorize('create', $user);
 
+        $departments = Department::get();
         $roles = Role::with('permissions')->get();
         $permissions = Permission::pluck('name', 'id');
-        return view('admin.users.create', compact('user', 'roles', 'permissions'));
+        return view('admin.users.create', compact('user', 'roles', 'permissions','departments'));
 
     }
 
@@ -68,6 +70,10 @@ class UsersController extends Controller
 
         if ($request->filled('permissions')) {
             $user->givePermissionTo($request->permissions);
+        }
+
+        if ($request->filled('departments')) {
+            $user->departments()->attach($request->departments);
         }
 
         UserWasCreated::dispatch($user,$data['password']);
@@ -101,10 +107,10 @@ class UsersController extends Controller
     {
         $this->authorize('update',$user);
 
-        // $departments = Department::get();
+        $departments = Department::get();
         $roles = Role::with('permissions')->get();
         $permissions = Permission::pluck('name', 'id');
-        return view('admin.users.edit', compact('user', 'roles', 'permissions'));
+        return view('admin.users.edit', compact('user', 'roles', 'permissions','departments'));
     }
 
     /**

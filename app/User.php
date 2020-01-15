@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
          return $this->roles->pluck('display_name')->implode(', ');
     }
+
+    public function getDepartmentsName()
+    {
+         return $this->departments->pluck('name')->implode(', ');
+    }
 }

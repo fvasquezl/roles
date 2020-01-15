@@ -84,6 +84,35 @@
                 </form>
             </div>
         </div>
+        <div class="card card-outline card-primary">
+            <div class="card-header">
+                <h3>Departmentos</h3>
+            </div>
+            <div class="card-body">
+                @role('Admin')
+                <form method="POST" action="{{ route('admin.users.departments.update',$user) }}">
+                    @csrf
+                    @method('PUT')
+
+                    @include('admin.departments.partials.checkboxes')
+
+                    <button class="btn btn-primary btn-block">Actualizar departamentos</button>
+                </form>
+                @else
+                <ul class="list-group">
+                    @forelse ($user->departments as $department)
+                    <li class="list-group-item">
+                        {{ $department->name }}
+                    </li>
+                    @empty 
+                    <li class="list-group-item">
+                        No tiene departments
+                    </li>
+                    @endforelse
+                </ul>
+                @endrole
+            </div>
+        </div>
     </div>
     <div class="col-md-6">
         <div class="card card-outline card-primary">

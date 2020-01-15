@@ -57,14 +57,18 @@
                         @enderror
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>Roles</label>
                             @include('admin.roles.partials.checkboxes')
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>Permisos</label>
                             @include('admin.permissions.partials.checkboxes',['model'=> $user])
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Departamentos</label>
+                            @include('admin.departments.partials.checkboxes')
                         </div>
                     </div>
 

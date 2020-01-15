@@ -43,7 +43,10 @@ Route::prefix('/admin')
         Route::middleware('role:Admin')
             ->put('users/{user}/permissions', 'UsersPermissionsController@update')
             ->name('users.permissions.update');
-
+        
+        Route::middleware('role:Admin')
+            ->put('users/{user}/departments', 'UsersDepartmentsController@update')
+            ->name('users.departments.update');
 
         Route::post('departments/store', 'DepartmentController@store')
             ->name('departments.store');

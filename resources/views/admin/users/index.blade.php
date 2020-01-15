@@ -50,8 +50,9 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Email</th>
-                                <th>Fecha de Creacion</th>
+                                <th>Departamentos</th>
                                 <th>Roles</th>
+                                <th>Fecha de Creacion</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -61,8 +62,10 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->created_at->toFormattedDateString() }}</td>
+                                <td>{{ $user->getDepartmentsName()}}</td>
                                 <td>{{ $user->getRoleNames()->implode(', ') }}</td>
+                                <td>{{ $user->created_at->toFormattedDateString() }}</td>
+
                                 <td>
                                     @can('view', $user)
                                         <a href="{{ route('admin.users.show',$user)}}" class="btn btn-sm btn-default">

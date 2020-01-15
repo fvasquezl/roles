@@ -144,6 +144,25 @@
                         </span>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label>Departamentos</label>
+                        <select name="departments[]" class="select2 form-control @error('departments') is-invalid @enderror"
+                            multiple="multiple" data-placeholder="Selecciona una o mas etiquetas" style="width: 100%;">
+                            @foreach ($departments as $department)
+                            <option
+                                {{collect(old('departments',$post->departments->pluck('id')))->contains($department->id) ? 'selected':''}}
+                                value="{{ $department->id }}">{{ $department->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('departments')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+
                     <div class="form-group">
                         <label>Documentos</label>
                         <div class="dropzone">
