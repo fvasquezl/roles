@@ -141,6 +141,8 @@ class UsersController extends Controller
     {
         $this->authorize('delete',$user);
 
+        $user->departments()->detach();
+        
         $user->delete();
 
         return redirect()->route('admin.users.index')

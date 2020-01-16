@@ -11,7 +11,12 @@ class Department extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->morphedByMany(User::class, 'departamentable');
+    }
+
+    public function posts()
+    {
+        return $this->morphedByMany(Post::class, 'departamentable');
     }
 
     public function present()
