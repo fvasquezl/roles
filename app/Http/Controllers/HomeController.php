@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -25,9 +23,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-       
-        $posts = Post::published()->paginate(10);
-       
-        return view('home',compact('posts'));
+
+        if (auth()->user()->hasRole('Admin') || auth()->user()->hasPermissionTo('View permissions')) {
+            //Return all posts
+            $posts = Post::published()->get();
+        }else{
+            //Return public Posts
+            $posts = Post::withCount('departments')->having('departments_count',0)->get();
+        }
+        
+
+        return view('home', compact('posts'));
     }
 }

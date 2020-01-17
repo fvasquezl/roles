@@ -93,6 +93,11 @@ class PostController extends Controller
 
         $post->update($request->all());
         $post->syncTags($request->get('tags'));
+        $post->departments()->detach();
+        
+        if($request->has('departments')){    
+            $post->departments()->sync($request->get('departments'));
+        }
 
         return redirect()
             ->route('admin.posts.edit', $post)

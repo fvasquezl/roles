@@ -148,7 +148,7 @@
                     <div class="form-group">
                         <label>Departamentos</label>
                         <select name="departments[]" class="select2 form-control @error('departments') is-invalid @enderror"
-                            multiple="multiple" data-placeholder="Selecciona una o mas etiquetas" style="width: 100%;">
+                            multiple="multiple" data-placeholder="Selecciona departamentos, (vacio) post publico" style="width: 100%;">
                             @foreach ($departments as $department)
                             <option
                                 {{collect(old('departments',$post->departments->pluck('id')))->contains($department->id) ? 'selected':''}}

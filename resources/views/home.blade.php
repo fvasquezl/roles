@@ -24,7 +24,7 @@
                 </div>
             </div>
             @endforeach
-            {{ $posts->render() }}
+            {{-- {{ $posts->render() }} --}}
         </div>
     </div>
 </div>

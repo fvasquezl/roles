@@ -81,27 +81,15 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function setTitleAttribute($title)
-    // {
-    //     $this->attributes['title'] = $title;
-
-    //     $slug= Str::slug($title);
-
-    //     $duplicateSlugCount =Post::where('slug','LIKE',"{$slug}%")->count();
-
-    //     if($duplicateSlugCount)
-    //     {
-    //         $slug .= '-'. ++$duplicateSlugCount;
-    //     }
-
-    //     $this->attributes['slug'] = $slug;
-    // }
-
     public function scopePublished($query)
     {
         $query->whereNotNull('published_at')
             ->where('published_at', '<=', Carbon::now())
             ->latest('published_at');
+    }
+    public function scopePublic($query)
+    {
+        $query->withCount('departments')->having('departments_count',0);
     }
 
     public function scopeAllowed($query)
@@ -126,10 +114,6 @@ class Post extends Model
         : Category::create(['name' => $category])->id;
     }
 
-    // public function setUserIdAttribute()
-    // {
-    //     $this->attributes['user_id'] = auth()->id();
-    // }
 
     public function syncTags($tags)
     {
@@ -144,6 +128,4 @@ class Post extends Model
     {
         return ! is_null($this->published_at) && $this->published_at < today();
     }
-
-
 }
