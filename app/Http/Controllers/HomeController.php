@@ -23,15 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        if (auth()->user()->hasRole('Admin') || auth()->user()->hasPermissionTo('View permissions')) {
-            //Return all posts
-            $posts = Post::published()->get();
-        }else{
-            //Return public Posts
-            $posts = Post::withCount('departments')->having('departments_count',0)->get();
-        }
-        
+        $posts = Post::ByDepartment();
 
         return view('home', compact('posts'));
     }

@@ -10,9 +10,9 @@ use Illuminate\Support\Str;
 class Post extends Model
 {
     protected $fillable = ['title','excerpt','published_at','category_id','user_id'];
-  
+
     protected $dates = ['published_at'];
-  
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -87,9 +87,26 @@ class Post extends Model
             ->where('published_at', '<=', Carbon::now())
             ->latest('published_at');
     }
-    public function scopePublic($query)
+    // public function scopePublic($query)
+    // {
+    //     $query->withCount('departments')->having('departments_count',0);
+    // }
+
+    public function scopeByDepartment($query)
     {
-        $query->withCount('departments')->having('departments_count',0);
+        if (auth()->user()->hasRole('Admin') || auth()->user()->hasPermissionTo('View permissions')) {
+            return $query->published()->get();
+        }else{
+            $publicPosts = $query->withCount('departments')->having('departments_count',0)->get();
+
+           foreach(auth()->user()->departments as $department)
+           {
+             $departmentsPosts = $department->posts;
+           }
+
+          return $publicPosts->toBase()->merge($departmentsPosts)->sortBy('id');
+
+        }
     }
 
     public function scopeAllowed($query)

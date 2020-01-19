@@ -9,6 +9,10 @@
          @endforeach
      </ul>
      @endif
+     <p class="text-left card-text">
+        <i class="fas fa-sitemap"></i>
+        {{$post->present()->departments()}}
+    </p>
      <p class="text-right card-text">
          <i class="fas fa-tags fa-sm"></i>
          @foreach ($post->tags as $tag)
