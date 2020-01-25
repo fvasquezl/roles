@@ -44,22 +44,8 @@ class PostPresenter extends Presenter
 
     public function departments()
     {
-        return $this
-        ->model
-        ->departments
-        ->pluck('name')
-        ->map(function($value){
-            if($value->isEmpty()){
-                return 'PUBLIC';
-            }else{
-                return $value;
-            }
-        });
-
-
-        // ->pluck('name')->map(function($value){
-        //         return  $value ? $value :'PUBLIC';
-        // })->implode(', ');
+        $departments = $this->model->departments->pluck('name');
+        return count($departments) ? $departments->implode(', ') : 'PUBLIC';
     }
 
     //
