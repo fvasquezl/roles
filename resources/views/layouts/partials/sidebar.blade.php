@@ -53,7 +53,7 @@
         </li>
 
 
-        <li class="nav-header">USUARIOS</li>
+        <li class="nav-header">ACCIONES</li>
 
         @can('view', new App\User)
         <li class="nav-item has-treeview {{(request()->is('admin/users*') ? 'menu-open' :  '')}}">
@@ -83,6 +83,7 @@
             </li>
           </ul>
         </li>
+
         @else
         <li class="nav-item">
           <a href="{{ route('admin.users.show', auth()->user()) }}" class="{{ setActiveRoute('admin.users.edit')}}">
@@ -93,19 +94,12 @@
           </a>
         </li>
         @endcan
-
-        <li class="nav-header">ACCIONES</li>
-
-        <li class="nav-item">
-          <a href="{{ route('admin.categories.index') }}" class="{{ setActiveRoute('admin.categories.index')}}">
-            <i class="fas fa-clipboard-check nav-icon"></i>
-            <p>
-              Categorias
-            </p>
-          </a>
-        </li>
+       
+     
+    
 
        @can('view', new App\Department)
+
         <li class="nav-item">
           <a href="{{ route('admin.departments.index') }}" class="{{ setActiveRoute('admin.departments.index')}}">
             <i class="fas fa-id-card-alt nav-icon"></i>
