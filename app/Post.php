@@ -87,28 +87,34 @@ class Post extends Model
             ->where('published_at', '<=', Carbon::now())
             ->latest('published_at');
     }
-    
-    
+
+
+
+
     public function scopeByDepartment($query)
     {
-        $user_dep = auth()->user()->departments();
+        $departments = User::find(6)->departments();
+
+        return $departments->map(function($dep){return $dep->posts()->get();});
+
+        //$user_dep = auth()->user()->departments();
       // $user_dep = Department::find(2);
      //  dd($user_dep);
 
-        $query = $user_dep->map(function($department){
-            $department->posts()->get();
-        });
+      //  $query = $user_dep->map(function($department){
+        //    $department->posts()->get();
+       // });
 
-        dd($query);
+       // dd($query);
 
 
        // dd($query);
 
         //  $query->departments()->pluck('department_id')->contains($departments);
-       
-    //    return $user->departments()->pluck('department_id')->contains($post_dep) 
+
+    //    return $user->departments()->pluck('department_id')->contains($post_dep)
     //    || $user->hasPermissionTo('View posts') || $post->departments()->pluck('department_id')->isEmpty();
-        
+
 
         // if (auth()->user()->hasRole('Admin') || auth()->user()->hasPermissionTo('View permissions')) {
         //     return $query->published()->get();

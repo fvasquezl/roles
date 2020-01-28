@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
         $user = factory(User::class)->create([
             'name' => 'Faustino Vasquez Limon',
             'email' => 'admin@local.com',
@@ -61,7 +61,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'sit@local.com',
             'password' => 'password'
         ]);
-        $user->departments()->attach(2);
+        $user->departments()->attach([2,4]);
         $user->assignRole(4);
 
         $user = factory(User::class)->create([
@@ -72,13 +72,7 @@ class UsersTableSeeder extends Seeder
         $user->departments()->attach(3);
         $user->assignRole(4);
 
-        $user = factory(User::class)->create([
-            'name' => 'Secretaria de Contabilidad',
-            'email' => 'scf@local.com',
-            'password' => 'password'
-        ]);
-        $user->departments()->attach(4);
-        $user->assignRole(4);
+
 
         factory(User::class, 5)->create();
 

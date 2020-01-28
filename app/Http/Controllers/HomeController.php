@@ -24,12 +24,13 @@ class HomeController extends Controller
     public function index()
     {
     //     $post_dep = $post->departments()->pluck('department_id')->implode(', ');
-       
-    //    return $user->departments()->pluck('department_id')->contains($post_dep) 
+
+    //    return $user->departments()->pluck('department_id')->contains($post_dep)
     //    || $user->hasPermissionTo('View posts') || $post->departments()->pluck('department_id')->isEmpty();
 
 
-        $posts = Post::ByDepartment()->get();
+        $posts = Post::ByDepartment();
+        dd($posts);
 
         return view('home', compact('posts'));
     }
