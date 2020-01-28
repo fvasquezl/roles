@@ -28,9 +28,13 @@ class HomeController extends Controller
     //    return $user->departments()->pluck('department_id')->contains($post_dep)
     //    || $user->hasPermissionTo('View posts') || $post->departments()->pluck('department_id')->isEmpty();
 
+        $departments = auth()->user()->departments()->with('posts')->get();
 
-        $posts = Post::ByDepartment();
-        dd($posts);
+      // $posts = $departments->with('posts');
+
+
+      //  $posts = Department::ByDepartment();
+        dd($departments);
 
         return view('home', compact('posts'));
     }
