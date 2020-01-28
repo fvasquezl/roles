@@ -17,15 +17,15 @@ class DepartmentsTableSeeder extends Seeder
             'display_name'=>'Direccion General'
         ]);
         factory(Department::class)->create([
-            'name'=>'TI',
+            'name'=>'IT',
             'display_name'=>'Tecnologias de Informacion'
         ]);
         factory(Department::class)->create([
-            'name'=>'RH',
+            'name'=>'HR',
             'display_name'=>'Recursos Humanos'
         ]);
         factory(Department::class)->create([
-            'name'=>'FC',
+            'name'=>'AF',
             'display_name'=>'Finanzas y Contabilidad'
         ]);
 

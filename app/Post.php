@@ -87,26 +87,42 @@ class Post extends Model
             ->where('published_at', '<=', Carbon::now())
             ->latest('published_at');
     }
-    // public function scopePublic($query)
-    // {
-    //     $query->withCount('departments')->having('departments_count',0);
-    // }
-
+    
+    
     public function scopeByDepartment($query)
     {
-        if (auth()->user()->hasRole('Admin') || auth()->user()->hasPermissionTo('View permissions')) {
-            return $query->published()->get();
-        }else{
-            $publicPosts = $query->withCount('departments')->having('departments_count',0)->get();
+        $user_dep = auth()->user()->departments();
+      // $user_dep = Department::find(2);
+     //  dd($user_dep);
 
-           foreach(auth()->user()->departments as $department)
-           {
-             $departmentsPosts = $department->posts;
-           }
+        $query = $user_dep->map(function($department){
+            $department->posts()->get();
+        });
 
-          return $publicPosts->toBase()->merge($departmentsPosts)->sortBy('id');
+        dd($query);
 
-        }
+
+       // dd($query);
+
+        //  $query->departments()->pluck('department_id')->contains($departments);
+       
+    //    return $user->departments()->pluck('department_id')->contains($post_dep) 
+    //    || $user->hasPermissionTo('View posts') || $post->departments()->pluck('department_id')->isEmpty();
+        
+
+        // if (auth()->user()->hasRole('Admin') || auth()->user()->hasPermissionTo('View permissions')) {
+        //     return $query->published()->get();
+        // }else{
+        //     $publicPosts = $query->withCount('departments')->having('departments_count',0)->get();
+
+        //    foreach(auth()->user()->departments as $department)
+        //    {
+        //      $departmentsPosts = $department->posts;
+        //    }
+
+        //   return $publicPosts->toBase()->merge($departmentsPosts)->sortBy('id');
+
+       // }
     }
 
     public function scopeAllowed($query)

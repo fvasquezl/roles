@@ -16,35 +16,69 @@ class UsersTableSeeder extends Seeder
         
         $user = factory(User::class)->create([
             'name' => 'Faustino Vasquez Limon',
-            'email' => 'fvasquez@local.com',
+            'email' => 'admin@local.com',
             'password' => 'password'
         ]);
 
         $user->assignRole(1);
 
         $user = factory(User::class)->create([
-            'name' => 'Faustino Vasquez Limon',
-            'email' => 'fvasquez01@local.com',
+            'name' => 'Gerente de Sistemas',
+            'email' => 'git@local.com',
             'password' => 'password'
         ]);
         $user->departments()->attach(2);
         $user->assignRole(2);
 
         $user = factory(User::class)->create([
-            'name' => 'Faustino Vasquez Limon',
-            'email' => 'fvasquez02@local.com',
+            'name' => 'Gerente de RH',
+            'email' => 'grh@local.com',
+            'password' => 'password'
+        ]);
+        $user->departments()->attach(3);
+        $user->assignRole(2);
+
+        $user = factory(User::class)->create([
+            'name' => 'Gerente de Contabilidad',
+            'email' => 'gcf@local.com',
+            'password' => 'password'
+        ]);
+        $user->departments()->attach(4);
+        $user->assignRole(2);
+
+
+        $user = factory(User::class)->create([
+            'name' => 'Programador',
+            'email' => 'pit@local.com',
             'password' => 'password'
         ]);
         $user->departments()->attach(2);
         $user->assignRole(3);
 
+
         $user = factory(User::class)->create([
-            'name' => 'Faustino Vasquez Limon',
-            'email' => 'fvasquez03@local.com',
+            'name' => 'Secretaria IT',
+            'email' => 'sit@local.com',
             'password' => 'password'
         ]);
         $user->departments()->attach(2);
-        $user->assignRole(3);
+        $user->assignRole(4);
+
+        $user = factory(User::class)->create([
+            'name' => 'Secretaria RH',
+            'email' => 'srh@local.com',
+            'password' => 'password'
+        ]);
+        $user->departments()->attach(3);
+        $user->assignRole(4);
+
+        $user = factory(User::class)->create([
+            'name' => 'Secretaria de Contabilidad',
+            'email' => 'scf@local.com',
+            'password' => 'password'
+        ]);
+        $user->departments()->attach(4);
+        $user->assignRole(4);
 
         factory(User::class, 5)->create();
 

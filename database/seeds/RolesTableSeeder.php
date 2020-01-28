@@ -18,12 +18,17 @@ class RolesTableSeeder extends Seeder
             'display_name' => 'Administrador'
         ]);
         Role::create([
-            'name'      => 'It Manager',
-            'display_name' => 'Gerente de sistemas'
+            'name'      => 'Manager',
+            'display_name' => 'Gerente'
         ]);
         Role::create([
-            'name'      => 'Web programmer',
-            'display_name' => 'Programador web'
+            'name'      => 'Programmer',
+            'display_name' => 'Programador'
+        ]);
+
+        Role::create([
+            'name'      => 'Assistant',
+            'display_name' => 'Secretaria'
         ]);
     }
 }
