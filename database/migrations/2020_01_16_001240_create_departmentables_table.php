@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDepartamentablesTable extends Migration
+class CreateDepartmentablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateDepartamentablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('departamentables', function (Blueprint $table) {
+        Schema::create('departmentables', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('department_id');
-            $table->unsignedBigInteger('departamentable_id');
-            $table->string('departamentable_type');
+            $table->unsignedBigInteger('departmentable_id');
+            $table->string('departmentable_type');
         });
     }
 

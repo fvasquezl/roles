@@ -9,14 +9,21 @@ class Department extends Model
 {
     protected $fillable = ['name', 'display_name', 'description'];
 
+    public function departmentable()
+    {
+      return $this->morphTo();
+    }
+
+
+
     public function users()
     {
-        return $this->morphedByMany(User::class, 'departamentable');
+        return $this->morphedByMany(User::class, 'departmentable');
     }
 
     public function posts()
     {
-        return $this->morphedByMany(Post::class, 'departamentable');
+        return $this->morphedByMany(Post::class, 'departmentable');
     }
 
     public function present()

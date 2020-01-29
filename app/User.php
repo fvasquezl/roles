@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function departments()
     {
-        return $this->morphToMany(Department::class,'departamentable');
+        return $this->morphToMany(Department::class,'departmentable');
     }
 
     public function posts()

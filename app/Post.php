@@ -68,7 +68,7 @@ class Post extends Model
 
     public function departments()
     {
-        return $this->morphToMany(Department::class,'departamentable');
+        return $this->morphToMany(Department::class,'departmentable');
     }
 
     public function present()

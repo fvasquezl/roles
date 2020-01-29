@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Department;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class HomeController extends Controller
 {
@@ -23,18 +25,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-    //     $post_dep = $post->departments()->pluck('department_id')->implode(', ');
+        //PublicPosts
+        $pub_posts = Post::doesnthave('departments')->get();
+        $dep_posts = auth()->user()->departments->map->posts->flatten();
+   
+        $posts = collect($pub_posts->toBase()->merge($dep_posts)->sortBy('id')->toArray())->paginate();
 
-    //    return $user->departments()->pluck('department_id')->contains($post_dep)
-    //    || $user->hasPermissionTo('View posts') || $post->departments()->pluck('department_id')->isEmpty();
+       
 
-        $departments = auth()->user()->departments()->with('posts')->get();
-
-      // $posts = $departments->with('posts');
-
-
-      //  $posts = Department::ByDepartment();
-        dd($departments);
+        dd($posts);
 
         return view('home', compact('posts'));
     }
