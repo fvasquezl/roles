@@ -6,6 +6,7 @@ use App\Presenters\PostPresenter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model
 {
@@ -88,47 +89,22 @@ class Post extends Model
             ->latest('published_at');
     }
 
-
-
-
-    public function scopeByDepartment($query)
+    public function scopeNopublic($post)
     {
-        $departments = User::find(6)->departments();
+        //Obtener los id de los de partemantos y pasarlos por un where in
+        // $dep_posts = auth()->user()->departments->map->posts->flatten();
+        $post->whereHas('departments', function (Builder $query) {
+            $query->where('department_id', 2);
+        })->orWhere(function($post){
+            $post->doesnthave('departments');
+        });
 
-        return $departments->map(function($dep){return $dep->posts()->get();});
+       // return $pub_posts->toBase()->merge($dep_posts)->sortBy('id');
+    }
 
-        //$user_dep = auth()->user()->departments();
-      // $user_dep = Department::find(2);
-     //  dd($user_dep);
-
-      //  $query = $user_dep->map(function($department){
-        //    $department->posts()->get();
-       // });
-
-       // dd($query);
-
-
-       // dd($query);
-
-        //  $query->departments()->pluck('department_id')->contains($departments);
-
-    //    return $user->departments()->pluck('department_id')->contains($post_dep)
-    //    || $user->hasPermissionTo('View posts') || $post->departments()->pluck('department_id')->isEmpty();
-
-
-        // if (auth()->user()->hasRole('Admin') || auth()->user()->hasPermissionTo('View permissions')) {
-        //     return $query->published()->get();
-        // }else{
-        //     $publicPosts = $query->withCount('departments')->having('departments_count',0)->get();
-
-        //    foreach(auth()->user()->departments as $department)
-        //    {
-        //      $departmentsPosts = $department->posts;
-        //    }
-
-        //   return $publicPosts->toBase()->merge($departmentsPosts)->sortBy('id');
-
-       // }
+    public function scopePublic($post)
+    {
+        $post->doesnthave('departments');
     }
 
     public function scopeAllowed($query)

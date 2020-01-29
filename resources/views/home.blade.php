@@ -9,9 +9,9 @@
             @if(isset($title))
             <h4 class="mb-3">{{ $title }}</h4>
             @endif
-            
+
             @foreach ($posts as $post)
-               
+
                     <div class="card shadow p-2  mb-4 card-outline card-primary">
                         @include('posts.partials.header')
 
@@ -24,9 +24,9 @@
                             @include('posts.partials.footer')
                         </div>
                     </div>
-               
+
             @endforeach
-            {{ $posts->render() }}
+            {{-- {{ $posts->render() }} --}}
         </div>
     </div>
 </div>
