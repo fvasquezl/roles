@@ -12,10 +12,11 @@ use Spatie\Permission\Traits\HasRoles;
 class Post extends Model
 {
     use HasRoles;
-    
+
     protected $fillable = ['title','excerpt','published_at','category_id','user_id'];
 
     protected $dates = ['published_at'];
+    protected $guard_name = 'web';
 
     public function getRouteKeyName()
     {
@@ -97,7 +98,7 @@ class Post extends Model
         if(auth()->user()->can('view',$this) || auth()->user()->hasRole('Admin')){
             return $posts;
         }
-        
+
         return $posts->whereHas('departments', function (Builder $query) {
             $query->whereIn('department_id', auth()->user()->departments->pluck('id'));
         })->orWhere(function($posts){

@@ -96,9 +96,13 @@ class PostController extends Controller
         $post->update($request->all());
         $post->syncTags($request->get('tags'));
         $post->departments()->detach();
-        
-        if($request->has('departments')){    
+        $post->roles()->detach();
+
+        if($request->has('departments')){
             $post->departments()->sync($request->get('departments'));
+        }
+        if($request->has('roles')){
+            $post->syncRoles($request->roles);
         }
 
         return redirect()

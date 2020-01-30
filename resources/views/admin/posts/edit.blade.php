@@ -25,7 +25,7 @@
 @endpush
 
 @section('content')
-@if ($post->documents->count())
+{{-- @if ($post->documents->count())
 <table class="table">
     <thead>
         <tr>
@@ -54,7 +54,7 @@
 
     </tbody>
 </table>
-@endif
+@endif --}}
 
 <form method="POST" action="{{ route('admin.posts.update', $post) }}">
     @csrf
@@ -85,6 +85,7 @@
                         </span>
                         @enderror
                     </div>
+                    @include('admin.posts.partials.pdfs')
                 </div>
             </div>
         </div>
@@ -169,7 +170,7 @@
                             @foreach ($roles as $role)
                             <option
                                 {{collect(old('roles',$post->roles->pluck('id')))->contains($role->id) ? 'selected':''}}
-                                value="{{ $role->id }}">{{ $role->name }}<text-muted>{{ $role->displayName }}</text-muted></option>
+                                value="{{ $role->id }}">{{ $role->display_name }}</option>
                             @endforeach
                         </select>
                         @error('roles')
