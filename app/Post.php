@@ -7,9 +7,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\Permission\Traits\HasRoles;
 
 class Post extends Model
 {
+    use HasRoles;
+    
     protected $fillable = ['title','excerpt','published_at','category_id','user_id'];
 
     protected $dates = ['published_at'];

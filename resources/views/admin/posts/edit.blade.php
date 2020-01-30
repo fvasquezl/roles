@@ -148,7 +148,7 @@
                     <div class="form-group">
                         <label>Departamentos</label>
                         <select name="departments[]" class="select2 form-control @error('departments') is-invalid @enderror"
-                            multiple="multiple" data-placeholder="Selecciona departamentos, (vacio) post publico" style="width: 100%;">
+                            multiple="multiple" data-placeholder="(vacio) todos los departamentos" style="width: 100%;">
                             @foreach ($departments as $department)
                             <option
                                 {{collect(old('departments',$post->departments->pluck('id')))->contains($department->id) ? 'selected':''}}
@@ -156,6 +156,23 @@
                             @endforeach
                         </select>
                         @error('departments')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Roles</label>
+                        <select name="roles[]" class="select2 form-control @error('roles') is-invalid @enderror"
+                            multiple="multiple" data-placeholder="(vacio) todos los roles" style="width: 100%;">
+                            @foreach ($roles as $role)
+                            <option
+                                {{collect(old('roles',$post->roles->pluck('id')))->contains($role->id) ? 'selected':''}}
+                                value="{{ $role->id }}">{{ $role->name }}<text-muted>{{ $role->displayName }}</text-muted></option>
+                            @endforeach
+                        </select>
+                        @error('roles')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

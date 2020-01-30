@@ -6,6 +6,7 @@ use App\Tag;
 use App\Post;
 use App\Category;
 use App\Department;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
@@ -75,6 +76,7 @@ class PostController extends Controller
         return view('admin.posts.edit', [
             'post' => $post,
             'tags' => Tag::all(),
+            'roles' => Role::with('permissions')->get(),
             'categories' => Category::all(),
             'departments' => Department::all(),
         ]);
