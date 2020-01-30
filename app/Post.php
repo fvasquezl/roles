@@ -16,6 +16,7 @@ class Post extends Model
     protected $fillable = ['title','excerpt','published_at','category_id','user_id'];
 
     protected $dates = ['published_at'];
+    
     protected $guard_name = 'web';
 
     public function getRouteKeyName()

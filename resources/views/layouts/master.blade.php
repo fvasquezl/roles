@@ -36,8 +36,6 @@
                 @yield('content-header')
             </section>
 
-
-
             <!-- Main content -->
             <section class="content">
                 @include('partials.show_messages')

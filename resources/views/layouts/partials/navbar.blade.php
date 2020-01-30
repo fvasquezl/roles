@@ -103,7 +103,7 @@
         <li class="user-header bg-primary">
           <img src="{{asset('img/user4.png')}}" class="img-circle elevation-2" alt="User Image">
 
-          <p>
+          <p> 
             {{ Auth::user()->name }}
             <small>{{ Auth::user()->getRoleDisplayName()}} <br>
             Usuario desde {{ Auth::user()->created_at->format('M Y') }}</small>
