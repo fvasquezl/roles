@@ -89,23 +89,19 @@ class Post extends Model
             ->latest('published_at');
     }
 
-    public function scopeNopublic($post)
+    public function scopePublishInfrontPage($posts)
     {
-        //Obtener los id de los de partemantos y pasarlos por un where in
-        // $dep_posts = auth()->user()->departments->map->posts->flatten();
-        $post->whereHas('departments', function (Builder $query) {
-            $query->where('department_id', 2);
-        })->orWhere(function($post){
-            $post->doesnthave('departments');
+        if(auth()->user()->can('view',$this) || auth()->user()->hasRole('Admin')){
+            return $posts;
+        }
+        
+        return $posts->whereHas('departments', function (Builder $query) {
+            $query->whereIn('department_id', auth()->user()->departments->pluck('id'));
+        })->orWhere(function($posts){
+            $posts->doesnthave('departments');
         });
-
-       // return $pub_posts->toBase()->merge($dep_posts)->sortBy('id');
     }
 
-    public function scopePublic($post)
-    {
-        $post->doesnthave('departments');
-    }
 
     public function scopeAllowed($query)
     {

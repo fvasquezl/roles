@@ -24,4 +24,14 @@ class Tag extends Model
     {
         return $this->belongsToMany(Post::class);
     }
+
+
+    public function scopeIntersectPosts()
+    {
+        if(auth()->user()->can('view',$this) || auth()->user()->hasRole('Admin')){
+            return $this->posts()->published()->get();
+        }
+
+       return $this->posts->intersect(Post::published()->publishInfrontPage()->get());
+    }
 }

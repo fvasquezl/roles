@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Post;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,5 +24,14 @@ class Category extends Model
     {
         $this->attributes['name'] = $name;
         $this->attributes['slug'] = Str::slug($name);
+    }
+
+    public function scopeIntersectPosts()
+    {
+        if(auth()->user()->can('view',$this) || auth()->user()->hasRole('Admin')){
+            return $this->posts()->published()->get();
+        }
+
+       return $this->posts->intersect(Post::published()->publishInfrontPage()->get());
     }
 }

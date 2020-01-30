@@ -25,16 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //PublicPosts
-        // $pub_posts = Post::doesnthave('departments')->get();
-        // $dep_posts = auth()->user()->departments->map->posts->flatten();
-
-        // $posts = $pub_posts->toBase()->merge($dep_posts)->sortBy('id');
-
-        $posts = Post::nopublic()->paginate();
-
-        dd($posts);
-
+        $posts = Post::published()->publishInfrontPage()->paginate(10);
         return view('home', compact('posts'));
     }
 }

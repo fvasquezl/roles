@@ -11,7 +11,7 @@
             @endif
 
             @foreach ($posts as $post)
-
+                    
                     <div class="card shadow p-2  mb-4 card-outline card-primary">
                         @include('posts.partials.header')
 
@@ -26,7 +26,7 @@
                     </div>
 
             @endforeach
-            {{-- {{ $posts->render() }} --}}
+            {{ $posts->render() }}
         </div>
     </div>
 </div>

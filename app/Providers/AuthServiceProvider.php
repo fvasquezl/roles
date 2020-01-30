@@ -29,7 +29,6 @@ class AuthServiceProvider extends ServiceProvider
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
         Department::class => DepartmentPolicy::class,
-        // Post::class => HomePolicy::class,
     ];
 
     /**
@@ -41,10 +40,5 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('public-post', function ($user, Post $post) {
-            $post_dep = $post->departments()->pluck('department_id')->implode(', ');
-                return $user->departments()->pluck('department_id')->contains($post_dep) 
-               || $user->hasPermissionTo('View posts') || $post->departments()->pluck('department_id')->isEmpty();
-        });
     }
 }
