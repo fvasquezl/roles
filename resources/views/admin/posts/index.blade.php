@@ -50,6 +50,7 @@
                                 <th>Id</th>
                                 <th>Titulo</th>
                                 <th>Extracto</th>
+                                <th>Departamento</th>
                                 <th>Fecha Publicacion</th>
                                 <th>Acciones</th>
                             </tr>
@@ -60,6 +61,7 @@
                                 <td>{{$post->id}}</td>
                                 <td>{{ Str::limit($post->title, 50) }}</td>
                                 <td>{{ Str::limit($post->excerpt,50)}}</td>
+                                <td>{{ $post->present()->departments()}}</td>
                                 <td>{{$post->present()->publishedAt()}}</td>
                                 <td>
                                     {{-- @can('admin.posts.show') --}}

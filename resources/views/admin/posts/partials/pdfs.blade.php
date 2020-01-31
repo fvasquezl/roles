@@ -8,17 +8,25 @@
                         <tr>
                             <th>Id</th>
                             <th>Nombre del Archivo</th>
-                            <th>Actions</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($post->documents as $key=>$document)
                         <tr>
                             <td class="text-center py-0 align-middle">{{ $key + 1}}</td>
-                            <td><i class="fas fa-file-pdf fa-2x text-danger"></i> <a href="{{url($document->url) }}"
-                                    target="_blank">{{ $document->title }}</a></td>
+                            <td>
+                                <i class="fas fa-file-pdf fa-2x text-danger"></i> <a href="{{url($document->url) }}"
+                                    target="_blank">{{ $document->title }}</a>
+                            </td>
                             <td class="text-center py-0 align-middle">
-                                <form method="POST" action="{{ route('admin.documents.destroy',$document) }}">
+                                <a href="{{ route('posts.show',$post) }}" class="btn btn-sm btn-default"
+                                    target="_blank">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
+                                <form method="POST" action="{{ route('admin.documents.destroy',$document) }}"
+                                    style="display:inline">
                                     @method('DELETE')
                                     @csrf
                                     <button type="submit" class="btn btn-danger btn-sm"><i
