@@ -96,6 +96,8 @@ class Post extends Model
 
     public function scopePublishInfrontPage($posts)
     {
+       // dd(auth()->user()->roles->pluck('id'));
+
         if(auth()->user()->can('view',$this) || auth()->user()->hasRole('Admin')){
             return $posts;
         }
