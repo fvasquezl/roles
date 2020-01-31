@@ -18,7 +18,7 @@ class PostsTableSeeder extends Seeder
         Storage::disk('public')->deleteDirectory('posts');
 
         $post = new Post;
-        $post->title = $title = 'Publicacion Numero 1';
+        $post->title = $title = 'Publicacion Secretaria';
         $post->slug = Str::slug($title);
         $post->excerpt = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident perspiciatis, aut itaque eveniet harum ducimus iure magnam voluptates iste cum quisquam. Sed voluptates quaerat, ea provident aut unde odio dolore!';
         $post->user_id = 1;
@@ -27,10 +27,11 @@ class PostsTableSeeder extends Seeder
         $post->save();
         $post->departments()->sync([2]);
         $post->tags()->sync([1, 2]);
-        // $post->documents()->sync([1,2]);
+        $post->assignRole(4);
+
 
         $post = new Post;
-        $post->title = $title = 'Publicacion Numero 2';
+        $post->title = $title = 'Publicacion Programador';
         $post->slug = Str::slug($title);
         $post->excerpt = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit expedita at fugiat incidunt dicta labore doloremque, adipisci autem rerum. Eveniet ducimus quisquam molestias sunt corrupti. Molestias tenetur molestiae nemo tempora?';
         $post->user_id = 1;
@@ -38,13 +39,13 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(4)->format('d/m/Y');
         $post->save();
         $post->departments()->sync([2]);
-
+        $post->assignRole(3);
         $post->tags()->sync([3, 4]);
-        //  $post->documents()->sync([3,4]);
+
 
 
         $post = new Post;
-        $post->title = $title = 'Publicacion Numero 3';
+        $post->title = $title = 'Publicacion IT';
         $post->slug = Str::slug($title);
         $post->excerpt = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident perspiciatis, aut itaque eveniet harum ducimus iure magnam voluptates iste cum quisquam. Sed voluptates quaerat, ea provident aut unde odio dolore!';
         $post->user_id = 1;
@@ -52,7 +53,6 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(3)->format('d/m/Y');
         $post->save();
         $post->departments()->sync([3]);
-
         $post->tags()->sync([1, 2]);
 
 
@@ -69,7 +69,7 @@ class PostsTableSeeder extends Seeder
 
 
         $post = new Post;
-        $post->title = $title = 'Publicacion Numero 5';
+        $post->title = $title = 'Publicacion Contabilidad y finanzas';
         $post->slug = Str::slug($title);
         $post->excerpt = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident perspiciatis, aut itaque eveniet harum ducimus iure magnam voluptates iste cum quisquam. Sed voluptates quaerat, ea provident aut unde odio dolore!';
         $post->user_id = 1;
@@ -80,7 +80,7 @@ class PostsTableSeeder extends Seeder
         $post->tags()->sync([1, 3]);
 
         $post = new Post;
-        $post->title = $title = 'Publicacion Numero 6';
+        $post->title = $title = 'Publicacion Publica';
         $post->slug = Str::slug($title);
         $post->excerpt = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident perspiciatis, aut itaque eveniet harum ducimus iure magnam voluptates iste cum quisquam. Sed voluptates quaerat, ea provident aut unde odio dolore!';
         $post->user_id = 1;

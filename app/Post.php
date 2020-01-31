@@ -2,21 +2,22 @@
 
 namespace App;
 
-use App\Presenters\PostPresenter;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Builder;
+use App\Presenters\PostPresenter;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model
 {
     use HasRoles;
 
-    protected $fillable = ['title','excerpt','published_at','category_id','user_id'];
+    protected $fillable = ['title', 'excerpt', 'published_at', 'category_id', 'user_id'];
 
     protected $dates = ['published_at'];
-    
+
     protected $guard_name = 'web';
 
     public function getRouteKeyName()
@@ -34,7 +35,7 @@ class Post extends Model
 
     }
 
-    public static function create(array $attributes=[])
+    public static function create(array $attributes = [])
     {
         $attributes['user_id'] = auth()->id();
         $post = static::query()->create($attributes);
@@ -45,11 +46,10 @@ class Post extends Model
 
     public function generateUrl()
     {
-        $slug =  Str::slug($this->title);
+        $slug = Str::slug($this->title);
 
-        if($this->whereSlug($slug)->exists())
-        {
-            $slug =  "{$slug}-{$this->id}";
+        if ($this->whereSlug($slug)->exists()) {
+            $slug = "{$slug}-{$this->id}";
         }
 
         $this->slug = $slug;
@@ -74,7 +74,7 @@ class Post extends Model
 
     public function departments()
     {
-        return $this->morphToMany(Department::class,'departmentable');
+        return $this->morphToMany(Department::class, 'departmentable');
     }
 
     public function present()
@@ -96,26 +96,26 @@ class Post extends Model
 
     public function scopePublishInfrontPage($posts)
     {
-       // dd(auth()->user()->roles->pluck('id'));
-
-        if(auth()->user()->can('view',$this) || auth()->user()->hasRole('Admin')){
+       
+       if(auth()->user()->can('view',$this) || auth()->user()->hasRole('Admin')){
             return $posts;
         }
-
-        return $posts->whereHas('departments', function (Builder $query) {
-            $query->whereIn('department_id', auth()->user()->departments->pluck('id'));
-        })->orWhere(function($posts){
-            $posts->doesnthave('departments');
+         
+        return $posts->whereHas('departments',function (Builder $query){
+            $query->whereIn('department_id', auth()->user()->departments->pluck('id')); 
+        })->doesnthave('roles')
+        ->orwhereHas('roles', function (Builder $query) {
+            $query->whereIn('role_id', auth()->user()->roles->pluck('id'));
         });
-    }
 
+    }
 
     public function scopeAllowed($query)
     {
-        if (auth()->user()->can('view',$this)) {
+        if (auth()->user()->can('view', $this)) {
             return $query;
         }
-        return $query->where('user_id',auth()->id());
+        return $query->where('user_id', auth()->id());
     }
 
     public function setPublishedAtAttribute($published_at)
@@ -132,11 +132,10 @@ class Post extends Model
         : Category::create(['name' => $category])->id;
     }
 
-
     public function syncTags($tags)
     {
-        $tagIds = collect($tags)->map(function($tag){
-            return Tag::find($tag) ? $tag : Tag::create(['name'=> $tag])->id;
+        $tagIds = collect($tags)->map(function ($tag) {
+            return Tag::find($tag) ? $tag : Tag::create(['name' => $tag])->id;
         });
 
         return $this->tags()->sync($tagIds);
@@ -144,6 +143,6 @@ class Post extends Model
 
     public function isPublished()
     {
-        return ! is_null($this->published_at) && $this->published_at < today();
+        return !is_null($this->published_at) && $this->published_at < today();
     }
 }

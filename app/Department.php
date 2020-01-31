@@ -9,22 +9,26 @@ class Department extends Model
 {
     protected $fillable = ['name', 'display_name', 'description'];
 
+   
+     /**
+     * Get the owning imageable model.
+     */
     public function departmentable()
     {
-      return $this->morphTo();
+        return $this->morphTo();
     }
 
 
 
-    public function users()
-    {
-        return $this->morphedByMany(User::class, 'departmentable');
-    }
+    // public function users()
+    // {
+    //     return $this->morphedByMany(User::class, 'departmentable');
+    // }
 
-    public function posts()
-    {
-        return $this->morphedByMany(Post::class, 'departmentable');
-    }
+    // public function posts()
+    // {
+    //     return $this->morphedByMany(Post::class, 'departmentable');
+    // }
 
     public function present()
     {
