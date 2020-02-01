@@ -2,13 +2,12 @@
 
 namespace App;
 
-use Carbon\Carbon;
-use Illuminate\Support\Str;
 use App\Presenters\PostPresenter;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class Post extends Model
 {
@@ -96,16 +95,17 @@ class Post extends Model
 
     public function scopePublishInfrontPage($posts)
     {
-       
-       if(auth()->user()->can('view',$this) || auth()->user()->hasRole('Admin')){
+
+        if (auth()->user()->can('view', $this) || auth()->user()->hasRole('Admin')) {
             return $posts;
         }
-         
-        return $posts->whereHas('departments',function (Builder $query){
-            $query->whereIn('department_id', auth()->user()->departments->pluck('id')); 
-        })->doesnthave('roles')
-        ->orwhereHas('roles', function (Builder $query) {
+
+        return $posts->whereHas('departments', function (Builder $query) {
+            $query->whereIn('department_id', auth()->user()->departments->pluck('id'));
+        })->doesnthave('roles')->orwhereHas('roles', function (Builder $query) {
             $query->whereIn('role_id', auth()->user()->roles->pluck('id'));
+        })->orWhere(function ($posts) {
+            $posts->doesnthave('departments');
         });
 
     }
