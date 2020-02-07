@@ -20,6 +20,14 @@
 </div><!-- /.container-fluid -->
 @stop
 
+@section('content-header')
+    @include('layouts.partials.contentHeader',$info =[
+           'title' =>'Roles',
+           'subtitle' => 'Creacion',
+           'breadCrumbs' =>['roles','create']
+           ])
+@stop
+
 @push('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 @endpush
@@ -33,7 +41,7 @@
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ route('admin.roles.store') }}">
-                    
+
                     @include('admin.roles.partials.form')
 
                     <button class="btn btn-primary btn-block">Crear Role</button>

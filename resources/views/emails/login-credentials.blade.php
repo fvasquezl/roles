@@ -4,9 +4,9 @@
 Utiliza estas credenciales para acceder al sistema.
 
 @component('mail::table')
-    | Username | Contrasena |
-    |:----------|:------------|
-    | {{ $user->email }} | {{ $password }}
+    | Username:| {{ $user->email }}|Contraseña:|{{ $password }}|
+    |---:|:---|---:|:---|
+
 @endcomponent
 
 @component('mail::button', ['url' => url('login')])

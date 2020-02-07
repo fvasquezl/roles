@@ -1,24 +1,14 @@
 @extends('layouts.master')
 
+
 @section('content-header')
-<div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>
-                Publicaciones
-                <small class="text-muted text-md">Editar publicacion</small>
-            </h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Edit</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.posts.index') }}">Posts</a></li>
-                <li class="breadcrumb-item active">Edit</li>
-            </ol>
-        </div>
-    </div>
-</div><!-- /.container-fluid -->
+    @include('layouts.partials.contentHeader',$info =[
+           'title' =>'Publicaciones',
+           'subtitle' => 'Edicion',
+           'breadCrumbs' =>['posts','edit']
+           ])
 @stop
+
 
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">

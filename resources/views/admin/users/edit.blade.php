@@ -1,23 +1,11 @@
 @extends('layouts.master')
 
 @section('content-header')
-<div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>
-                Usuarios
-                <small class="text-muted text-md">Edicion</small>
-            </h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Admin</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Usuarios</a></li>
-                <li class="breadcrumb-item active">Edit</li>
-            </ol>
-        </div>
-    </div>
-</div><!-- /.container-fluid -->
+    @include('layouts.partials.contentHeader',$info =[
+           'title' =>'Usuarios',
+           'subtitle' => 'Edicion',
+           'breadCrumbs' =>['users','edit']
+           ])
 @stop
 
 @section('content')
@@ -104,7 +92,7 @@
                     <li class="list-group-item">
                         {{ $department->name }}
                     </li>
-                    @empty 
+                    @empty
                     <li class="list-group-item">
                         No tiene departments
                     </li>
@@ -135,7 +123,7 @@
                     <li class="list-group-item">
                         {{ $role->name }}
                     </li>
-                    @empty 
+                    @empty
                     <li class="list-group-item">
                         No tiene roles
                     </li>
@@ -164,7 +152,7 @@
                     <li class="list-group-item">
                         {{ $permission->name }}
                     </li>
-                    @empty 
+                    @empty
                     <li class="list-group-item">
                         No tiene permisos
                     </li>

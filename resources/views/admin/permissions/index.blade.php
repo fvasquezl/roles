@@ -1,22 +1,13 @@
 @extends('layouts.master')
 
+
+
 @section('content-header')
-<div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>Permisos
-                <small class="text-muted text-md">Administracion</small>
-            </h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Admin</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.permissions.index') }}">Permisos</a></li>
-                <li class="breadcrumb-item active">Index</li>
-            </ol>
-        </div>
-    </div>
-</div><!-- /.container-fluid -->
+    @include('layouts.partials.contentHeader',$info =[
+           'title' =>'Permisos',
+           'subtitle' => 'Administracion',
+           'breadCrumbs' =>['permissions','index']
+           ])
 @stop
 
 @push('styles')
@@ -31,7 +22,7 @@
                 <h3 class="card-title mt-1">
                     Listado de permisos
                 </h3>
-            
+
             </div>
 
             <div class="card-body">

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Department;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Department\StoreRequest;
 
@@ -31,7 +30,7 @@ class DepartmentController extends Controller
     public function create()
     {
         $department = new Department;
-        
+
         $this->authorize('create',$department);
 
         return view('admin.departments.create',[
@@ -65,6 +64,7 @@ class DepartmentController extends Controller
     public function show(Department $department)
     {
         $this->authorize('view',$department);
+
         return view('admin.departments.show',compact('department'));
     }
 
