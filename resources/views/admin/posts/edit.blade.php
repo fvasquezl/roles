@@ -115,7 +115,7 @@
                             @foreach ($departments as $department)
                             <option
                                 {{collect(old('departments',$post->departments->pluck('id')))->contains($department->id) ? 'selected':''}}
-                                value="{{ $department->id }}">{{ $department->name }}</option>
+                    value="{{ $department->id }}">{{ $department->name }} <small>({{$department->display_name}})</small></option>
                             @endforeach
                         </select>
                         @error('departments')

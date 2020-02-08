@@ -18,17 +18,33 @@ class RolesTableSeeder extends Seeder
             'display_name' => 'Administrador'
         ]);
         Role::create([
-            'name'      => 'Manager',
-            'display_name' => 'Gerente'
+            'name'=>'Consejeros',
+            'display_name' =>'Consejeros'
         ]);
         Role::create([
-            'name'      => 'Programmer',
-            'display_name' => 'Programador'
+            'name'=>'Director',
+            'display_name' =>'Director General'
         ]);
-
         Role::create([
-            'name'      => 'Assistant',
-            'display_name' => 'Secretaria'
+            'name'=>'Gerentes',
+            'display_name' =>'Gerentes'
+        ]);
+        Role::create([
+            'name'=>'Coordinadores',
+            'display_name' =>'Coordinadores'
+        ]);
+        Role::create([
+            'name'=>'Subcoordinadores',
+            'display_name' =>'Subcoordinadores'
+        ]);
+        Role::create([
+            'name'=>'Personal',
+            'display_name' =>'personal de apoyo'
+        ]);
+        Role::create([
+            'name'=>'Serenos',
+            'display_name' =>'Resto de los Serenos'
         ]);
     }
 }
+
