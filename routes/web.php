@@ -14,7 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes();
+
+Auth::routes([
+    'register' => false, // Registration Routes...
+    'reset' => false, // Password Reset Routes...
+    'verify' => false, // Email Verification Routes...
+  ]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -37,7 +42,7 @@ Route::prefix('/admin')
         Route::resource('permissions', 'PermissionsController',['only' => ['index','edit','update']]);
         Route::resource('departments', 'DepartmentController');
 
-       
+
         Route::middleware('role:Admin')
             ->put('users/{user}/roles', 'UsersRolesController@update')
             ->name('users.roles.update');
@@ -45,11 +50,11 @@ Route::prefix('/admin')
         Route::middleware('role:Admin')
             ->put('users/{user}/permissions', 'UsersPermissionsController@update')
             ->name('users.permissions.update');
-        
+
         Route::middleware('role:Admin')
             ->put('users/{user}/departments', 'UsersDepartmentsController@update')
             ->name('users.departments.update');
-        
+
         Route::post('posts/{post}/documents', 'DocumentsController@store')->name('posts.documents.store');
         Route::delete('documents/{document}', 'DocumentsController@destroy')->name('documents.destroy');
 
