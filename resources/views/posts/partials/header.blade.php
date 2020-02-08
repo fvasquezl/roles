@@ -8,9 +8,11 @@
             <i class="fas fa-calendar-alt"></i> {{ $post->present()->publishedAt() }}
         </div>
         <div>
+            @if($post->category=='null')
             <a href="{{ route('categories.show',$post->category) }}" class="btn btn-success btn-flat">
                 {{ $post->present()->category() }}
             </a>
+            @endif
         </div>
     </div>
 </div>
