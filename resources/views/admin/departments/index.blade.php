@@ -23,7 +23,6 @@
                         Listado de departamentos
                     </h3>
                     <div class="card-tools">
-
                        @can('create',$departments->first())
                         <a href="{{ route('admin.departments.create') }}" class="btn btn-primary">
                             <i class="fas fa-sitemap"></i> Crear Departmento

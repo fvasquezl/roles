@@ -105,8 +105,6 @@
                         <!-- /.input group -->
                     </div>
 
-
-
                     <div class="form-group">
                         <label>Departamentos</label>
                         <select name="departments[]"
@@ -115,7 +113,7 @@
                             @foreach ($departments as $department)
                             <option
                                 {{collect(old('departments',$post->departments->pluck('id')))->contains($department->id) ? 'selected':''}}
-                    value="{{ $department->id }}">{{ $department->name }} <small>({{$department->display_name}})</small></option>
+                                value="{{ $department->id }}">{{ $department->name }} <small>({{$department->display_name}})</small></option>
                             @endforeach
                         </select>
                         @error('departments')
@@ -127,8 +125,9 @@
 
                     <div class="form-group">
                         <label>Roles</label>
-                        <select name="roles[]" class="select2 form-control @error('roles') is-invalid @enderror"
-                            multiple="multiple" data-placeholder="(vacio) todos los roles" style="width: 100%;">
+                        <select name="roles[]" 
+                            class="select2 form-control @error('roles') is-invalid @enderror" multiple="multiple" 
+                            data-placeholder="(vacio) todos los roles" style="width: 100%;">
                             @foreach ($roles as $role)
                             <option
                                 {{collect(old('roles',$post->roles->pluck('id')))->contains($role->id) ? 'selected':''}}

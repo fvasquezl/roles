@@ -24,6 +24,7 @@
                         Listado de publicaciones
                     </h3>
                     <div class="card-tools">
+                        
                         @can('create',$posts->first())
                         <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                             <i class="fa fa-plus"></i>
@@ -50,8 +51,8 @@
                             <tr>
                                 <td>{{$post->id}}</td>
                                 <td>{{ Str::limit($post->title, 50) }}</td>
-                                <td>{{ Str::limit($post->excerpt,50)}}</td>
-                                <td>{{ $post->present()->departments()}}</td>
+                                <td>{{$post->present()->excerpt()}}</td>
+                                <td>{{$post->present()->departments()}}</td>
                                 <td>{{$post->present()->publishedAt()}}</td>
                                 <td>
                                     {{-- @can('admin.posts.show') --}}

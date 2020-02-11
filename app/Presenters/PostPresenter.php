@@ -48,15 +48,9 @@ class PostPresenter extends Presenter
         return count($departments) ? $departments->implode(', ') : 'PUBLIC';
     }
 
-    //
+    public function excerpt()
+    {
+        return new HtmlString(Str::limit($this->model->excerpt,50));
+    }
 
-    // public function notes()
-    // {
-    //     return $this->model->note ? $this->model->note->body : '';
-    // }
-
-    // public function tags()
-    // {
-    //     return $this->model->tags->pluck('name')->implode(' ,');
-    // }
 }

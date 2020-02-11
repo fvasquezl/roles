@@ -33,6 +33,9 @@ class PostController extends Controller
      */
     public function create()
     {
+
+        $this->authorize('create', new Post);
+
         return view('admin.posts.create');
     }
 
@@ -91,12 +94,13 @@ class PostController extends Controller
      */
     public function update(UpdateRequest $request, Post $post)
     {
+ 
         $this->authorize('update', $post);
 
         $post->update($request->all());
         $post->syncTags($request->get('tags'));
         $post->departments()->detach();
-       // $post->roles()->detach();
+        $post->roles()->detach();
 
         if($request->has('departments')){
             $post->departments()->sync($request->get('departments'));

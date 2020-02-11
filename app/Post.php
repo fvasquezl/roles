@@ -106,7 +106,7 @@ class Post extends Model
             $query->whereIn('role_id', auth()->user()->roles->pluck('id'));
         })->orWhere(function ($posts) {
             $posts->doesnthave('departments');
-        });
+        })->orWhere('user_id', auth()->id());
 
     }
 
