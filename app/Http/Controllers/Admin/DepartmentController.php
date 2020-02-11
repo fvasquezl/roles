@@ -17,7 +17,7 @@ class DepartmentController extends Controller
     {
         $this->authorize('view', new Department);
 
-        $departments = Department::paginate();
+        $departments = Department::get();
 
         return view('admin.departments.index',compact('departments'));
     }

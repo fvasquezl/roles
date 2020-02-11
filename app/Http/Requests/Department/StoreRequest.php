@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Department;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -28,6 +29,11 @@ class StoreRequest extends FormRequest
             'display_name' => 'required',
             'description' => 'sometimes'
         ];
+
+
+        if ($this->method() === 'PUT') {
+            $roles['name'] = ['required', Rule::unique('departments')->ignore($this->department)];
+        }
 
         return $roles;
     }
