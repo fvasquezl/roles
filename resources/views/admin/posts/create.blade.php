@@ -51,4 +51,4 @@
         window.location.hash = '#create'
     });
 </script>
-@endpushß
+@endpush
