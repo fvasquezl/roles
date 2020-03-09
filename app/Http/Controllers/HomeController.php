@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Post;
 use App\Department;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -25,7 +27,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::published()->publishInfrontPage()->paginate(5);
-        return view('home', compact('posts'));
+        $categories = Category::all();
+        $posts = Post::published()->publishInfrontPage();
+
+        if(request('category')){
+          
+            $posts->where('category_id',request('category'));
+             
+        }
+        if(request('search')){
+          
+            $posts->where('title','like','%'.request('search').'%');
+             
+        }
+        
+        
+      
+        return view('home', [
+            'posts'=> $posts->paginate(5),
+            'categories' =>$categories,
+            'cat' => request('category'),
+            'search'=>request('search')
+            ]);
     }
 }

@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/categories/{category}', 'CategoriesController@show')->name('categories.show');
     Route::get('/tags/{tag}', 'TagsController@show')->name('tags.show');
 
+    Route::post('/show', 'HomeController@show')->name('home.show');
+
 });
 
 Route::prefix('/admin')
