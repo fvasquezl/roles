@@ -55,20 +55,17 @@
                                 <td>{{$post->present()->departments()}}</td>
                                 <td>{{$post->present()->publishedAt()}}</td>
                                 <td>
-                                    {{-- @can('admin.posts.show') --}}
                                     <a href="{{ route('posts.show',$post) }}" class="btn btn-sm btn-default"
                                         target="_blank">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    {{-- @endcan --}}
-
-                                    {{-- @can('admin.posts.edit') --}}
+                                    @can('update', $post)
                                     <a href="{{ route('admin.posts.edit',$post) }}" class="btn btn-sm btn-info">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    {{-- @endcan --}}
+                                    @endcan
 
-                                    {{-- @can('admin.posts.destroy') --}}
+                                    @can('delete',$post)
                                     <form  method="POST" action="{{ route('admin.posts.destroy', $post) }}"
                                         style="display:inline">
                                         @csrf @method('DELETE')
@@ -76,7 +73,7 @@
                                         onclick="return confirm('¿Estas seguro de eliminar esta publicacion?')">
                                         <i class="fas fa-trash-alt"></i></button>
                                     </form>
-                                    {{-- @endcan --}}
+                                    @endcan
                                 </td>
                             </tr>
                             @endforeach

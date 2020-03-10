@@ -75,4 +75,20 @@ class User extends Authenticatable
     {
          return $this->departments->pluck('name')->implode(', ');
     }
+
+    public function lastFivePublished(){
+       return Post::latest('created_at')->published()->publishInfrontPage()
+       ->select('title','slug','created_at','user_id')
+       ->take(5)->get();
+
+      // return $posts->sortByDesc('created_at');
+    }
+
+    public function lastTenUpdated(){
+        return Post::latest('updated_at')->published()->publishInfrontPage()
+        ->select('title','slug','updated_at','user_id')
+        ->limit(10)->get();
+
+     
+     }
 }

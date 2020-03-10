@@ -145,4 +145,5 @@ class Post extends Model
     {
         return !is_null($this->published_at) && $this->published_at < today();
     }
+    
 }

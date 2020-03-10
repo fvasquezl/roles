@@ -29,5 +29,13 @@ class UsersTableSeeder extends Seeder
         ]);
         $user->departments()->attach(1);
         $user->assignRole([1,3]);
+
+        $user = factory(User::class)->create([
+            'name' => 'Secretaria IT',
+            'email' => 'sit@local.com',
+            'password' => 'password'
+        ]);
+        $user->departments()->attach(7);
+        $user->assignRole([7]);
     }
 }

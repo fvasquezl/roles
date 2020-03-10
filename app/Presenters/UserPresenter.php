@@ -14,4 +14,15 @@ class UserPresenter extends Presenter
     {
         return new HtmlString("{$this->model->posts()->count()}");
     }
+
+    public function getLastFivePosts()
+    {
+        $categories = $this->model->lastFivePublished()
+                        ->pluck('title','slug')
+                        ->map(function ($value) {
+                            return $value;
+                        });
+
+        return new HtmlString("{$categories}");
+    }
 }
