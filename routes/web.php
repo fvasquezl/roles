@@ -26,10 +26,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
     Route::get('/posts/{post}', 'PostsController@show')->name('posts.show');
     Route::get('/categories/{category}', 'CategoriesController@show')->name('categories.show');
+
     Route::get('/tags/{tag}', 'TagsController@show')->name('tags.show');
-
     Route::post('/show', 'HomeController@show')->name('home.show');
-
 });
 
 Route::prefix('/admin')
@@ -43,6 +42,7 @@ Route::prefix('/admin')
         Route::resource('roles', 'RolesController',['except' => 'show']);
         Route::resource('permissions', 'PermissionsController',['only' => ['index','edit','update']]);
         Route::resource('departments', 'DepartmentController');
+        Route::resource('categories', 'CategoryController');
 
 
         Route::middleware('role:Admin')

@@ -16,6 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', new Category);
+
         $categories = Category::paginate();
 
         return view('admin.categories.index', compact('categories'));
@@ -28,7 +30,13 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        $category = new Category;
+
+        $this->authorize('create',$category);
+
+        return view('admin.categories.create',[
+            'category'=> $category
+        ]);
     }
 
     /**
@@ -39,7 +47,9 @@ class CategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $category = Category::create($request->all());
+        $this->authorize('create',new Category);
+
+        $category = Category::create($request->validated());
 
         return redirect()
             ->route('admin.categories.index')
@@ -54,6 +64,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $this->authorize('view',$category);
+
         return view('admin.categories.show', compact('category'));
     }
 
@@ -65,6 +77,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $this->authorize('update',$category);
+
         return view('admin.categories.edit', compact('category'));
     }
 
@@ -75,12 +89,14 @@ class CategoryController extends Controller
      * @param  Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(StoreRequest $request, Category $category)
     {
-        $category->update($request->all());
+        $this->authorize('update',$category);
+
+        $category->update($request->validated());
 
         return redirect()
-            ->route('admin.categories.edit', $category->id)
+            ->route('admin.categories.edit', $category)
             ->with('info', 'Categoria actualizada con exito');
     }
 
@@ -92,9 +108,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        $this->authorize('delete',$category);
 
-        return back()
-            ->with('info', 'Categoria Eliminada con exito');
+        $category->delete();
+        return redirect()->route('admin.categories.index')
+            ->with('info', 'Rol Eliminado con exito');
     }
 }

@@ -97,5 +97,23 @@ class PermissionsTableSeeder extends Seeder
             'display_name' => 'Eliminar departamentos'
         ]);
 
+         //Categories Permissions
+         Permission::create([
+            'name' => 'View categories',
+            'display_name' => 'Ver categorias'
+        ]);
+        Permission::create([
+            'name' => 'Create categories',
+            'display_name' => 'Crear categorias'
+        ]);
+        Permission::create([
+            'name' => 'Update categories',
+            'display_name' => 'Actualizar categorias'
+        ]);
+        Permission::create([
+            'name' => 'Delete categories',
+            'display_name' => 'Eliminar categorias'
+        ]);
+
     }
 }

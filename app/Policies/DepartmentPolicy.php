@@ -10,7 +10,20 @@ class DepartmentPolicy
 {
     use HandlesAuthorization;
 
-
+   /**
+     * Determine whether the user can view any posts.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function before(User $user)
+    {
+        if($user->hasRole('Admin'))
+        {
+            return true;
+        }
+    } 
+    
     /**
      * Determine whether the user can view the department.
      *

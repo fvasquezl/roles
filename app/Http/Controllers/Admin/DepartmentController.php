@@ -113,6 +113,6 @@ class DepartmentController extends Controller
         $department->delete();
 
         return redirect()->route('admin.departments.index')
-            ->with('info', 'Rol Eliminado con exito');
+            ->with('info', 'Departamento Eliminado con exito');
     }
 }

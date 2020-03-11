@@ -3,9 +3,9 @@
 
 @section('content-header')
     @include('layouts.partials.contentHeader',$info =[
-           'title' =>'Departamentos',
+           'title' =>'Categorias',
            'subtitle' => 'Administracion',
-           'breadCrumbs' =>['departments','index']
+           'breadCrumbs' =>['categories','index']
            ])
 @stop
 
@@ -20,55 +20,46 @@
             <div class="card mb-4 shadow-sm card-outline card-primary">
                 <div class="card-header ">
                     <h3 class="card-title mt-1">
-                        Listado de departamentos
+                        Listado de categorias
                     </h3>
                     <div class="card-tools">
-                       @can('create',$departments->first())
-                        <a href="{{ route('admin.departments.create') }}" class="btn btn-primary">
-                            <i class="fas fa-sitemap"></i> Crear Departmento
+                       @can('create',$categories->first())
+                        <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
+                        <i class="fas fa-list-alt nav-icon"></i> Crear Categoria
                         </a>
                         @endcan
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <table class="table table-striped table-hover" id="departmentsTable">
+                    <table class="table table-striped table-hover" id="categoriesTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Siglas</th>
                                 <th>Nombre</th>
                                 <th>Fecha de creacion</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($departments as $department)
+                            @foreach ($categories as $category)
                             <tr>
-                                <td>{{ $department->id }}</td>
-                                <td>{{ $department->name }}</td>
-                                <td>{{ $department->display_name }}</td>
-                                <td>{{ $department->created_at }}</td>
+                                <td>{{ $category->id }}</td>
+                                <td>{{ $category->name }}</td>
+                                <td>{{ $category->created_at }}</td>
                                 <td>
-                                    @can('view', $department)
-                                    <a href="{{ route('admin.departments.show',$department) }}"
-                                        class="btn btn-sm btn-default">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    @endcan
-
-                                    @can('update',$department)
-                                    <a href="{{ route('admin.departments.edit',$department) }}"
+                                    @can('update',$category)
+                                    <a href="{{ route('admin.categories.edit',$category) }}"
                                         class="btn btn-sm btn-info">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     @endcan
 
-                                    @can('delete',$department)
-                                    <form action="{{ route('admin.departments.destroy', $department) }}" method="POST"
+                                    @can('delete',$category)
+                                    <form action="{{ route('admin.categories.destroy', $category) }}" method="POST"
                                         style="display:inline">
                                         @csrf @method('DELETE')
-                                        <button onclick="return confirm('¿Estas seguro de eliminar este departamento?')"
+                                        <button onclick="return confirm('¿Estas seguro de eliminar esta categoria?')"
                                             class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                     @endcan
@@ -89,7 +80,7 @@
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#departmentsTable').DataTable();
+        $('#categoriesTable').DataTable();
     });
 </script>
 @endpush
