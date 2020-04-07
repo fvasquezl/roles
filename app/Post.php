@@ -6,6 +6,7 @@ use App\Presenters\PostPresenter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -97,16 +98,25 @@ class Post extends Model
     {
 
         if (auth()->user()->can('view', $this) || auth()->user()->hasRole('Admin')) {
-            return $posts;
+            return $this->get();
         }
 
-        return $posts->whereHas('departments', function (Builder $query) {
-            $query->whereIn('department_id', auth()->user()->departments->pluck('id'));
-        })->doesnthave('roles')->orwhereHas('roles', function (Builder $query) {
-            $query->whereIn('role_id', auth()->user()->roles->pluck('id'));
-        })->orWhere(function ($posts) {
-            $posts->doesnthave('departments');
-        })->orWhere('user_id', auth()->id());
+        return $this->getRolePost();
+    }
+
+
+    public function getRolePost()
+    {
+        $posts = $this->load('roles','departments')->get();
+
+       foreach($posts as $post){
+         if($post->departments->whereIn('id',auth()->user()->departments->pluck('id'))->isEmpty()
+         && $post->roles->whereIn('id',auth()->user()->roles->pluck('id'))->isNotEmpty()){
+            $posts->forget($post->id);
+         };
+       }
+
+       return $posts;
 
     }
 
@@ -145,5 +155,5 @@ class Post extends Model
     {
         return !is_null($this->published_at) && $this->published_at < today();
     }
-    
+
 }

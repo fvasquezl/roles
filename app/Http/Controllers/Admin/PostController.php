@@ -21,8 +21,7 @@ class PostController extends Controller
     public function index()
     {
 
-        $posts = Post::publishInfrontPage()->get();
-
+        $posts = Post::publishInfrontPage();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -94,7 +93,7 @@ class PostController extends Controller
      */
     public function update(UpdateRequest $request, Post $post)
     {
- 
+
         $this->authorize('update', $post);
 
         $post->update($request->all());

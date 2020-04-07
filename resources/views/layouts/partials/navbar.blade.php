@@ -18,7 +18,7 @@
       <span class="dropdown-item dropdown-header">Ultimas 10 Actualizaciones</span>
         <div class="dropdown-divider"></div>
 
-        @foreach(auth()->user()->lastTenUpdated() as $lastUpdated)
+        {{-- @foreach(auth()->user()->lastTenUpdated() as $lastUpdated)
         <a href="{{route('posts.show',$lastUpdated->slug)}}" target="_blank" class="dropdown-item">
           <!-- Message Start -->
           <div class="media">
@@ -35,7 +35,7 @@
           </div>
           <!-- Message End -->
         </a>
-        @endforeach
+        @endforeach --}}
         <div class="dropdown-divider"></div>
         <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
       </div>
@@ -43,7 +43,7 @@
     <!-- Notifications Dropdown Menu -->
     <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="#">
-  
+
         <i class="far fa-bell"></i>
         <span class="badge badge-warning navbar-badge">5</span>
       </a>
@@ -51,7 +51,7 @@
         <span class="dropdown-item dropdown-header">Ultimas 5 publicaciones</span>
         <div class="dropdown-divider"></div>
 
-        @foreach(auth()->user()->lastFivePublished() as $lastpost)
+        {{-- @foreach(auth()->user()->lastFivePublished() as $lastpost)
         <a href="{{route('posts.show',$lastpost->slug)}}" target="_blank" class="dropdown-item">
           <!-- Message Start -->
           <div class="media">
@@ -68,7 +68,7 @@
           </div>
           <!-- Message End -->
         </a>
-        @endforeach
+        @endforeach --}}
         <div class="dropdown-divider"></div>
         <a href="{{route('home')}}" target="_blank" class="dropdown-item dropdown-footer">Todas las publicaciones</a>
       </div>
@@ -83,13 +83,13 @@
         <li class="user-header bg-primary">
           <img src="{{asset('img/user4.png')}}" class="img-circle elevation-2" alt="User Image">
 
-          <p> 
+          <p>
             {{ Auth::user()->name }}
             <small>{{ Auth::user()->getRoleDisplayName()}} <br>
             Usuario desde {{ Auth::user()->created_at->format('M Y') }}</small>
           </p>
         </li>
-        
+
         <li class="user-footer">
           <a class="btn btn-success btn-block" href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
