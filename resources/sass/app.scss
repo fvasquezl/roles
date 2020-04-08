@@ -14,10 +14,11 @@
 @import '~admin-lte/plugins/select2/css/select2.min.css';
 @import '~daterangepicker/daterangepicker.css';
 @import '~admin-lte/dist/css/adminlte.css';
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 
 
 .login-page {
-    height: 70vh; 
+    height: 70vh;
 }
 
 .router-link-exact-active {

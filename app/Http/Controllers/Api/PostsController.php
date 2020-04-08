@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Post;
+use App\Http\Resources\PostCollection;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +16,6 @@ class PostController extends Controller
      */
     public function index()
     {
-        return new PostCollection(Post::paginate(5));
+        return new PostCollection(Post::latest()->get());
     }
 }

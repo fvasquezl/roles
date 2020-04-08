@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
+use App\Http\Resources\PostCollection;
 
 class PostController extends Controller
 {
@@ -20,9 +21,12 @@ class PostController extends Controller
      */
     public function index()
     {
+      //  $posts = new PostCollection(Post::latest()->get());
 
-        $posts = Post::publishInfrontPage();
-        return view('admin.posts.index', compact('posts'));
+      // $posts = Post::publishInfrontPage();
+        $posts = new Post;
+
+        return view('admin.posts.index',compact('posts'));
     }
 
     /**
