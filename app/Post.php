@@ -109,12 +109,26 @@ class Post extends Model
     {
         $posts = $this->load('roles','departments')->get();
 
-       foreach($posts as $post){
-         if($post->departments->whereIn('id',auth()->user()->departments->pluck('id'))->isEmpty()
-         && $post->roles->whereIn('id',auth()->user()->roles->pluck('id'))->isNotEmpty()){
-            $posts->forget($post->id);
-         };
-       }
+        $roles = auth()->user()->roles->pluck('id');
+        $departments =auth()->user()->departments->pluck('id');
+
+        $posts = $this->load('roles','departments')->get();
+
+
+    //    foreach($posts as $post){
+    //        //Post WhereNotIn(Departments) -- Empty(Roles)
+    //      if($post->departments->whereNotIn('id',$departments)->isNotEmpty() && $post->roles->isEmpty()){
+    //         $posts->forget($post);
+    //      };
+    //        //Post Empty(Departments) --- WhereNotIn(Roles)
+    //      if($post->departments->isEmpty() && $post->roles->whereNotIn('id',$roles)->isNotEmpty()){
+    //         $posts->forget($post);
+    //      };
+    //        //Post WhereNotIn(Departments) ---WhereNotIn(Roles)
+    //     if($post->departments->whereNotIn('id',$departments)->isNotEmpty() && $post->roles->whereNotIn('id',$roles)->isNotEmpty()){
+    //         $posts->forget($post);
+    //      };
+    //    }
 
        return $posts;
 

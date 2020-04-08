@@ -22,7 +22,7 @@ class StoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules() 
+    public function rules()
     {
         $roles = [
             'name' => 'required|unique:departments',
