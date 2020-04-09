@@ -1,66 +1,39 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+
+@section('content-header')
+    @include('layouts.partials.contentHeader',$info =[
+           'title' =>'Publicaciones',
+           'subtitle' => 'Administracion',
+           'breadCrumbs' =>['posts','index']
+           ])
+@stop
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="card bg-light col-md-8">
-            <form method="GET" action="{{ route('home') }}" role="search">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="search" 
-                                name="search" 
-                                class="form-control" 
-                                value="{{old('search',$search)}}"
-                                placeholder="Search..">
-                        </div>
-                        <div class="col-4">
-                            <select class="form-control" name="category">
-                                 <option value="">Todas las Categorias</option>
-                                @foreach($categories as $category)
-                                <option 
-                                {{ ($category->id==$cat) ? 'selected':''}}
-                                value="{{$category->id}}">{{$category->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn btn-block btn-info">Buscar</button>
-                        </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 my-3">
+            <div class="card mb-4 shadow-sm card-outline card-primary">
+                <div class="card-header ">
+                    <h3 class="card-title mt-1">
+                        Listado de publicaciones
+                    </h3>
+                    <div class="card-tools">
+
+                        @can('create',$posts->first())
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            <i class="fa fa-plus"></i>
+                            Crear Publicacion
+                        </button>
+                        @endcan
                     </div>
                 </div>
-            </form>
-            <!-- /.card-body -->
-        </div>
-    </div>
-
-
-    <div class="row justify-content-center">
-
-        <div class="col-md-8">
-            @if(isset($title))
-            <h4 class="mb-3">{{ $title }}</h4>
-            @endif
-
-            @foreach ($posts as $post)
-
-            <div class="card shadow p-2  mb-4 card-outline card-primary">
-                @include('posts.partials.header')
 
                 <div class="card-body">
-                    <p class="card-text">{!! $post->excerpt !!}</p>
-                    <p>
-                        <a href="{{ route('posts.show',$post) }}" class="text-uppercase text-info h4 font-weight-bold">
-                            Leer M&aacute;s</a>
-                    </p>
-                    @include('posts.partials.footer')
+                    <poststable-component></poststable-component>
                 </div>
             </div>
-
-            @endforeach
-            {{ $posts->render() }}
         </div>
     </div>
 </div>
-</div>
-@endsection
+@stop

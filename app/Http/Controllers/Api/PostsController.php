@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Post;
 use App\Http\Resources\PostCollection;
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -16,6 +16,6 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return new PostCollection(Post::latest()->get());
+        return new PostCollection (Post::paginate(5));
     }
 }

@@ -14,20 +14,6 @@ use App\Http\Resources\PostCollection;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-      //  $posts = new PostCollection(Post::latest()->get());
-
-      // $posts = Post::publishInfrontPage();
-        $posts = new Post;
-
-        return view('admin.posts.index',compact('posts'));
-    }
 
     /**
      * Show the form for creating a new resource.
