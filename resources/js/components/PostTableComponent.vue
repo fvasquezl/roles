@@ -18,14 +18,14 @@
         <td>{{post.asigned_as}}</td>
         <td>{{post.created_at}}</td>
         <td>
-
-            <button v-if="$Gate.allow('View post', post)" class="btn btn-sm btn-default" v-on:click="showPost(post.slug)">
+{{$Gate.allow('View posts', 'post')}}
+        <button v-if="$Gate.allow('View posts', 'post')" class="btn btn-sm btn-default" v-on:click="showPost(post.slug)">
              <i class="fas fa-eye"></i>
           </button>
-          <button class="btn btn-sm btn-info">
+          <button v-if="$Gate.allow('Edit posts', 'post')" class="btn btn-sm btn-info">
             <i class="fas fa-pencil-alt"></i>
           </button>
-          <button class="btn btn-sm btn-danger" v-on:click="deletePost(index)">
+          <button v-if="$Gate.allow('Delete posts', 'post')" class="btn btn-sm btn-danger" v-on:click="deletePost(index)">
             <i class="fas fa-trash-alt"></i>
           </button>
         </td>

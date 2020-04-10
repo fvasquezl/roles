@@ -47,6 +47,7 @@ export default class Gate
         if (this.user && this.policies.hasOwnProperty(type) && typeof this.policies[type][action] === 'function') {
             return this.policies[type][action](this.user, typeof model === 'object' ? model : null);
         }
+console.log(this.policies);
 
         return false;
     }

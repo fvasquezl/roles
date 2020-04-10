@@ -13,9 +13,7 @@ const Toast = Swal.mixin({
 window.Toast = Toast;
 
 import Gate from './policies/Gate';
-window.Gate = Gate;
-
-Vue.prototype.$Gate = new Gate;
+Vue.prototype.$Gate = new Gate(window.user);
 
 Vue.component('poststable-component', require('./components/PostTableComponent.vue').default);
 

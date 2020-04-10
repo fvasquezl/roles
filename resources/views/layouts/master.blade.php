@@ -52,6 +52,13 @@
 
     </div>
     <!-- ./wrapper -->
+
+    @auth
+    <script>
+       window.user = @json(auth()->user())
+    </script>
+    @endauth
+
     <script src="{{ asset('js/app.js') }}"></script>
 
     @unless(request()->is('admin/posts/*'))
@@ -59,11 +66,7 @@
     @endunless
     @stack('scripts')
     @stack('modals')
-    @auth
-    <script>
-       window.user = @json(auth()->user())
-    </script>
-    @endauth
+
 
 </body>
 
