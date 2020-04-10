@@ -23,6 +23,8 @@ Auth::routes([
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::Resource('api/posts','Api\PostsController');
+
 Route::middleware('auth')->group(function () {
     Route::get('/posts/{post}', 'PostsController@show')->name('posts.show');
     Route::get('/categories/{category}', 'CategoriesController@show')->name('categories.show');

@@ -55,7 +55,10 @@
 
     @auth
     <script>
-       window.user = @json(auth()->user())
+       window.user = @json([
+                'permissions' => Auth::user()->getAllpermissions()->pluck('name')->toArray(),
+                'roles' => Auth::user()->getRoleNames()->toArray(),
+    ])
     </script>
     @endauth
 

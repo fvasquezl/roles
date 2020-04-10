@@ -23,7 +23,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('admin.posts.index') }}" class="{{ setActiveRoute('admin.posts.index')}}">
+              <a href="{{ route('home') }}" class="{{ setActiveRoute('admin.posts.index')}}">
                 <i class="fa fa-address-card nav-icon"></i>
                 <p>Todas las publicaciones</p>
               </a>

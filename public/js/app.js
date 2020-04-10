@@ -15437,6 +15437,9 @@ __webpack_require__.r(__webpack_exports__);
     showPost: function showPost(slug) {
       window.location.href = "".concat(_config__WEBPACK_IMPORTED_MODULE_1__["default"].apiUrl, "posts/").concat(slug);
     },
+    updatePost: function updatePost(slug) {
+      window.location.href = "".concat(_config__WEBPACK_IMPORTED_MODULE_1__["default"].apiUrl, "/admin/posts/").concat(slug);
+    },
     deletePost: function deletePost(index) {
       var _this2 = this;
 
@@ -88602,33 +88605,35 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(post.created_at))]),
             _vm._v(" "),
             _c("td", [
-              _vm._v(
-                "\n" +
-                  _vm._s(_vm.$Gate.allow("View posts", "post")) +
-                  "\n        "
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm btn-default",
+                  on: {
+                    click: function($event) {
+                      return _vm.showPost(post.slug)
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-eye" })]
               ),
-              _vm.$Gate.allow("View posts", "post")
+              _vm._v(" "),
+              _vm.$Gate.allow("Update posts")
                 ? _c(
                     "button",
                     {
-                      staticClass: "btn btn-sm btn-default",
+                      staticClass: "btn btn-sm btn-info",
                       on: {
                         click: function($event) {
-                          return _vm.showPost(post.slug)
+                          return _vm.updatePost(post.slug)
                         }
                       }
                     },
-                    [_c("i", { staticClass: "fas fa-eye" })]
+                    [_c("i", { staticClass: "fas fa-pencil-alt" })]
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.$Gate.allow("Edit posts", "post")
-                ? _c("button", { staticClass: "btn btn-sm btn-info" }, [
-                    _c("i", { staticClass: "fas fa-pencil-alt" })
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.$Gate.allow("Delete posts", "post")
+              _vm.$Gate.allow("Delete posts")
                 ? _c(
                     "button",
                     {
@@ -100860,7 +100865,9 @@ var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
 });
 window.Toast = Toast;
 
-Vue.prototype.$Gate = new _policies_Gate__WEBPACK_IMPORTED_MODULE_1__["default"](window.user);
+Vue.prototype.$Gate = new _policies_Gate__WEBPACK_IMPORTED_MODULE_1__["default"](window.user); // import Permissions from './mixins/Permissions';
+// Vue.mixin(Permissions);
+
 Vue.component('poststable-component', __webpack_require__(/*! ./components/PostTableComponent.vue */ "./resources/js/components/PostTableComponent.vue")["default"]);
 var app = new Vue({
   el: '#app'
@@ -101032,25 +101039,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/policies sync recursive Policy\\.js$":
-/*!************************************************!*\
-  !*** ./resources/js/policies sync Policy\.js$ ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function webpackEmptyContext(req) {
-	var e = new Error("Cannot find module '" + req + "'");
-	e.code = 'MODULE_NOT_FOUND';
-	throw e;
-}
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = "./resources/js/policies sync recursive Policy\\.js$";
-
-/***/ }),
-
 /***/ "./resources/js/policies/Gate.js":
 /*!***************************************!*\
   !*** ./resources/js/policies/Gate.js ***!
@@ -101079,21 +101067,11 @@ function () {
    * @return {void}
    */
   function Gate() {
-    var _this = this;
-
     var user = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'user';
 
     _classCallCheck(this, Gate);
 
-    this.policies = {};
     this.user = _typeof(user) === 'object' ? user : window[user] || null;
-
-    var files = __webpack_require__("./resources/js/policies sync recursive Policy\\.js$");
-
-    files.keys().map(function (key) {
-      var name = key.split('/').pop().replace('Policy.js', '').toLowerCase();
-      _this.policies[name] = new (files(key)["default"])();
-    });
   }
   /**
    * Check if the user has a general perssion.
@@ -101104,44 +101082,40 @@ function () {
 
   _createClass(Gate, [{
     key: "before",
-    value: function before() {} //return this.user.role === 'Admin';
-
+    value: function before() {
+      return this.user.roles.indexOf("Admin") !== -1;
+    }
     /**
      * Determine wheter the user can perform the action on the model.
      *
      * @param  {string}  action
-     * @param  {object|string}  model
      * @return {bool}
      */
 
   }, {
     key: "allow",
-    value: function allow(action, model) {
+    value: function allow(action) {
       if (this.before()) {
         return true;
       }
 
-      var type = _typeof(model) === 'object' ? model.model_name : model;
-
-      if (this.user && this.policies.hasOwnProperty(type) && typeof this.policies[type][action] === 'function') {
-        return this.policies[type][action](this.user, _typeof(model) === 'object' ? model : null);
+      if (this.user && this.user.permissions) {
+        return this.user.permissions.indexOf(action) !== -1;
       }
 
-      console.log(this.policies);
       return false;
     }
     /**
      * Determine wheter the user can't perform the action on the model.
      *
      * @param  {string}  action
-     * @param  {object}  model
      * @return {bool}
      */
 
   }, {
     key: "deny",
-    value: function deny(action, model) {
-      return !this.allow(action, model);
+    value: function deny(action) {
+      return !this.allow(action);
     }
   }]);
 

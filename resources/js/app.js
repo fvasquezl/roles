@@ -14,6 +14,8 @@ window.Toast = Toast;
 
 import Gate from './policies/Gate';
 Vue.prototype.$Gate = new Gate(window.user);
+// import Permissions from './mixins/Permissions';
+// Vue.mixin(Permissions);
 
 Vue.component('poststable-component', require('./components/PostTableComponent.vue').default);
 

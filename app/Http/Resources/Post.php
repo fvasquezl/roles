@@ -15,6 +15,9 @@ class Post extends JsonResource
      */
     public function toArray($request)
     {
+        // if(!$this->departments->isEmpty() && $this->roles->isEmpty())
+        // return 'Publico';
+
         return [
             'id'=> $this->id,
             'title'=> $this->title,

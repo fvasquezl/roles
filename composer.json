@@ -14,8 +14,7 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/errors": "^1.0",
         "laravelcollective/html": "^6.0",
-        "spatie/laravel-permission": "^3.3",
-        "thepinecode/policy": "^0.3.0"
+        "spatie/laravel-permission": "^3.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

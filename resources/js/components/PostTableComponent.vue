@@ -18,14 +18,14 @@
         <td>{{post.asigned_as}}</td>
         <td>{{post.created_at}}</td>
         <td>
-{{$Gate.allow('View posts', 'post')}}
-        <button v-if="$Gate.allow('View posts', 'post')" class="btn btn-sm btn-default" v-on:click="showPost(post.slug)">
+
+        <button class="btn btn-sm btn-default" v-on:click="showPost(post.slug)">
              <i class="fas fa-eye"></i>
           </button>
-          <button v-if="$Gate.allow('Edit posts', 'post')" class="btn btn-sm btn-info">
+          <button v-if="$Gate.allow('Update posts')" class="btn btn-sm btn-info" v-on:click="updatePost(post.slug)">
             <i class="fas fa-pencil-alt"></i>
           </button>
-          <button v-if="$Gate.allow('Delete posts', 'post')" class="btn btn-sm btn-danger" v-on:click="deletePost(index)">
+          <button v-if="$Gate.allow('Delete posts')" class="btn btn-sm btn-danger" v-on:click="deletePost(index)">
             <i class="fas fa-trash-alt"></i>
           </button>
         </td>
@@ -57,7 +57,6 @@ export default {
   },
   methods: {
     getPosts() {
-
       var urlpost = `${config.apiUrl}api/posts`;
       axios.get(urlpost).then(response => {
         this.posts = response.data.data;
@@ -65,6 +64,9 @@ export default {
     },
     showPost(slug){
       window.location.href = `${config.apiUrl}posts/${slug}`;
+    },
+    updatePost(slug){
+      window.location.href = `${config.apiUrl}/admin/posts/${slug}`;
     },
     deletePost(index) {
       Swal.fire({
