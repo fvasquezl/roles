@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,10 +55,15 @@
     <script src="{{ asset('js/app.js') }}"></script>
 
     @unless(request()->is('admin/posts/*'))
-        @include('admin.posts.create')
+    @include('admin.posts.create')
     @endunless
     @stack('scripts')
     @stack('modals')
+    @auth
+    <script>
+       window.user = @json(auth()->user())
+    </script>
+    @endauth
 
 </body>
 

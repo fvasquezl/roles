@@ -18,7 +18,8 @@
         <td>{{post.asigned_as}}</td>
         <td>{{post.created_at}}</td>
         <td>
-            <button class="btn btn-sm btn-default" v-on:click="showPost(post.slug)">
+
+            <button v-if="$Gate.allow('View post', post)" class="btn btn-sm btn-default" v-on:click="showPost(post.slug)">
              <i class="fas fa-eye"></i>
           </button>
           <button class="btn btn-sm btn-info">
@@ -40,11 +41,12 @@ import config from "../config";
 export default {
   data() {
     return {
-      posts: []
+      posts: [],
     };
   },
   created() {
     this.getPosts();
+
   },
   watch: {
     posts() {
@@ -55,9 +57,9 @@ export default {
   },
   methods: {
     getPosts() {
+
       var urlpost = `${config.apiUrl}api/posts`;
       axios.get(urlpost).then(response => {
-        console.log(response.data.data);
         this.posts = response.data.data;
       });
     },

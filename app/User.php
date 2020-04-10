@@ -6,6 +6,8 @@ use App\Presenters\UserPresenter;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -88,7 +90,6 @@ class User extends Authenticatable
         return Post::latest('updated_at')->published()->publishInfrontPage()
         ->select('title','slug','updated_at','user_id')
         ->limit(10)->get();
-
-     
      }
+
 }
