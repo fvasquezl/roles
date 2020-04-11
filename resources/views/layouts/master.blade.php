@@ -40,6 +40,10 @@
             <section class="content">
                 @include('partials.show_messages')
 
+
+                    <router-view></router-view>
+
+
                 @yield('content')
 
             </section>

@@ -63,3 +63,5 @@ Route::prefix('/admin')
         Route::delete('documents/{document}', 'DocumentsController@destroy')->name('documents.destroy');
 
     });
+
+    Route::get('/{any?}', 'HomeController@index')->name('home')->where('any', '.*');
