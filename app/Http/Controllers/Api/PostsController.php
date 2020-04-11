@@ -16,7 +16,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::allowed()->published()->get();
-        return new PostCollection ($posts);
+        $posts = Post::allowed()->published()->latest()->get();
+        return new PostCollection($posts);
     }
 }

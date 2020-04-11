@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 
 class Post extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -15,9 +16,6 @@ class Post extends JsonResource
      */
     public function toArray($request)
     {
-        // if(!$this->departments->isEmpty() && $this->roles->isEmpty())
-        // return 'Publico';
-
         return [
             'id'=> $this->id,
             'title'=> $this->title,

@@ -99,15 +99,17 @@ class Post extends Model
             return $this->query;
         }
         return $this->getPost();
-
-        // return $query->where('user_id', auth()->id());
     }
     public function getPost()
     {
-        return $this->whereHas('departments', function ($query) {
+        return $this->where(function ($query) {
+            $query->whereDoesntHave('departments', function (Builder $query) {
+                $query->whereNotIn('department_id', auth()->user()->departments->pluck('id'));
+            })->whereHas('roles', function (Builder $query) {
+                $query->whereIn('role_id', auth()->user()->roles->pluck('id'));
+            });
+        })->orwhereHas('departments', function (Builder $query) {
             $query->whereIn('department_id', auth()->user()->departments->pluck('id'));
-        })->orWhereHas('roles', function ($query) {
-            $query->whereIn('role_id', auth()->user()->roles->pluck('id'));
         })->orWhere(function ($query) {
             $query->doesnthave('departments')->doesnthave('roles');
         });

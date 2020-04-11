@@ -6,6 +6,9 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PostCollection extends ResourceCollection
 {
+
+    public $preserveKeys = true;
+
     /**
      * Transform the resource collection into an array.
      *
