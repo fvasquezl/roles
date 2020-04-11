@@ -3,18 +3,25 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import postsIndex from '../components/posts/Index';
+import homeIndex from '../components/posts/Index';
+import postsEdit from '../components/posts/Edit';
 
 const routes = [{
     path: '/home',
     name: 'home.index',
-    component: postsIndex
-}];
+    component: homeIndex
+}, {
+    path: '/posts/edit',
+    name: 'posts.edit',
+    component: postsEdit
+}
+
+];
 
 const router = new VueRouter({
-  routes,
-  hashbang: false,
-  mode: 'history'
+    routes,
+    hashbang: false,
+    mode: 'history'
 });
 
 export default router;

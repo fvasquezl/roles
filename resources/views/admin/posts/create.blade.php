@@ -1,5 +1,5 @@
 
-    <div class="modal fade" id="myModal">
+    {{-- <div class="modal fade" id="myModaOld">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -51,4 +51,4 @@
         window.location.hash = '#create'
     });
 </script>
-@endpush
+@endpush --}}

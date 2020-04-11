@@ -56,18 +56,23 @@
         </table>
       </div>
     </div>
+    <CreatePost></CreatePost>
   </div>
 </template>
 
 <script>
 import datatables from "datatables.net-bs4";
 //import config from "../config";
+import CreatePost from "./Create";
 
 export default {
   data() {
     return {
       posts: []
     };
+  },
+  components:{
+    CreatePost
   },
   created() {
     this.getPosts();
