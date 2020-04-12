@@ -47,20 +47,23 @@ export default {
       errors: [],
       form: {
         title: ""
-      }
+      },
     };
   },
   methods: {
     createPostTitle() {
       axios
-        .post("api/posts", this.form)
-        .then(response => {
-          console.log(response.data.id);
-        })
-        .catch(error => {
-          console.log(error.response.data.errors);
-          this.errors = error.response.data.errors;
-        });
+        .post("api/post", this.form)
+        .then(res=> {this.responseAfterCreate(res)})
+        .catch(error => (this.errors = error.response.data.errors));
+    },
+    responseAfterCreate(res){
+        const slug = res.data.post.slug;
+        const title = res.data.post.title;
+        const status = res.data.status
+        if (status == '201') {
+            this.$router.push({ name: 'post.edit', params:{ slug:slug,title:title } })
+        }
     }
   }
 };

@@ -11,9 +11,11 @@
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes([
     'register' => false, // Registration Routes...
@@ -21,12 +23,16 @@ Auth::routes([
     'verify' => false, // Email Verification Routes...
   ]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
-Route::Resource('api/posts','Api\PostsController');
+/**
+ * ApiRoutes
+ */
+Route::Resource('api/home','Api\HomeController');
+Route::Resource('api/post','Api\PostController');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/posts/{post}', 'PostsController@show')->name('posts.show');
+  //  Route::get('/posts/{post}', 'PostsController@show')->name('posts.show');
     Route::get('/categories/{category}', 'CategoriesController@show')->name('categories.show');
 
     Route::get('/tags/{tag}', 'TagsController@show')->name('tags.show');

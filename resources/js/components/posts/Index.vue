@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     getPosts() {
-      var urlpost = `/api/posts`;
+      var urlpost = `/api/home`;
       axios.get(urlpost).then(response => {
         this.posts = response.data.data;
       });

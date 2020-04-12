@@ -7,12 +7,12 @@ import homeIndex from '../components/posts/Index';
 import postsEdit from '../components/posts/Edit';
 
 const routes = [{
-    path: '/home',
-    name: 'home.index',
+    path: '/',
+    name: 'home',
     component: homeIndex
 }, {
-    path: '/posts/edit',
-    name: 'posts.edit',
+    path: '/post/:slug/edit',
+    name: 'post.edit',
     component: postsEdit
 }
 
