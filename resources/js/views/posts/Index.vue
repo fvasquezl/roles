@@ -56,14 +56,14 @@
         </table>
       </div>
     </div>
-    <CreatePost></CreatePost>
+    <CreatePostModal v-on:postCreated=postCreated ></CreatePostModal>
   </div>
 </template>
 
 <script>
 import datatables from "datatables.net-bs4";
 //import config from "../config";
-import CreatePost from "./Create";
+import CreatePostModal from "./Create";
 
 export default {
   data() {
@@ -72,7 +72,7 @@ export default {
     };
   },
   components:{
-    CreatePost
+    CreatePostModal
   },
   created() {
     this.getPosts();
@@ -86,10 +86,14 @@ export default {
   },
   methods: {
     getPosts() {
-      var urlpost = `/api/home`;
+      var urlpost = `/api/posts`;
       axios.get(urlpost).then(response => {
         this.posts = response.data.data;
       });
+    },
+    postCreated(post){
+        $('#myModal').modal('hide');
+        this.$router.push({ name: 'post.edit', params:{ slug:post.slug ,post:post} })
     },
     showPost(slug) {
       // window.location.href = `${config.apiUrl}posts/${slug}`;

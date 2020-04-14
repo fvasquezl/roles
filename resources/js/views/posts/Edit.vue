@@ -137,19 +137,19 @@
 
 <script>
 export default {
+  props:['post'],
   data() {
     return {
       errors: [],
-      post: {
+      form: {
         title: "",
+        slug: '',
         category_id: ""
       }
     };
   },
   mounted() {
-    this.post.title = this.$route.params.title;
-
-   // this.getPostData();
+      this.form = this.post;
   },
   methods: {
     // getPostData() {

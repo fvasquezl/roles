@@ -28,8 +28,7 @@ Auth::routes([
 /**
  * ApiRoutes
  */
-Route::Resource('api/home','Api\HomeController');
-Route::Resource('api/post','Api\PostController');
+Route::Resource('api/posts','Api\PostsController');
 
 Route::middleware('auth')->group(function () {
   //  Route::get('/posts/{post}', 'PostsController@show')->name('posts.show');

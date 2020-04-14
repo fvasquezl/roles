@@ -21,7 +21,7 @@
                 placeholder="Inresa aqu&iacute; el t&iacute;tulo de la publicaci&oacute;n"
                 autofocus
                 required
-                v-model="form.title"
+                v-model="post.title"
               />
               <span v-if="errors.title" class="invalid-feedback" role="alert">
                 <strong>{{ errors.title[0] }}</strong>
@@ -45,24 +45,24 @@ export default {
   data() {
     return {
       errors: [],
-      form: {
-        title: ""
+      post: {
+        title: null,
+        slug: null
       },
     };
   },
   methods: {
     createPostTitle() {
       axios
-        .post("api/post", this.form)
+        .post("api/posts", this.post)
         .then(res=> {this.responseAfterCreate(res)})
         .catch(error => (this.errors = error.response.data.errors));
     },
     responseAfterCreate(res){
-        const slug = res.data.post.slug;
-        const title = res.data.post.title;
         const status = res.data.status
         if (status == '201') {
-            this.$router.push({ name: 'post.edit', params:{ slug:slug,title:title } })
+            this.post = res.data.post;
+            this.$emit('postCreated', this.post)
         }
     }
   }

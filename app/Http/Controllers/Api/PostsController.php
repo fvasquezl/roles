@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Resources\PostCollection;
+use App\Http\Controllers\Controller;
 use App\Post;
 
 use Illuminate\Http\Request;
 
 
-class HomeController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,6 +33,11 @@ class HomeController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('create', new Post);
+
+        $post = Post::create($request->all());
+
+        return response(['post'=>$post, 'status' => Response::HTTP_CREATED]);
     }
 
     /**
@@ -51,9 +58,24 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Post $post)
     {
-        //
+        $this->authorize('update', $post);
+
+        $post->update($request->all());
+        $post->syncTags($request->get('tags'));
+        $post->departments()->detach();
+        $post->roles()->detach();
+
+        if($request->has('departments')){
+            $post->departments()->sync($request->get('departments'));
+        }
+
+        if($request->has('roles')){
+            $post->syncRoles($request->get('roles'));
+        }
+
+        return response('Updated', Response::HTTP_ACCEPTED);
     }
 
     /**
