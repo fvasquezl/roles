@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Post;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\UpdateRequest;
+
 
 class PostController extends Controller
 {
@@ -54,9 +55,25 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Post $post)
     {
-        //
+
+        $this->authorize('update', $post);
+
+        $post->update($request->all());
+        $post->syncTags($request->get('tags'));
+        $post->departments()->detach();
+        $post->roles()->detach();
+
+        if($request->has('departments')){
+            $post->departments()->sync($request->get('departments'));
+        }
+
+        if($request->has('roles')){
+            $post->syncRoles($request->get('roles'));
+        }
+
+        return response('Updated', Response::HTTP_ACCEPTED)
     }
 
     /**
