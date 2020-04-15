@@ -8,8 +8,6 @@ try {
     require('@fortawesome/fontawesome-free');
     require('moment');
     require('daterangepicker');
-
-
     require('admin-lte/plugins/summernote/summernote-bs4');
     require('admin-lte/plugins/select2/js/select2.full.min.js');
     require('admin-lte/dist/js/adminlte');

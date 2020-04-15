@@ -91,9 +91,9 @@ export default {
         this.posts = response.data.data;
       });
     },
-    postCreated(post){
+    postCreated(slug){
         $('#myModal').modal('hide');
-        this.$router.push({ name: 'post.edit', params:{ slug:post.slug ,post:post} })
+        this.$router.push({ name: 'post.edit', params:{ slug:slug} })
     },
     showPost(slug) {
       // window.location.href = `${config.apiUrl}posts/${slug}`;

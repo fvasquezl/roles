@@ -12,7 +12,7 @@
                 class="form-control"
                 :class="{'is-invalid': errors.title }"
                 placeholder="Ingresa aqu&iacute; el t&iacute;tulo de la publicaci&oacute;n"
-                v-model="post.title"
+                v-model="form.title"
               />
               <span v-if="errors && errors.title" class="invalid-feedback" role="alert">
                 <strong>{{ errors.title[0] }}</strong>
@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
               <label>Categorias</label>
-              <select name="category_id" class="select2 form-control" v-bind="post.category_id">
+              <select name="category_id" class="select2 form-control" v-bind="form.category_id">
                 <option value>Selecciona una categoria</option>
                 <option value></option>
               </select>
@@ -137,24 +137,30 @@
 
 <script>
 export default {
-  props:['post'],
   data() {
     return {
       errors: [],
       form: {
         title: "",
-        slug: '',
+        slug: "",
         category_id: ""
       }
     };
   },
   mounted() {
-      this.form = this.post;
+    this.getPostData();
   },
   methods: {
-    // getPostData() {
-    //     console.log(this.$route.params)
-    // }
+    getPostData() {
+      const slug = this.$route.params.slug;
+      if (localStorage.getItem(slug)) {
+        try {
+          this.form = JSON.parse(localStorage.getItem(slug));
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    }
   }
 };
 </script>
