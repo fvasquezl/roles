@@ -62,15 +62,9 @@ export default {
         const status = res.data.status
         if (status == '201') {
             this.post = res.data.post;
-            this.localdata();
             this.$emit('postCreated', this.post.slug)
         }
-    },
-    localdata(){
-        let parsed = JSON.stringify(this.post);
-        localStorage.setItem(this.post.slug, parsed);
     }
-
   }
 };
 </script>

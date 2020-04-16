@@ -15435,13 +15435,8 @@ __webpack_require__.r(__webpack_exports__);
 
       if (status == '201') {
         this.post = res.data.post;
-        this.localdata();
         this.$emit('postCreated', this.post.slug);
       }
-    },
-    localdata: function localdata() {
-      var parsed = JSON.stringify(this.post);
-      localStorage.setItem(this.post.slug, parsed);
     }
   }
 });
@@ -15598,27 +15593,51 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       errors: [],
-      form: {
+      post: {
         title: "",
         slug: "",
+        excerpt: "",
+        published_at: "",
         category_id: ""
       }
     };
   },
   mounted: function mounted() {
-    this.getPostData();
+    this.getPost();
+    this.getDepartments();
+    this.getRoles;
   },
   methods: {
-    getPostData: function getPostData() {
-      var slug = this.$route.params.slug;
+    getPost: function getPost() {
+      var _this = this;
 
-      if (localStorage.getItem(slug)) {
-        try {
-          this.form = JSON.parse(localStorage.getItem(slug));
-        } catch (e) {
-          console.log(e);
-        }
-      }
+      var slug = this.$route.params.slug;
+      axios.get('/api/posts/' + slug).then(function (res) {
+        console.log(res);
+        _this.post = res.data.post;
+      })["catch"](function (err) {
+        console.log(err.data);
+        _this.errors = err.data.errors;
+      });
+    },
+    getDepartments: function getDepartments() {
+      var _this2 = this;
+
+      axios.get('/api/departments').then(function (res) {
+        _this2.departments = res.data.departments;
+      })["catch"](function (err) {
+        _this2.errors = err.data.errors;
+      });
+    },
+    getRoles: function getRoles() {
+      var _this3 = this;
+
+      axios.get('/api/roles').then(function (res) {
+        _this3.roles = res.data.roles;
+      })["catch"](function (err) {
+        console.log(err.data);
+        _this3.errors = err.data.errors;
+      });
     }
   }
 });
@@ -89031,8 +89050,8 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.title,
-                    expression: "form.title"
+                    value: _vm.post.title,
+                    expression: "post.title"
                   }
                 ],
                 staticClass: "form-control",
@@ -89043,13 +89062,13 @@ var render = function() {
                   placeholder:
                     "Ingresa aqu&iacute; el t&iacute;tulo de la publicaci&oacute;n"
                 },
-                domProps: { value: _vm.form.title },
+                domProps: { value: _vm.post.title },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.form, "title", $event.target.value)
+                    _vm.$set(_vm.post, "title", $event.target.value)
                   }
                 }
               }),
@@ -89077,7 +89096,7 @@ var render = function() {
                     attrs: { name: "category_id" }
                   },
                   "select",
-                  _vm.form.category_id,
+                  _vm.post.category_id,
                   false
                 ),
                 [

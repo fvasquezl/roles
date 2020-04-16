@@ -46,9 +46,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return response(['post'=>$post, 'status' => Response::HTTP_FOUND]);
     }
 
     /**

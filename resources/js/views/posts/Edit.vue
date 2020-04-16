@@ -12,7 +12,7 @@
                 class="form-control"
                 :class="{'is-invalid': errors.title }"
                 placeholder="Ingresa aqu&iacute; el t&iacute;tulo de la publicaci&oacute;n"
-                v-model="form.title"
+                v-model="post.title"
               />
               <span v-if="errors && errors.title" class="invalid-feedback" role="alert">
                 <strong>{{ errors.title[0] }}</strong>
@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
               <label>Categorias</label>
-              <select name="category_id" class="select2 form-control" v-bind="form.category_id">
+              <select name="category_id" class="select2 form-control" v-bind="post.category_id">
                 <option value>Selecciona una categoria</option>
                 <option value></option>
               </select>
@@ -140,26 +140,53 @@ export default {
   data() {
     return {
       errors: [],
-      form: {
+      post: {
         title: "",
         slug: "",
-        category_id: ""
+        excerpt:"",
+        published_at:"",
+        category_id:"",
       }
     };
   },
   mounted() {
-    this.getPostData();
+    this.getPost();
+    this.getDepartments();
+    this.getRoles
   },
   methods: {
-    getPostData() {
+    getPost() {
       const slug = this.$route.params.slug;
-      if (localStorage.getItem(slug)) {
-        try {
-          this.form = JSON.parse(localStorage.getItem(slug));
-        } catch (e) {
-          console.log(e);
-        }
-      }
+      axios.get('/api/posts/'+slug)
+      .then(res=>{
+           console.log(res)
+           this.post = res.data.post;
+
+      })
+      .catch(err=>{
+          console.log(err.data)
+          this.errors = err.data.errors
+      })
+    },
+    getDepartments() {
+      axios.get('/api/departments')
+      .then(res=>{
+           this.departments = res.data.departments;
+
+      })
+      .catch(err=>{
+          this.errors = err.data.errors
+      })
+    },
+    getRoles() {
+      axios.get('/api/roles')
+      .then(res=>{
+           this.roles = res.data.roles;
+      })
+      .catch(err=>{
+          console.log(err.data)
+          this.errors = err.data.errors
+      })
     }
   }
 };
