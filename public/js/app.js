@@ -15589,6 +15589,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -89093,6 +89101,7 @@ var render = function() {
                 _vm._b(
                   {
                     staticClass: "select2 form-control",
+                    class: { "is-invalid": _vm.errors.category_id },
                     attrs: { name: "category_id" }
                   },
                   "select",
@@ -89108,7 +89117,172 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm._m(0)
+              _vm.errors && _vm.errors.category_id
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "invalid-feedback",
+                      attrs: { role: "alert" }
+                    },
+                    [_c("strong", [_vm._v(_vm._s(_vm.errors.category_id[0]))])]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Etiquetas")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  staticClass: "select2 form-control",
+                  class: { "is-invalid": _vm.errors.tags },
+                  staticStyle: { width: "100%" },
+                  attrs: {
+                    name: "tags[]",
+                    multiple: "multiple",
+                    "data-placeholder": "Selecciona una o mas etiquetas"
+                  }
+                },
+                [_c("option")]
+              ),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.tags
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "invalid-feedback",
+                      attrs: { role: "alert" }
+                    },
+                    [_c("strong", [_vm._v(_vm._s(_vm.errors.tags[0]))])]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Extracto de la publicacion")]),
+              _vm._v(" "),
+              _c("textarea", {
+                staticClass: "form-control",
+                class: { "is-invalid": _vm.errors.excerpt },
+                attrs: {
+                  name: "excerpt",
+                  id: "editor",
+                  placeholder:
+                    "Inresa aqu&iacute; el extracto de la publicaci&oacute;n"
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.excerpt
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "invalid-feedback",
+                      attrs: { role: "alert" }
+                    },
+                    [_c("strong", [_vm._v(_vm._s(_vm.errors.excerpt[0]))])]
+                  )
+                : _vm._e()
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-5" }, [
+        _c("div", { staticClass: "card card-outline card-primary" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Fecha de publicacion:")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control float-right",
+                  class: { "is-invalid": _vm.errors.published_at },
+                  attrs: {
+                    name: "published_at",
+                    type: "text",
+                    id: "datepicker",
+                    value: ""
+                  }
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.published_at
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "invalid-feedback",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _c("strong", [
+                          _vm._v(_vm._s(_vm.errors.published_at[0]))
+                        ])
+                      ]
+                    )
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Departamentos")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  staticClass: "select2 form-control",
+                  class: { "is-invalid": _vm.errors.departments },
+                  staticStyle: { width: "100%" },
+                  attrs: {
+                    name: "departments[]",
+                    multiple: "multiple",
+                    "data-placeholder": "(vacio) todos los departamentos"
+                  }
+                },
+                [_c("option")]
+              ),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.departments
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "invalid-feedback",
+                      attrs: { role: "alert" }
+                    },
+                    [_c("strong", [_vm._v(_vm._s(_vm.errors.departments[0]))])]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Roles")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  staticClass: "select2 form-control",
+                  class: { "is-invalid": _vm.errors.roles },
+                  staticStyle: { width: "100%" },
+                  attrs: {
+                    name: "roles[]",
+                    multiple: "multiple",
+                    "data-placeholder": "(vacio) todos los roles"
+                  }
+                },
+                [_c("option")]
+              ),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.roles
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "invalid-feedback",
+                      attrs: { role: "alert" }
+                    },
+                    [_c("strong", [_vm._v(_vm._s(_vm.errors.roles[0]))])]
+                  )
+                : _vm._e()
             ]),
             _vm._v(" "),
             _vm._m(1),
@@ -89116,9 +89290,7 @@ var render = function() {
             _vm._m(2)
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _vm._m(3)
+      ])
     ])
   ])
 }
@@ -89127,164 +89299,32 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-      [_c("strong")]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Etiquetas")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          staticClass: "select2 form-control",
-          staticStyle: { width: "100%" },
-          attrs: {
-            name: "tags[]",
-            multiple: "multiple",
-            "data-placeholder": "Selecciona una o mas etiquetas"
-          }
-        },
-        [_c("option")]
-      ),
-      _vm._v(" "),
-      _c(
-        "span",
-        { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-        [_c("strong")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Extracto de la publicacion")]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: {
-          name: "excerpt",
-          id: "editor",
-          placeholder: "Inresa aqu&iacute; el extracto de la publicaci&oacute;n"
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "span",
-        { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-        [_c("strong")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-5" }, [
-      _c("div", { staticClass: "card card-outline card-primary" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Fecha de publicacion:")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group" }, [
-              _c("div", { staticClass: "input-group-prepend" }, [
-                _c("span", { staticClass: "input-group-text" }, [
-                  _c("i", { staticClass: "far fa-calendar-alt" })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control float-right",
-                attrs: {
-                  name: "published_at",
-                  type: "text",
-                  id: "datepicker",
-                  value: ""
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-                [_c("strong")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Departamentos")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                staticClass: "select2 form-control",
-                staticStyle: { width: "100%" },
-                attrs: {
-                  name: "departments[]",
-                  multiple: "multiple",
-                  "data-placeholder": "(vacio) todos los departamentos"
-                }
-              },
-              [_c("option")]
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-              [_c("strong")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Roles")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                staticClass: "select2 form-control",
-                staticStyle: { width: "100%" },
-                attrs: {
-                  name: "roles[]",
-                  multiple: "multiple",
-                  "data-placeholder": "(vacio) todos los roles"
-                }
-              },
-              [_c("option")]
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-              [_c("strong")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Documentos")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropzone" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary btn-block",
-                attrs: { type: "submit" }
-              },
-              [_vm._v("Guardar Publicacion")]
-            )
-          ])
-        ])
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "far fa-calendar-alt" })
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", [_vm._v("Documentos")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropzone" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary btn-block", attrs: { type: "submit" } },
+        [_vm._v("Guardar Publicacion")]
+      )
     ])
   }
 ]

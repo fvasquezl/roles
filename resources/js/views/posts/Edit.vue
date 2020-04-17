@@ -20,13 +20,16 @@
             </div>
             <div class="form-group">
               <label>Categorias</label>
-              <select name="category_id" class="select2 form-control" v-bind="post.category_id">
+              <select name="category_id"
+                    class="select2 form-control"
+                    :class="{'is-invalid': errors.category_id }"
+                    v-bind="post.category_id">
                 <option value>Selecciona una categoria</option>
                 <option value></option>
               </select>
 
-              <span class="invalid-feedback" role="alert">
-                <strong></strong>
+              <span v-if="errors && errors.category_id" class="invalid-feedback" role="alert">
+                <strong>{{ errors.category_id[0] }}</strong>
               </span>
             </div>
             <div class="form-group">
@@ -34,6 +37,7 @@
               <select
                 name="tags[]"
                 class="select2 form-control"
+                :class="{'is-invalid': errors.tags}"
                 multiple="multiple"
                 data-placeholder="Selecciona una o mas etiquetas"
                 style="width: 100%;"
@@ -41,8 +45,8 @@
                 <option></option>
               </select>
 
-              <span class="invalid-feedback" role="alert">
-                <strong></strong>
+               <span v-if="errors && errors.tags" class="invalid-feedback" role="alert">
+                <strong>{{ errors.tags[0] }}</strong>
               </span>
             </div>
             <div class="form-group">
@@ -50,12 +54,13 @@
               <textarea
                 name="excerpt"
                 class="form-control"
+                :class="{'is-invalid': errors.excerpt}"
                 id="editor"
                 placeholder="Inresa aqu&iacute; el extracto de la publicaci&oacute;n"
               ></textarea>
 
-              <span class="invalid-feedback" role="alert">
-                <strong></strong>
+               <span v-if="errors && errors.excerpt" class="invalid-feedback" role="alert">
+                <strong>{{ errors.excerpt[0] }}</strong>
               </span>
             </div>
           </div>
@@ -76,12 +81,13 @@
                   name="published_at"
                   type="text"
                   class="form-control float-right"
+                  :class="{'is-invalid': errors.published_at}"
                   id="datepicker"
                   value
                 />
 
-                <span class="invalid-feedback" role="alert">
-                  <strong></strong>
+                <span v-if="errors && errors.published_at" class="invalid-feedback" role="alert">
+                    <strong>{{ errors.published_at[0] }}</strong>
                 </span>
               </div>
               <!-- /.input group -->
@@ -92,6 +98,7 @@
               <select
                 name="departments[]"
                 class="select2 form-control"
+                :class="{'is-invalid': errors.departments}"
                 multiple="multiple"
                 data-placeholder="(vacio) todos los departamentos"
                 style="width: 100%;"
@@ -99,9 +106,9 @@
                 <option></option>
               </select>
 
-              <span class="invalid-feedback" role="alert">
-                <strong></strong>
-              </span>
+               <span v-if="errors && errors.departments" class="invalid-feedback" role="alert">
+                    <strong>{{ errors.departments[0] }}</strong>
+                </span>
             </div>
 
             <div class="form-group">
@@ -110,15 +117,16 @@
                 name="roles[]"
                 class="select2 form-control"
                 multiple="multiple"
+                :class="{'is-invalid': errors.roles}"
                 data-placeholder="(vacio) todos los roles"
                 style="width: 100%;"
               >
                 <option></option>
               </select>
 
-              <span class="invalid-feedback" role="alert">
-                <strong></strong>
-              </span>
+             <span v-if="errors && errors.roles" class="invalid-feedback" role="alert">
+                    <strong>{{ errors.roles[0] }}</strong>
+                </span>
             </div>
 
             <div class="form-group">
