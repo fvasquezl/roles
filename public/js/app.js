@@ -15597,6 +15597,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -15607,21 +15609,36 @@ __webpack_require__.r(__webpack_exports__);
         excerpt: "",
         published_at: "",
         category_id: ""
+      },
+      departments: {
+        id: "",
+        name: "",
+        display_name: ""
+      },
+      roles: {
+        id: "",
+        name: "",
+        display_name: ""
+      },
+      categories: {
+        id: "",
+        name: "",
+        slug: ""
       }
     };
   },
   mounted: function mounted() {
     this.getPost();
     this.getDepartments();
-    this.getRoles;
+    this.getRoles();
+    this.getCategories();
   },
   methods: {
     getPost: function getPost() {
       var _this = this;
 
       var slug = this.$route.params.slug;
-      axios.get('/api/posts/' + slug).then(function (res) {
-        console.log(res);
+      axios.get("/api/posts/" + slug).then(function (res) {
         _this.post = res.data.post;
       })["catch"](function (err) {
         console.log(err.data);
@@ -15631,7 +15648,7 @@ __webpack_require__.r(__webpack_exports__);
     getDepartments: function getDepartments() {
       var _this2 = this;
 
-      axios.get('/api/departments').then(function (res) {
+      axios.get("/api/departments").then(function (res) {
         _this2.departments = res.data.departments;
       })["catch"](function (err) {
         _this2.errors = err.data.errors;
@@ -15640,11 +15657,21 @@ __webpack_require__.r(__webpack_exports__);
     getRoles: function getRoles() {
       var _this3 = this;
 
-      axios.get('/api/roles').then(function (res) {
+      axios.get("/api/roles").then(function (res) {
         _this3.roles = res.data.roles;
       })["catch"](function (err) {
         console.log(err.data);
         _this3.errors = err.data.errors;
+      });
+    },
+    getCategories: function getCategories() {
+      var _this4 = this;
+
+      axios.get("/api/categories").then(function (res) {
+        _this4.categories = res.data.categories;
+      })["catch"](function (err) {
+        console.log(err.data);
+        _this4.errors = err.data.errors;
       });
     }
   }

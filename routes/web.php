@@ -29,6 +29,9 @@ Auth::routes([
  * ApiRoutes
  */
 Route::ApiResource('api/posts','Api\PostsController');
+Route::ApiResource('api/departments','Api\DepartmentsController');
+Route::ApiResource('api/roles','Api\RolesController');
+Route::ApiResource('api/categories','Api\CategoriesController');
 
 Route::middleware('auth')->group(function () {
   //  Route::get('/posts/{post}', 'PostsController@show')->name('posts.show');

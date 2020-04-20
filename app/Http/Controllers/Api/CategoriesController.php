@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+use App\Category;
+
 use Symfony\Component\HttpFoundation\Response;
 
-class RolesController extends Controller
+class CategoriesController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +18,12 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', new Role);
+        $this->authorize('view', new Category);
 
-        $roles = Role::get();
-        return response(['roles'=>$roles, 'status' => Response::HTTP_OK]);
+        $categories = Category::all();
+
+        return response(['categories'=>$categories, 'status' => Response::HTTP_OK]);
+
     }
 
     /**

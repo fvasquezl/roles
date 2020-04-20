@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DepartmentsController extends Controller
 {
@@ -14,7 +16,11 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('view', new Department);
+
+        $departments = Department::get();
+
+        return response(['departments'=>$departments, 'status' => Response::HTTP_OK]);
     }
 
     /**

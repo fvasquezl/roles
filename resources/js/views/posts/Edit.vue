@@ -20,10 +20,12 @@
             </div>
             <div class="form-group">
               <label>Categorias</label>
-              <select name="category_id"
-                    class="select2 form-control"
-                    :class="{'is-invalid': errors.category_id }"
-                    v-bind="post.category_id">
+              <select
+                name="category_id"
+                class="select2 form-control"
+                :class="{'is-invalid': errors.category_id }"
+                v-bind="post.category_id"
+              >
                 <option value>Selecciona una categoria</option>
                 <option value></option>
               </select>
@@ -45,7 +47,7 @@
                 <option></option>
               </select>
 
-               <span v-if="errors && errors.tags" class="invalid-feedback" role="alert">
+              <span v-if="errors && errors.tags" class="invalid-feedback" role="alert">
                 <strong>{{ errors.tags[0] }}</strong>
               </span>
             </div>
@@ -59,7 +61,7 @@
                 placeholder="Inresa aqu&iacute; el extracto de la publicaci&oacute;n"
               ></textarea>
 
-               <span v-if="errors && errors.excerpt" class="invalid-feedback" role="alert">
+              <span v-if="errors && errors.excerpt" class="invalid-feedback" role="alert">
                 <strong>{{ errors.excerpt[0] }}</strong>
               </span>
             </div>
@@ -87,7 +89,7 @@
                 />
 
                 <span v-if="errors && errors.published_at" class="invalid-feedback" role="alert">
-                    <strong>{{ errors.published_at[0] }}</strong>
+                  <strong>{{ errors.published_at[0] }}</strong>
                 </span>
               </div>
               <!-- /.input group -->
@@ -106,9 +108,9 @@
                 <option></option>
               </select>
 
-               <span v-if="errors && errors.departments" class="invalid-feedback" role="alert">
-                    <strong>{{ errors.departments[0] }}</strong>
-                </span>
+              <span v-if="errors && errors.departments" class="invalid-feedback" role="alert">
+                <strong>{{ errors.departments[0] }}</strong>
+              </span>
             </div>
 
             <div class="form-group">
@@ -124,9 +126,9 @@
                 <option></option>
               </select>
 
-             <span v-if="errors && errors.roles" class="invalid-feedback" role="alert">
-                    <strong>{{ errors.roles[0] }}</strong>
-                </span>
+              <span v-if="errors && errors.roles" class="invalid-feedback" role="alert">
+                <strong>{{ errors.roles[0] }}</strong>
+              </span>
             </div>
 
             <div class="form-group">
@@ -151,50 +153,77 @@ export default {
       post: {
         title: "",
         slug: "",
-        excerpt:"",
-        published_at:"",
-        category_id:"",
+        excerpt: "",
+        published_at: "",
+        category_id: ""
+      },
+      departments: {
+        id: "",
+        name: "",
+        display_name: ""
+      },
+      roles: {
+        id: "",
+        name: "",
+        display_name: ""
+      },
+      categories: {
+        id: "",
+        name: "",
+        slug: ""
       }
     };
   },
   mounted() {
     this.getPost();
     this.getDepartments();
-    this.getRoles
+    this.getRoles();
+    this.getCategories();
   },
   methods: {
     getPost() {
       const slug = this.$route.params.slug;
-      axios.get('/api/posts/'+slug)
-      .then(res=>{
-           console.log(res)
-           this.post = res.data.post;
-
-      })
-      .catch(err=>{
-          console.log(err.data)
-          this.errors = err.data.errors
-      })
+      axios
+        .get("/api/posts/" + slug)
+        .then(res => {
+          this.post = res.data.post;
+        })
+        .catch(err => {
+          console.log(err.data);
+          this.errors = err.data.errors;
+        });
     },
     getDepartments() {
-      axios.get('/api/departments')
-      .then(res=>{
-           this.departments = res.data.departments;
-
-      })
-      .catch(err=>{
-          this.errors = err.data.errors
-      })
+      axios
+        .get("/api/departments")
+        .then(res => {
+          this.departments = res.data.departments;
+        })
+        .catch(err => {
+          this.errors = err.data.errors;
+        });
     },
     getRoles() {
-      axios.get('/api/roles')
-      .then(res=>{
-           this.roles = res.data.roles;
-      })
-      .catch(err=>{
-          console.log(err.data)
-          this.errors = err.data.errors
-      })
+      axios
+        .get("/api/roles")
+        .then(res => {
+          this.roles = res.data.roles;
+        })
+        .catch(err => {
+          console.log(err.data);
+          this.errors = err.data.errors;
+        });
+    },
+    getCategories() {
+      axios
+        .get("/api/categories")
+        .then(res => {
+          this.categories = res.data.categories;
+        })
+        .catch(err => {
+          console.log(err.data);
+          this.errors = err.data.errors;
+        });
     }
   }
 };
