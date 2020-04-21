@@ -27,30 +27,26 @@
                 v-bind="post.category_id"
               >
                 <option value>Selecciona una categoria</option>
-                <option value></option>
+                <option v-for="category in categories" v-bind:key="category.id">{{ category.name }}</option>
               </select>
 
               <span v-if="errors && errors.category_id" class="invalid-feedback" role="alert">
                 <strong>{{ errors.category_id[0] }}</strong>
               </span>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Etiquetas</label>
               <select
                 name="tags[]"
-                class="select2 form-control"
+                class="form-control"
                 :class="{'is-invalid': errors.tags}"
-                multiple="multiple"
                 data-placeholder="Selecciona una o mas etiquetas"
                 style="width: 100%;"
-              >
-                <option></option>
-              </select>
+              ></select>
 
-              <span v-if="errors && errors.tags" class="invalid-feedback" role="alert">
-                <strong>{{ errors.tags[0] }}</strong>
-              </span>
-            </div>
+              <option value>Selecciona o crea etiquetas</option>
+              <option v-for="tag in tags" v-bind:key="tag.id">{{ tag.display_name }}</option>
+            </div>-->
             <div class="form-group">
               <label>Extracto de la publicacion</label>
               <textarea
@@ -97,16 +93,16 @@
 
             <div class="form-group">
               <label>Departamentos</label>
-              <select
-                name="departments[]"
-                class="select2 form-control"
-                :class="{'is-invalid': errors.departments}"
-                multiple="multiple"
-                data-placeholder="(vacio) todos los departamentos"
-                style="width: 100%;"
-              >
-                <option></option>
-              </select>
+             <multiselect
+                v-model="post.selectedDepartments"
+                tag-placeholder="Seleccionar Departementos"
+                placeholder="Buscar o agregar departamentos"
+                label="display_name"
+                track-by="id"
+                :options="departments"
+                :multiple="true"
+                :taggable="true"
+              ></multiselect>
 
               <span v-if="errors && errors.departments" class="invalid-feedback" role="alert">
                 <strong>{{ errors.departments[0] }}</strong>
@@ -115,16 +111,16 @@
 
             <div class="form-group">
               <label>Roles</label>
-              <select
-                name="roles[]"
-                class="select2 form-control"
-                multiple="multiple"
-                :class="{'is-invalid': errors.roles}"
-                data-placeholder="(vacio) todos los roles"
-                style="width: 100%;"
-              >
-                <option></option>
-              </select>
+            <multiselect
+                v-model="post.selectedDepartments"
+                tag-placeholder="Seleccionar Roles"
+                placeholder="Buscar o agregar Roles"
+                label="display_name"
+                track-by="id"
+                :options="roles"
+                :multiple="true"
+                :taggable="true"
+              ></multiselect>
 
               <span v-if="errors && errors.roles" class="invalid-feedback" role="alert">
                 <strong>{{ errors.roles[0] }}</strong>
@@ -146,7 +142,10 @@
 </template>
 
 <script>
+import Multiselect from "vue-multiselect";
+
 export default {
+  components: { Multiselect },
   data() {
     return {
       errors: [],
@@ -155,30 +154,20 @@ export default {
         slug: "",
         excerpt: "",
         published_at: "",
-        category_id: ""
+        category_id: "",
+        selectedCategories:[],
+        selectedTags:[],
+        selectedDepartments: [],
+        selectedRoles:[],
       },
-      departments: {
-        id: "",
-        name: "",
-        display_name: ""
-      },
-      roles: {
-        id: "",
-        name: "",
-        display_name: ""
-      },
-      categories: {
-        id: "",
-        name: "",
-        slug: ""
-      }
+      categories: [],
+      tags:[],
+      departments: [],
+      roles: [],
     };
   },
   mounted() {
     this.getPost();
-    this.getDepartments();
-    this.getRoles();
-    this.getCategories();
   },
   methods: {
     getPost() {
@@ -187,47 +176,27 @@ export default {
         .get("/api/posts/" + slug)
         .then(res => {
           this.post = res.data.post;
-        })
-        .catch(err => {
-          console.log(err.data);
-          this.errors = err.data.errors;
-        });
-    },
-    getDepartments() {
-      axios
-        .get("/api/departments")
-        .then(res => {
           this.departments = res.data.departments;
-        })
-        .catch(err => {
-          this.errors = err.data.errors;
-        });
-    },
-    getRoles() {
-      axios
-        .get("/api/roles")
-        .then(res => {
           this.roles = res.data.roles;
+          this.categories = res.data.categories;
+          this.tags = res.data.tags;
         })
         .catch(err => {
           console.log(err.data);
           this.errors = err.data.errors;
         });
     },
-    getCategories() {
-      axios
-        .get("/api/categories")
-        .then(res => {
-          this.categories = res.data.categories;
-        })
-        .catch(err => {
-          console.log(err.data);
-          this.errors = err.data.errors;
-        });
+    addDepartment(newDepartment){
+       const department = {
+        display_name: newDepartment,
+        id: newDepartment.substring(0, 2) + Math.floor((Math.random() * 10000000))
+      }
+      console.log(this.departments);
+      this.departments.push(department)
+      this.selectedDepartments.push(department)
     }
   }
 };
 </script>
 
-<style>
-</style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css">

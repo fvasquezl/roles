@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Category;
+use App\Department;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Resources\PostCollection;
 use App\Http\Controllers\Controller;
 use App\Post;
-
+use App\Tag;
 use Illuminate\Http\Request;
-
+use Spatie\Permission\Models\Role;
 
 class PostsController extends Controller
 {
@@ -48,7 +50,13 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        return response(['post'=>$post, 'status' => Response::HTTP_FOUND]);
+        return response([
+            'post'=>$post,
+            'tags' => Tag::all(),
+            'roles' => Role::with('permissions')->get(),
+            'categories' => Category::all(),
+            'departments' => Department::select('id','display_name')->get(),
+        'status' => Response::HTTP_FOUND]);
     }
 
     /**
