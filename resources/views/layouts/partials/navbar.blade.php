@@ -86,6 +86,7 @@
           <p>
             {{ Auth::user()->name }}
             <small>{{ Auth::user()->getRoleDisplayName()}} <br>
+                {{ Auth::user()->getDepartmentsName()}} <br>
             Usuario desde {{ Auth::user()->created_at->format('M Y') }}</small>
           </p>
         </li>

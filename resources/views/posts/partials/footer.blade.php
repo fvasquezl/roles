@@ -17,7 +17,7 @@
     <p class="text-right card-text">
         <i class="fas fa-tags fa-sm"></i>
         @foreach ($post->tags as $tag)
-        <a href="{{ route('tags.show',$tag) }}">#{{ $tag->name }}</a>
+        {{ $tag->name }}
         @endforeach
     </p>
 </div>

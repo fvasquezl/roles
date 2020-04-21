@@ -3,12 +3,12 @@ namespace App\Presenters;
 
 use Illuminate\Support\HtmlString;
 
-class UserPresenter extends Presenter 
+class UserPresenter extends Presenter
 {
     public function userCreatedat()
     {
         return new HtmlString("{$this->model->created_at->diffForHumans()}");
-    }   
+    }
 
     public function userPostCount()
     {
@@ -24,5 +24,12 @@ class UserPresenter extends Presenter
                         });
 
         return new HtmlString("{$categories}");
+    }
+
+    public function allRoles()
+    {
+        $roles = $this->model->roles->pluck(', ');
+
+        return new HtmlString("{$roles}");
     }
 }

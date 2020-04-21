@@ -34,7 +34,10 @@ class PostPresenter extends Presenter
 
     public function category()
     {
-        return new HtmlString("{$this->model->category->name}");
+        if(!$this->model->category){
+            return new HtmlString("<button class='btn btn-secondary'>Sin Categoria</button>");
+        }
+        return new HtmlString("<button class='btn btn-success'>{$this->model->category->name}</button>");
     }
 
     public function owner()
@@ -44,8 +47,26 @@ class PostPresenter extends Presenter
 
     public function departments()
     {
+        $roles= $this->model->roles->pluck('name');
         $departments = $this->model->departments->pluck('name');
-        return count($departments) ? $departments->implode(', ') : 'PUBLIC';
+        if(count($departments)&&count($roles)){
+            return  $departments->implode(', ').'-'. $roles->implode(', ');
+        }
+        if(!count($departments) && count($roles)){
+            return  $roles->implode(', ');
+        }
+        if(count($departments) && !count($roles)){
+            return  $departments->implode(', ');
+        }
+        if(!count($departments) && !count($roles)){
+            return 'Public';
+        }
+    }
+
+
+    public function categories()
+    {
+        return $this->model->category ? $this->model->category->name : 'Sin Categoria';
     }
 
     public function excerpt()

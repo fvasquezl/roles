@@ -41,8 +41,9 @@
                                 <th>Id</th>
                                 <th>Titulo</th>
                                 <th>Extracto</th>
-                                <th>Departamento</th>
-                                <th>Fecha Publicacion</th>
+                                <th>Asignado_a</th>
+                                <th>F_Publicacion</th>
+                                <th>Categoria</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -54,6 +55,7 @@
                                 <td>{{$post->present()->excerpt()}}</td>
                                 <td>{{$post->present()->departments()}}</td>
                                 <td>{{$post->present()->publishedAt()}}</td>
+                                <td>{{$post->present()->categories()}}</td>
                                 <td>
                                     <a href="{{ route('posts.show',$post) }}" class="btn btn-sm btn-default"
                                         target="_blank">
