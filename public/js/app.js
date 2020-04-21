@@ -15454,6 +15454,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config */ "./resources/js/config.js");
 //
 //
 //
@@ -15597,6 +15598,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -15639,6 +15646,15 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err.data);
         _this.errors = err.data.errors;
+      });
+    },
+    updatePost: function updatePost() {
+      var _this2 = this;
+
+      axios.patch("http://librarynew.test/api/posts/".concat(this.post.slug), this.post).then(function (res) {
+        console.log(res);
+      })["catch"](function (error) {
+        return _this2.errors = error.response.data.errors;
       });
     },
     addDepartment: function addDepartment(newDepartment) {
@@ -89693,251 +89709,304 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("form", [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-7" }, [
-        _c("div", { staticClass: "card card-outline card-primary" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Titulo de la publicacion")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.post.title,
-                    expression: "post.title"
-                  }
-                ],
-                staticClass: "form-control",
-                class: { "is-invalid": _vm.errors.title },
-                attrs: {
-                  name: "title",
-                  type: "text",
-                  placeholder:
-                    "Ingresa aqu&iacute; el t&iacute;tulo de la publicaci&oacute;n"
-                },
-                domProps: { value: _vm.post.title },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.post, "title", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.errors && _vm.errors.title
-                ? _c(
-                    "span",
+  return _c(
+    "form",
+    {
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.updatePost($event)
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-7" }, [
+          _c("div", { staticClass: "card card-outline card-primary" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Titulo de la publicacion")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
                     {
-                      staticClass: "invalid-feedback",
-                      attrs: { role: "alert" }
-                    },
-                    [_c("strong", [_vm._v(_vm._s(_vm.errors.title[0]))])]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Categorias")]),
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.post.title,
+                      expression: "post.title"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.errors.title },
+                  attrs: {
+                    name: "title",
+                    type: "text",
+                    placeholder:
+                      "Ingresa aqu&iacute; el t&iacute;tulo de la publicaci&oacute;n"
+                  },
+                  domProps: { value: _vm.post.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.post, "title", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.title
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "invalid-feedback",
+                        attrs: { role: "alert" }
+                      },
+                      [_c("strong", [_vm._v(_vm._s(_vm.errors.title[0]))])]
+                    )
+                  : _vm._e()
+              ]),
               _vm._v(" "),
               _c(
-                "select",
-                _vm._b(
-                  {
-                    staticClass: "select2 form-control",
-                    class: { "is-invalid": _vm.errors.category_id },
-                    attrs: { name: "category_id" }
-                  },
-                  "select",
-                  _vm.post.category_id,
-                  false
-                ),
+                "div",
+                { staticClass: "form-group" },
                 [
+                  _c("label", [_vm._v("Categorias")]),
+                  _vm._v(" "),
+                  _c("multiselect", {
+                    class: { "is-invalid": _vm.errors.category_id },
+                    attrs: {
+                      "tag-placeholder": "Seleccionar Categorias",
+                      placeholder: "Buscar o agregar Categorias",
+                      label: "name",
+                      "track-by": "id",
+                      options: _vm.categories,
+                      multiple: true,
+                      taggable: true
+                    },
+                    model: {
+                      value: _vm.post.selectedCategories,
+                      callback: function($$v) {
+                        _vm.$set(_vm.post, "selectedCategories", $$v)
+                      },
+                      expression: "post.selectedCategories"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.category_id
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "invalid-feedback",
+                          attrs: { role: "alert" }
+                        },
+                        [
+                          _c("strong", [
+                            _vm._v(_vm._s(_vm.errors.category_id[0]))
+                          ])
+                        ]
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", [_vm._v("Etiquetas")]),
+                  _vm._v(" "),
+                  _c("multiselect", {
+                    class: { "is-invalid": _vm.errors.tags },
+                    attrs: {
+                      "tag-placeholder": "Seleccionar Etiquetas",
+                      placeholder: "Buscar o agregar Etiquetas",
+                      label: "name",
+                      "track-by": "id",
+                      options: _vm.tags,
+                      multiple: true,
+                      taggable: true
+                    },
+                    model: {
+                      value: _vm.post.selectedTags,
+                      callback: function($$v) {
+                        _vm.$set(_vm.post, "selectedTags", $$v)
+                      },
+                      expression: "post.selectedTags"
+                    }
+                  }),
+                  _vm._v(" "),
                   _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Selecciona una categoria")
+                    _vm._v("Selecciona o crea etiquetas")
                   ]),
                   _vm._v(" "),
-                  _vm._l(_vm.categories, function(category) {
-                    return _c("option", { key: category.id }, [
-                      _vm._v(_vm._s(category.name))
+                  _vm._l(_vm.tags, function(tag) {
+                    return _c("option", { key: tag.id }, [
+                      _vm._v(_vm._s(tag.display_name))
                     ])
                   })
                 ],
                 2
               ),
               _vm._v(" "),
-              _vm.errors && _vm.errors.category_id
-                ? _c(
-                    "span",
-                    {
-                      staticClass: "invalid-feedback",
-                      attrs: { role: "alert" }
-                    },
-                    [_c("strong", [_vm._v(_vm._s(_vm.errors.category_id[0]))])]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Extracto de la publicacion")]),
-              _vm._v(" "),
-              _c("textarea", {
-                staticClass: "form-control",
-                class: { "is-invalid": _vm.errors.excerpt },
-                attrs: {
-                  name: "excerpt",
-                  id: "editor",
-                  placeholder:
-                    "Inresa aqu&iacute; el extracto de la publicaci&oacute;n"
-                }
-              }),
-              _vm._v(" "),
-              _vm.errors && _vm.errors.excerpt
-                ? _c(
-                    "span",
-                    {
-                      staticClass: "invalid-feedback",
-                      attrs: { role: "alert" }
-                    },
-                    [_c("strong", [_vm._v(_vm._s(_vm.errors.excerpt[0]))])]
-                  )
-                : _vm._e()
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-5" }, [
-        _c("div", { staticClass: "card card-outline card-primary" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Fecha de publicacion:")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group" }, [
-                _vm._m(0),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Extracto de la publicacion")]),
                 _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control float-right",
-                  class: { "is-invalid": _vm.errors.published_at },
+                _c("textarea", {
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.errors.excerpt },
                   attrs: {
-                    name: "published_at",
-                    type: "text",
-                    id: "datepicker",
-                    value: ""
+                    name: "excerpt",
+                    id: "editor",
+                    placeholder:
+                      "Inresa aqu&iacute; el extracto de la publicaci&oacute;n"
                   }
                 }),
                 _vm._v(" "),
-                _vm.errors && _vm.errors.published_at
+                _vm.errors && _vm.errors.excerpt
                   ? _c(
                       "span",
                       {
                         staticClass: "invalid-feedback",
                         attrs: { role: "alert" }
                       },
-                      [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.errors.published_at[0]))
-                        ])
-                      ]
+                      [_c("strong", [_vm._v(_vm._s(_vm.errors.excerpt[0]))])]
                     )
                   : _vm._e()
               ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
-                _c("label", [_vm._v("Departamentos")]),
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-5" }, [
+          _c("div", { staticClass: "card card-outline card-primary" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Fecha de publicacion:")]),
                 _vm._v(" "),
-                _c("multiselect", {
-                  attrs: {
-                    "tag-placeholder": "Seleccionar Departementos",
-                    placeholder: "Buscar o agregar departamentos",
-                    label: "display_name",
-                    "track-by": "id",
-                    options: _vm.departments,
-                    multiple: true,
-                    taggable: true
-                  },
-                  model: {
-                    value: _vm.post.selectedDepartments,
-                    callback: function($$v) {
-                      _vm.$set(_vm.post, "selectedDepartments", $$v)
+                _c("div", { staticClass: "input-group" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control float-right",
+                    class: { "is-invalid": _vm.errors.published_at },
+                    attrs: {
+                      name: "published_at",
+                      type: "text",
+                      id: "datepicker",
+                      value: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.published_at
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "invalid-feedback",
+                          attrs: { role: "alert" }
+                        },
+                        [
+                          _c("strong", [
+                            _vm._v(_vm._s(_vm.errors.published_at[0]))
+                          ])
+                        ]
+                      )
+                    : _vm._e()
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", [_vm._v("Departamentos")]),
+                  _vm._v(" "),
+                  _c("multiselect", {
+                    attrs: {
+                      "tag-placeholder": "Seleccionar Departementos",
+                      placeholder: "Buscar o agregar departamentos",
+                      label: "display_name",
+                      "track-by": "id",
+                      options: _vm.departments,
+                      multiple: true,
+                      taggable: true
                     },
-                    expression: "post.selectedDepartments"
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors && _vm.errors.departments
-                  ? _c(
-                      "span",
-                      {
-                        staticClass: "invalid-feedback",
-                        attrs: { role: "alert" }
+                    model: {
+                      value: _vm.post.selectedDepartments,
+                      callback: function($$v) {
+                        _vm.$set(_vm.post, "selectedDepartments", $$v)
                       },
-                      [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.errors.departments[0]))
-                        ])
-                      ]
-                    )
-                  : _vm._e()
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
-                _c("label", [_vm._v("Roles")]),
-                _vm._v(" "),
-                _c("multiselect", {
-                  attrs: {
-                    "tag-placeholder": "Seleccionar Roles",
-                    placeholder: "Buscar o agregar Roles",
-                    label: "display_name",
-                    "track-by": "id",
-                    options: _vm.roles,
-                    multiple: true,
-                    taggable: true
-                  },
-                  model: {
-                    value: _vm.post.selectedDepartments,
-                    callback: function($$v) {
-                      _vm.$set(_vm.post, "selectedDepartments", $$v)
+                      expression: "post.selectedDepartments"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.departments
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "invalid-feedback",
+                          attrs: { role: "alert" }
+                        },
+                        [
+                          _c("strong", [
+                            _vm._v(_vm._s(_vm.errors.departments[0]))
+                          ])
+                        ]
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", [_vm._v("Roles")]),
+                  _vm._v(" "),
+                  _c("multiselect", {
+                    attrs: {
+                      "tag-placeholder": "Seleccionar Roles",
+                      placeholder: "Buscar o agregar Roles",
+                      label: "display_name",
+                      "track-by": "id",
+                      options: _vm.roles,
+                      multiple: true,
+                      taggable: true
                     },
-                    expression: "post.selectedDepartments"
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors && _vm.errors.roles
-                  ? _c(
-                      "span",
-                      {
-                        staticClass: "invalid-feedback",
-                        attrs: { role: "alert" }
+                    model: {
+                      value: _vm.post.selectedRoles,
+                      callback: function($$v) {
+                        _vm.$set(_vm.post, "selectedRoles", $$v)
                       },
-                      [_c("strong", [_vm._v(_vm._s(_vm.errors.roles[0]))])]
-                    )
-                  : _vm._e()
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._m(2)
+                      expression: "post.selectedRoles"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.roles
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "invalid-feedback",
+                          attrs: { role: "alert" }
+                        },
+                        [_c("strong", [_vm._v(_vm._s(_vm.errors.roles[0]))])]
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._m(2)
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -105319,6 +105388,21 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/***/ }),
+
+/***/ "./resources/js/config.js":
+/*!********************************!*\
+  !*** ./resources/js/config.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  API_URL: 'http://librarynew.test/'
+});
 
 /***/ }),
 

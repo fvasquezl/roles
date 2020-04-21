@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="updatePost">
     <div class="row">
       <div class="col-md-7">
         <div class="card card-outline card-primary">
@@ -20,33 +20,38 @@
             </div>
             <div class="form-group">
               <label>Categorias</label>
-              <select
-                name="category_id"
-                class="select2 form-control"
+               <multiselect
+                v-model="post.selectedCategories"
+                tag-placeholder="Seleccionar Categorias"
+                placeholder="Buscar o agregar Categorias"
+                label="name"
+                track-by="id"
                 :class="{'is-invalid': errors.category_id }"
-                v-bind="post.category_id"
-              >
-                <option value>Selecciona una categoria</option>
-                <option v-for="category in categories" v-bind:key="category.id">{{ category.name }}</option>
-              </select>
+                :options="categories"
+                :multiple="true"
+                :taggable="true"
+              ></multiselect>
 
               <span v-if="errors && errors.category_id" class="invalid-feedback" role="alert">
                 <strong>{{ errors.category_id[0] }}</strong>
               </span>
             </div>
-            <!-- <div class="form-group">
+            <div class="form-group">
               <label>Etiquetas</label>
-              <select
-                name="tags[]"
-                class="form-control"
+              <multiselect
+                v-model="post.selectedTags"
+                tag-placeholder="Seleccionar Etiquetas"
+                placeholder="Buscar o agregar Etiquetas"
+                label="name"
+                track-by="id"
                 :class="{'is-invalid': errors.tags}"
-                data-placeholder="Selecciona una o mas etiquetas"
-                style="width: 100%;"
-              ></select>
-
+                :options="tags"
+                :multiple="true"
+                :taggable="true"
+              ></multiselect>
               <option value>Selecciona o crea etiquetas</option>
               <option v-for="tag in tags" v-bind:key="tag.id">{{ tag.display_name }}</option>
-            </div>-->
+            </div>
             <div class="form-group">
               <label>Extracto de la publicacion</label>
               <textarea
@@ -112,7 +117,7 @@
             <div class="form-group">
               <label>Roles</label>
             <multiselect
-                v-model="post.selectedDepartments"
+                v-model="post.selectedRoles"
                 tag-placeholder="Seleccionar Roles"
                 placeholder="Buscar o agregar Roles"
                 label="display_name"
@@ -143,6 +148,7 @@
 
 <script>
 import Multiselect from "vue-multiselect";
+import config from "../../config"
 
 export default {
   components: { Multiselect },
@@ -185,6 +191,14 @@ export default {
           console.log(err.data);
           this.errors = err.data.errors;
         });
+    },
+    updatePost(){
+         axios
+        .patch(`http://librarynew.test/api/posts/${this.post.slug}`, this.post)
+        .then(res=> {
+            console.log(res)
+        })
+        .catch(error => (this.errors = error.response.data.errors));
     },
     addDepartment(newDepartment){
        const department = {

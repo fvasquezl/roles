@@ -1,3 +1,3 @@
 export default{
-    apiUrl: 'http://librarynew.test/'
+    API_URL: 'http://librarynew.test/'
 }
