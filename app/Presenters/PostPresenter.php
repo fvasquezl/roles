@@ -71,7 +71,7 @@ class PostPresenter extends Presenter
 
     public function excerpt()
     {
-        return new HtmlString(Str::limit($this->model->excerpt,100));
+        return new HtmlString(Str::limit($this->model->excerpt,30));
     }
 
 }
