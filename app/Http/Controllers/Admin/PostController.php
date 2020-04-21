@@ -21,7 +21,7 @@ class PostController extends Controller
     public function index()
     {
 
-        $posts = Post::publishInfrontPage();
+        $posts = Post::allowed()->published()->get();
         return view('admin.posts.index', compact('posts'));
     }
 

@@ -32,7 +32,6 @@ class Post extends Model
         static::deleting(function ($post) {
             $post->documents->each->delete();
         });
-
     }
 
     public static function create(array $attributes = [])
@@ -94,6 +93,9 @@ class Post extends Model
             ->latest('published_at');
     }
 
+
+
+
     public function scopePublishInfrontPage($posts)
     {
 
@@ -104,56 +106,51 @@ class Post extends Model
         return $this->getRolePost();
     }
 
-
-    public function getRolePost()
-    {
-        $posts = $this->load('roles','departments')->get();
-
-        $roles = auth()->user()->roles->pluck('id');
-        $departments =auth()->user()->departments->pluck('id');
-
-        $posts = $this->load('roles','departments')->get();
-
-
-    //    foreach($posts as $post){
-    //        //Post WhereNotIn(Departments) -- Empty(Roles)
-    //      if($post->departments->whereNotIn('id',$departments)->isNotEmpty() && $post->roles->isEmpty()){
-    //         $posts->forget($post);
-    //      };
-    //        //Post Empty(Departments) --- WhereNotIn(Roles)
-    //      if($post->departments->isEmpty() && $post->roles->whereNotIn('id',$roles)->isNotEmpty()){
-    //         $posts->forget($post);
-    //      };
-    //        //Post WhereNotIn(Departments) ---WhereNotIn(Roles)
-    //     if($post->departments->whereNotIn('id',$departments)->isNotEmpty() && $post->roles->whereNotIn('id',$roles)->isNotEmpty()){
-    //         $posts->forget($post);
-    //      };
-    //    }
-
-       return $posts;
-
-    }
-
     public function scopeAllowed($query)
     {
         if (auth()->user()->can('view', $this)) {
             return $query;
         }
-        return $query->where('user_id', auth()->id());
+        return $this->getPost();
+    }
+
+    public function getPost()
+    {
+        return $this->where(function ($query) {
+            $query->whereDoesntHave('departments')
+            ->whereHas('roles', function (Builder $query) {
+                $query->whereIn('role_id', auth()->user()->roles->pluck('id'));
+            });
+        })
+        ->orWhere(function ($query) {
+            $query->whereHas('departments', function (Builder $query) {
+                $query->whereIn('department_id', auth()->user()->departments->pluck('id'));
+            })->whereDoesntHave('roles');
+        })
+        ->orWhere(function ($query) {
+            $query->whereHas('departments', function (Builder $query) {
+                $query->whereIn('department_id', auth()->user()->departments->pluck('id'));
+            })->whereHas('roles', function (Builder $query) {
+                $query->whereIn('role_id', auth()->user()->roles->pluck('id'));
+            });
+        })
+        ->orWhere(function ($query) {
+            $query->doesnthave('departments')->doesnthave('roles');
+        });
     }
 
     public function setPublishedAtAttribute($published_at)
     {
         $this->attributes['published_at'] = $published_at
-        ? Carbon::createFromFormat('d/m/Y', $published_at)
-        : null;
+            ? Carbon::createFromFormat('d/m/Y', $published_at)
+            : null;
     }
 
     public function setCategoryIdAttribute($category)
     {
         $this->attributes['category_id'] = Category::find($category)
-        ? $category
-        : Category::create(['name' => $category])->id;
+            ? $category
+            : Category::create(['name' => $category])->id;
     }
 
     public function syncTags($tags)
@@ -169,5 +166,4 @@ class Post extends Model
     {
         return !is_null($this->published_at) && $this->published_at < today();
     }
-
 }
