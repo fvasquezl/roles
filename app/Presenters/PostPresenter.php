@@ -66,7 +66,7 @@ class PostPresenter extends Presenter
 
     public function categories()
     {
-        return $this->model->category ? $this->model->category->name : 'Sin Categoria';
+        return $this->model->category ? $this->model->category->name : new HtmlString("<p style='color:red'>Sin Categoria</p>");
     }
 
     public function excerpt()

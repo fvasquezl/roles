@@ -21,7 +21,7 @@
                 <div class="card-header d-flex bd-highlight">
                     <div class=" bd-highlight">
                         <select class="form-control" id="category-filter">
-                            <option value="">All</option>
+                            <option value="">Todas las categorias</option>
                             @foreach ($categories as $category)
                             <option>{{$category}}</option>
                             @endforeach
@@ -56,7 +56,7 @@
                             <tr>
                                 <td>{{$post->id}}</td>
                                 <td>{{ Str::limit($post->title, 40) }}</td>
-                                <td>{{$post->present()->excerpt()}}</td>
+                                <td>{!!$post->present()->excerpt()!!}</td>
                                 <td>{{$post->present()->departments()}}</td>
                                 <td>{{$post->present()->publishedAt()}}</td>
                                 <td>{{$post->present()->categories()}}</td>
