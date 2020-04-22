@@ -13,6 +13,8 @@
 
         <li class="nav-header">MENU</li>
 
+
+
         <li class="nav-item has-treeview {{(request()->is('admin/posts') ? 'menu-open' :  '')}}">
           <a href="#" class="nav-link">
             <i class="fas fa-thumbs-up nav-icon"></i>
@@ -23,7 +25,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('admin.posts.index') }}" class="{{ setActiveRoute('admin.posts.index')}}">
+              <a href="{{ route('home') }}" class="{{ setActiveRoute('home')}}">
                 <i class="fa fa-address-card nav-icon"></i>
                 <p>Todas las publicaciones</p>
               </a>

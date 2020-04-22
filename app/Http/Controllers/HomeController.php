@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Category;
 use App\Post;
 
 class HomeController extends Controller
@@ -26,6 +26,9 @@ class HomeController extends Controller
     {
 
         $posts = Post::allowed()->published()->get();
-        return view('home', compact('posts'));
+        return view('home',[
+            'posts' =>  $posts,
+            'categories' => Category::pluck('name')
+        ]);
     }
 }
