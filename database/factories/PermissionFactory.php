@@ -1,14 +1,30 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use Caffeinated\Shinobi\Models\Permission;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Spatie\Permission\Models\Permission;
 
-$factory->define(Permission::class, function (Faker $faker) {
-    return [
-        'name' => $faker->sentence,
-        'slug' => $faker->word,
-        'description' => $faker->sentence,
-    ];
-});
+class PermissionFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Permission::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->sentence,
+            'slug' => $this->faker->word,
+            'description' => $this->faker->sentence,
+        ];
+    }
+}

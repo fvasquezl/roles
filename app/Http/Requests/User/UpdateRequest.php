@@ -31,7 +31,7 @@ class UpdateRequest extends FormRequest
           //  'departments'=>['required'],
          //  'roles' =>['required']
         ];
-       
+
 
         if($this->filled('password'))
         {
@@ -42,11 +42,14 @@ class UpdateRequest extends FormRequest
 
     }
 
+    /**
+     * @param $user
+     */
     public function updateUser($user)
     {
-
         $user->fill([
             'name' => $this->name,
+            'username' => $this->username,
             'email' => $this->email,
         ]);
 
@@ -55,10 +58,10 @@ class UpdateRequest extends FormRequest
             $user->password = $this->password;
         }
         $user->save();
-        
+
         //Update Roles
      //   $user->roles()->sync($this->roles);
-        
+
         //Update Departments
       //  $user->departments()->sync($this->departments);
 

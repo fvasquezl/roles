@@ -31,7 +31,7 @@
               </a>
             </li>
 
-            @can('create',new App\Post)
+            @can('create',new App\Models\Post)
             <li class="nav-item">
               @if(request()->is('admin/posts/*'))
               <a href="{{route('admin.posts.index','#create')}}" class="nav-link">
@@ -56,7 +56,7 @@
 
         <li class="nav-header">ACCIONES</li>
 
-        @can('view', new App\User)
+        @can('view', new App\Models\User)
         <li class="nav-item has-treeview {{(request()->is('admin/users*') ? 'menu-open' :  '')}}">
           <a href="#" class="nav-link">
             <i class="fas fa-user-circle nav-icon"></i>
@@ -99,7 +99,7 @@
 
 
 
-        @can('view', new App\Department)
+        @can('view', new App\Models\Department)
 
         <li class="nav-item">
           <a href="{{ route('admin.departments.index') }}" class="{{ setActiveRoute('admin.departments.index')}}">
@@ -134,7 +134,7 @@
         @endcan
 
 
-        @can('view', new App\Category)
+        @can('view', new App\Models\Category)
         <li class="nav-item">
           <a href="{{ route('admin.categories.index') }}" class="{{ setActiveRoute('admin.categories.index')}}">
             <i class="fas fa-list-alt nav-icon"></i>

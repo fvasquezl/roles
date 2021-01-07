@@ -1,6 +1,7 @@
 <?php
 
-use App\Category;
+namespace Database\Seeders;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
@@ -12,6 +13,9 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-       // factory(Category::class, 5)->create();
+        Category::factory()->create([
+            'name' => 'Documentos de calidad',
+            'slug' => 'documentos-de-calidad'
+        ]);
     }
 }

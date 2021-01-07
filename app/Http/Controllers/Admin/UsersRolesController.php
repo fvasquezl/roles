@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UsersRolesController extends Controller
 {
-   
+
     /**
      * Update the specified resource in storage.
      *
@@ -23,5 +23,5 @@ class UsersRolesController extends Controller
         return back()->with('info','los Roles han sido actualizados');
     }
 
-  
+
 }

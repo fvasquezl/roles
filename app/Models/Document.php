@@ -1,12 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Document extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     protected static function boot()

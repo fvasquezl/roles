@@ -1,16 +1,32 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use Caffeinated\Shinobi\Models\Role;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
-$factory->define(Role::class, function (Faker $faker) {
-    return [
-        'name'      => $role = $faker->word,
-        'slug'      => Str::slug($role),
-        'description'   => $faker->sentence,
-        'special'   => Str::random('10')
-    ];
-});
+class RoleFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Role::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'      => $role = $this->faker->word,
+            'slug'      => Str::slug($role),
+            'description'   => $this->faker->sentence,
+            'special'   => Str::random('10')
+        ];
+    }
+}

@@ -1,12 +1,12 @@
 @component('mail::message')
-# Tus credenciales para acceder a {{ config('app.name') }}
+# Tus credenciales para ingresar a {{ config('app.name') }}
 
-Utiliza estas credenciales para acceder al sistema.
+Utiliza estas credenciales para ingresar al sistema.
 
 @component('mail::table')
-    | Username:| {{ $user->email }}|Contraseña:|{{ $password }}|
-    |---:|:---|---:|:---|
-
+|Email or Username   | Password |
+| :-----------------|:---------|
+| {{ $user->email }} o {{$user->username}} | {{ $password }} |
 @endcomponent
 
 @component('mail::button', ['url' => url('login')])

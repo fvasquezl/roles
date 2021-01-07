@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Post;
+use App\Models\Category;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
@@ -31,4 +31,6 @@ class HomeController extends Controller
             'categories' => Category::pluck('name')
         ]);
     }
+
+
 }

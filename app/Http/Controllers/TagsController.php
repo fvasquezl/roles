@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
-use App\Post;
-use App\Category;
+use App\Models\Tag;
+use App\Models\Post;
+use App\Models\Category;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class TagsController extends Controller
 {
 
+
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
+     * @param Tag $tag
+     * @return Application|Factory|View
      */
     public function show(Tag $tag)
     {

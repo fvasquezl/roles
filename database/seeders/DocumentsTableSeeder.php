@@ -1,6 +1,6 @@
 <?php
-
-use App\Document;
+namespace Database\Seeders;
+use App\Models\Document;
 use Illuminate\Database\Seeder;
 
 class DocumentsTableSeeder extends Seeder
@@ -12,6 +12,6 @@ class DocumentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Document::class,10)->create();
+        Document::factory()->times(10)->create();
     }
 }

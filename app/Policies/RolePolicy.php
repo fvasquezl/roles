@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use Spatie\Permission\Models\Role;
-use App\User;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\AuthorizationException;
 

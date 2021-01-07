@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Tag;
-use App\Post;
-use App\Category;
-use App\Department;
+use App\Models\Tag;
+use App\Models\Post;
+use App\Models\Category;
+use App\Models\Department;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;

@@ -1,14 +1,30 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Post;
-use Faker\Generator as Faker;
+use App\Models\Post;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Post::class, function (Faker $faker) {
-    return [
-        'title' => $faker->sentence,
-        'excerpt'=> $faker->text(100),
-        'published_at'=> $faker->dateTimeBetween('-90 days', '+30 days'),
-    ];
-});
+class PostFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Post::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->sentence,
+            'excerpt'=> $this->faker->text(100),
+            'published_at'=> $this->faker->dateTimeBetween('-90 days', '+30 days'),
+        ];
+    }
+}

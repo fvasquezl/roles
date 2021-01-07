@@ -38,7 +38,7 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Fecha de creacion</th>
-                                <th>&nbsp;</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

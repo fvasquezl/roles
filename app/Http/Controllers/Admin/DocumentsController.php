@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Post;
-use App\Document;
+use App\Models\Post;
+use App\Models\Document;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,7 +24,7 @@ class DocumentsController extends Controller
 
         $post->documents()->create([
             'title' => request()->file('document')->getClientOriginalName(),
-            'url'=> Storage::url(request()->file('document')->store('documents','public')),   
+            'url'=> Storage::url(request()->file('document')->store('documents','public')),
         ]);
 
     }
@@ -43,7 +43,7 @@ class DocumentsController extends Controller
         $documentPath = str_replace('storage','public',$document->url);
 
         Storage::delete($documentPath);
-        
+
         return back()->with('info','Documento eliminado');
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Category;
-use App\User;
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CategoryPolicy
@@ -71,5 +71,5 @@ class CategoryPolicy
         return  $user->hasRole('Admin')|| $user->hasPermissionTo('Delete categories');
     }
 
-  
+
 }

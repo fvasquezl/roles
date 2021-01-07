@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Department;
-use App\User;
+use App\Models\Department;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DepartmentPolicy
@@ -22,8 +22,8 @@ class DepartmentPolicy
         {
             return true;
         }
-    } 
-    
+    }
+
     /**
      * Determine whether the user can view the department.
      *

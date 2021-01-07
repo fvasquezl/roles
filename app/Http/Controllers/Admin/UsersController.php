@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
-use App\Department;
+use App\Models\User;
+use App\Models\Department;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -27,29 +32,32 @@ class UsersController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
+
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
+     * @throws AuthorizationException
      */
     public function create()
     {
         $user = new User;
-        
+
         $this->authorize('create', $user);
 
         $departments = Department::get();
         $roles = Role::with('permissions')->get();
         $permissions = Permission::pluck('name', 'id');
-        return view('admin.users.create', compact('user', 'roles', 'permissions','departments'));
+        return view(
+            'admin.users.create',
+            compact('user', 'roles', 'permissions','departments')
+        );
 
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $request)
     {
@@ -57,13 +65,14 @@ class UsersController extends Controller
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255','unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         ]);
 
         $data['password'] = Str::random(8);
 
         $user = User::create($data);
-        
+
         if ($request->filled('roles')) {
             $user->assignRole($request->roles);
         }
@@ -84,11 +93,11 @@ class UsersController extends Controller
 
     }
 
+
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return Application|Factory|View
+     * @throws AuthorizationException
      */
     public function show(User $user)
     {
@@ -97,11 +106,11 @@ class UsersController extends Controller
         return view('admin.users.show', compact('user'));
     }
 
+
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return Application|Factory|View
+     * @throws AuthorizationException
      */
     public function edit(User $user)
     {
@@ -110,15 +119,18 @@ class UsersController extends Controller
         $departments = Department::get();
         $roles = Role::with('permissions')->get();
         $permissions = Permission::pluck('name', 'id');
-        return view('admin.users.edit', compact('user', 'roles', 'permissions','departments'));
+        return view(
+            'admin.users.edit',
+            compact('user', 'roles', 'permissions','departments')
+        );
     }
 
+
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\User\UpdateRequest  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param UpdateRequest $request
+     * @param User $user
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, User $user)
     {
@@ -130,19 +142,18 @@ class UsersController extends Controller
         ->with('info', 'Usuario actualizado con exito');
     }
 
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User $user
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @param User $user
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function destroy(User $user)
     {
         $this->authorize('delete',$user);
 
         $user->departments()->detach();
-        
+
         $user->delete();
 
         return redirect()->route('admin.users.index')

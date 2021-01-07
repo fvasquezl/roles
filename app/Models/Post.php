@@ -1,10 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Presenters\PostPresenter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -12,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Post extends Model
 {
-    use HasRoles;
+    use HasRoles,HasFactory;
 
     protected $fillable = ['title', 'excerpt', 'published_at', 'category_id', 'user_id'];
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Department;
+use App\Models\Department;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Department\StoreRequest;
 

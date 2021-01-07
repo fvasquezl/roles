@@ -1,12 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Presenters\DepartmentPresenter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['name', 'display_name', 'description'];
 
 
