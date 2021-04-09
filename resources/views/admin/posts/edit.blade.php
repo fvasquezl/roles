@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label>Categorias</label>
                         <select name="category_id"
-                            class="select2 form-control @error('category_id') is-invalid @enderror">
+                            class="select2 form-control @error('category_id') is-invalid @enderror" required>
                             <option value="">Selecciona una categoria</option>
                             @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
@@ -54,7 +54,7 @@
                     <div class="form-group">
                         <label>Etiquetas</label>
                         <select name="tags[]" class="select2 form-control @error('tags') is-invalid @enderror"
-                            multiple="multiple" data-placeholder="Selecciona una o mas etiquetas" style="width: 100%;">
+                            multiple="multiple" data-placeholder="Selecciona una o mas etiquetas" style="width: 100%;" required>
                             @foreach ($tags as $tag)
                             <option
                                 {{collect(old('tags',$post->tags->pluck('id')))->contains($tag->id) ? 'selected':''}}
@@ -125,8 +125,8 @@
 
                     <div class="form-group">
                         <label>Roles</label>
-                        <select name="roles[]" 
-                            class="select2 form-control @error('roles') is-invalid @enderror" multiple="multiple" 
+                        <select name="roles[]"
+                            class="select2 form-control @error('roles') is-invalid @enderror" multiple="multiple"
                             data-placeholder="(vacio) todos los roles" style="width: 100%;">
                             @foreach ($roles as $role)
                             <option

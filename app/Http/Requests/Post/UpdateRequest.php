@@ -28,7 +28,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'excerpt' => ['required', 'string'],
             'published_at' => ['required'],
             'category_id' => ['required'],
             'tags' => ['required'],

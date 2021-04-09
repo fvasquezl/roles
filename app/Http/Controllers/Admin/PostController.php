@@ -96,6 +96,8 @@ class PostController extends Controller
 
         $this->authorize('update', $post);
 
+        //!$request->excerpt ? 'test':'';
+
         $post->update($request->all());
         $post->syncTags($request->get('tags'));
         $post->departments()->detach();

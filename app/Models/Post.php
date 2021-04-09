@@ -140,6 +140,11 @@ class Post extends Model
         });
     }
 
+    public function setExcerptAttribute($excerpt="Publicación sin descripción")
+    {
+        $this->attributes['excerpt'] = ! $excerpt ? 'Publicación sin descripción': $excerpt;
+    }
+
     public function setPublishedAtAttribute($published_at)
     {
         $this->attributes['published_at'] = $published_at
